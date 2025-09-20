@@ -82,7 +82,7 @@ fi
 check_wget_curl() {
 	# Check wget
 	if [ -e '/usr/bin/wget' ]; then
-		wget -q https://raw.githubusercontent.com/Skynet-IDC/skynetcp/release/install/hst-install-$type.sh -O hst-install-$type.sh
+		# wget -q https://raw.githubusercontent.com/Skynet-IDC/skynetcp/release/install/hst-install-$type.sh -O hst-install-$type.sh
 		if [ "$?" -eq '0' ]; then
 			bash hst-install-$type.sh $*
 			exit
