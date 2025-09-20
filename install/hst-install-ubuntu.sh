@@ -2431,25 +2431,25 @@ we hope that you enjoy using it as much as we do!
 Please feel free to contact us at any time if you have any questions,
 or if you encounter any bugs or problems:
 
-Documentation:  https://docs.hestiacp.com/
-Forum:          https://forum.hestiacp.com/
-GitHub:         https://www.github.com/hestiacp/hestiacp
+Documentation:  https://docs.skynetcp.com/
+Forum:          https://forum.skynetcp.com/
+GitHub:         https://www.github.com/Skynet-IDC/skynetcp
 
 Note: Automatic updates are enabled by default. If you would like to disable them,
 please log in and navigate to Server > Updates to turn them off.
 
 Help support the Hestia Control Panel project by donating via PayPal:
-https://www.hestiacp.com/donate
+https://www.skynetcp.com/donate
 
 --
 Sincerely yours,
-The Hestia Control Panel development team
+The Skynet Control Panel development team
 
 Made with love & pride by the open-source community around the world.
 " >> $tmpfile
 
 send_mail="$HESTIA/web/inc/mail-wrapper.php"
-cat $tmpfile | $send_mail -s "Hestia Control Panel" $email
+cat $tmpfile | $send_mail -s "Skynet Control Panel" $email
 
 # Congrats
 echo
