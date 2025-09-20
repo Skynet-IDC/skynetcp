@@ -1,5 +1,5 @@
 [Unit]
-Description=skynetcp Web Terminal
+Description=SkynetCP Web Terminal
 Documentation=https://skynetcp.com/docs/
 After=network.target
 
