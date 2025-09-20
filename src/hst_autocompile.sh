@@ -221,6 +221,7 @@ else
 fi
 
 echo "REPO ===>>>: $REPO"
+echo "BRANCH ===>>>: $branch"
 echo "Nginx version ===>>>: $NGINX_V"
 echo "PHP version ===>>>: $PHP_V"
 echo "Web Terminal version ===>>>:  $WEB_TERMINAL_V"
