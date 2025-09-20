@@ -220,6 +220,7 @@ else
 	WEB_TERMINAL_V=$(curl -s https://raw.githubusercontent.com/$REPO/$branch/src/deb/web-terminal/control | grep "Version:" | cut -d' ' -f2)
 fi
 
+echo "use_src_folder ===>>>: $use_src_folder"
 echo "REPO ===>>>: $REPO"
 echo "BRANCH ===>>>: $branch"
 echo "Nginx version ===>>>: $NGINX_V"
