@@ -4,7 +4,7 @@
 #
 # Skynet Control Panel Installation Routine
 # Automatic OS detection wrapper
-# https://www.hestiacp.com/
+# https://www.skynetcp.com/
 #
 # Currently Supported Operating Systems:
 #

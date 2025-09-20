@@ -3,7 +3,7 @@
 # ======================================================== #
 #
 # skynet Control Panel Installer for Ubuntu
-# https://www.hestiacp.com/
+# https://www.skynetcp.com/
 #
 # Currently Supported Versions:
 # Ubuntu 20.04, 22.04, 24.04 LTS
@@ -584,7 +584,7 @@ install_welcome_message() {
 		echo "                          USE AT YOUR OWN RISK                      "
 	fi
 	echo "                                  ${DISPLAY_VER}                        "
-	echo "                            www.hestiacp.com                            "
+	echo "                            www.skynetcp.com                            "
 	echo
 	echo "========================================================================"
 	echo
@@ -2461,7 +2461,7 @@ Note: Automatic updates are enabled by default. If you would like to disable the
 please log in and navigate to Server > Updates to turn them off.
 
 Help support the skynet Control Panel project by donating via PayPal:
-https://www.hestiacp.com/donate
+https://www.skynetcp.com/donate
 
 --
 Sincerely yours,

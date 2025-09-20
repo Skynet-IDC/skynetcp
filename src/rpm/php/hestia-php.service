@@ -1,6 +1,6 @@
 [Unit]
 Description=skynet PHP daemon
-Documentation=https://www.hestiacp.com
+Documentation=https://www.skynetcp.com
 PartOf=skynet.service
 
 [Service]

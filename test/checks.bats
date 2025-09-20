@@ -188,11 +188,11 @@ r'
 }
 
 @test "is_alias_format_valid success www.domain.com" {
-     run is_alias_format_valid 'www.hestiacp.com' "key"
+     run is_alias_format_valid 'www.skynetcp.com' "key"
     assert_success
 }
-@test "is_alias_format_valid success skynetcp.com,www.hestiacp.com" {
-     run is_alias_format_valid 'skynetcp.com,www.hestiacp.com' "key"
+@test "is_alias_format_valid success skynetcp.com,www.skynetcp.com" {
+     run is_alias_format_valid 'skynetcp.com,www.skynetcp.com' "key"
     assert_success
 }
 
@@ -201,8 +201,8 @@ r'
     assert_success
 }
 
-@test "is_alias_format_valid success www.hestiacp.com,*.hestiacp.com" {
-     run is_alias_format_valid 'www.hestiacp.com,*.hestiacp.com' "key"
+@test "is_alias_format_valid success www.skynetcp.com,*.hestiacp.com" {
+     run is_alias_format_valid 'www.skynetcp.com,*.hestiacp.com' "key"
     assert_success
 }
 

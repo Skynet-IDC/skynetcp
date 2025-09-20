@@ -11,7 +11,7 @@ Version:        1.25.1-2
 Release:        1%{dist}
 Summary:        skynet internal nginx web server
 Group:          System Environment/Base
-URL:            https://www.hestiacp.com
+URL:            https://www.skynetcp.com
 Source0:        https://nginx.org/download/nginx-%{version}.tar.gz
 Source1:        skynet-nginx.service
 Source2:        nginx.conf

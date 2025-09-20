@@ -4,7 +4,7 @@ Priority: optional
 Version: 8.3.16
 Section: admin
 Maintainer: HestaCP <info@skynetcp.com>
-Homepage: https://www.hestiacp.com
+Homepage: https://www.skynetcp.com
 Architecture: amd64
 Depends: skynet, libzip4, unzip, libonig5 | libonig4 | libonig2
 Conflct: libzip5

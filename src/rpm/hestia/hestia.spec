@@ -7,7 +7,7 @@ Release:        1%{dist}
 Summary:        skynet Control Panel
 Group:          System Environment/Base
 License:        GPLv3
-URL:            https://www.hestiacp.com
+URL:            https://www.skynetcp.com
 Source0:        skynet-%{version}.tar.gz
 Source1:        skynet.service
 Vendor:         skynetcp.com

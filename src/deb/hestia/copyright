@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: skynet
-Source: https://www.hestiacp.com
+Source: https://www.skynetcp.com
 
 Files: *
 Copyright: 2018-2025, skynet Control Panel <info@skynetcp.com>

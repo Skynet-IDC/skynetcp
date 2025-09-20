@@ -130,13 +130,13 @@ upgrade_complete_message() {
 	echo "Sincerely,                                                                   "
 	echo "The skynet Control Panel development team                                    "
 	echo
-	echo "Web:      https://www.hestiacp.com/                                          "
-	echo "Docs:     https://docs.hestiacp.com/										   "
-	echo "Forum:    https://forum.hestiacp.com/                                        "
-	echo "GitHub:   https://github.com/skynetcp/skynetcp/                              "
+	echo "Web:      https://www.skynetcp.com/                                          "
+	echo "Docs:     https://docs.skynetcp.com/										   "
+	echo "Forum:    https://forum.skynetcp.com/                                        "
+	echo "GitHub:   https://github.com/Skynet-IDC/skynetcp/                              "
 	echo
 	echo "Help support the skynet Control Panel project by donating via PayPal:        "
-	echo "https://www.hestiacp.com/donate                                              "
+	echo "https://www.skynetcp.com/donate                                              "
 	echo
 	echo "Made with love & pride by the open-source community around the world.        "
 	echo
@@ -230,10 +230,10 @@ upgrade_send_notification_to_email() {
 		echo "What's new: https://github.com/skynetcp/skynetcp/blob/$RELEASE_BRANCH/CHANGELOG.md" >> $message_tmp_file
 		echo >> $message_tmp_file
 		echo "What to do if you run into issues:" >> $message_tmp_file
-		echo "- Check our forums for possible solutions: https://forum.hestiacp.com" >> $message_tmp_file
+		echo "- Check our forums for possible solutions: https://forum.skynetcp.com" >> $message_tmp_file
 		echo "- File an issue report on GitHub: https://github.com/skynetcp/skynetcp/issues" >> $message_tmp_file
 		echo "" >> $message_tmp_file
-		echo "Help support the skynet Control Panel project by donating via PayPal: https://www.hestiacp.com/donate" >> $message_tmp_file
+		echo "Help support the skynet Control Panel project by donating via PayPal: https://www.skynetcp.com/donate" >> $message_tmp_file
 		echo "===================================================" >> $message_tmp_file
 		echo "Have a wonderful day," >> $message_tmp_file
 		echo "The skynet Control Panel development team" >> $message_tmp_file

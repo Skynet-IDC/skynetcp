@@ -4,7 +4,7 @@ Priority: optional
 Version: 1.27.3
 Section: admin
 Maintainer: skynetcp <info@skynetcp.com>
-Homepage: https://www.hestiacp.com
+Homepage: https://www.skynetcp.com
 Architecture: amd64
 Depends: skynet
 Description: skynet Nginx
