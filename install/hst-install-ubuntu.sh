@@ -17,7 +17,7 @@ export PATH=$PATH:/sbin
 export DEBIAN_FRONTEND=noninteractive
 RHOST='apt.hestiacp.com'
 VERSION='ubuntu'
-HESTIA='/usr/local/hestia'
+SKYNET='/usr/local/skynet'
 LOG="/root/hst_install_backups/hst_install-$(date +%d%m%Y%H%M).log"
 memory=$(grep 'MemTotal' /proc/meminfo | tr ' ' '\n' | grep [0-9])
 hst_backups="/root/hst_install_backups/$(date +%d%m%Y%H%M)"
@@ -26,12 +26,12 @@ os='ubuntu'
 release="$(lsb_release -s -r)"
 codename="$(lsb_release -s -c)"
 architecture="$(arch)"
-HESTIA_INSTALL_DIR="$HESTIA/install/deb"
-HESTIA_COMMON_DIR="$HESTIA/install/common"
+SKYNET_INSTALL_DIR="$SKYNET/install/deb"
+HESTIA_COMMON_DIR="$SKYNET/install/common"
 VERBOSE='no'
 
 # Define software versions
-HESTIA_INSTALL_VER='1.10.0~alpha'
+SKYNET_INSTALL_VER='1.10.0~alpha'
 # Supported PHP versions
 multiphp_v=("5.6" "7.0" "7.1" "7.2" "7.3" "7.4" "8.0" "8.1" "8.2" "8.3" "8.4")
 # One of the following PHP versions is required for Roundcube / phpmyadmin
@@ -46,7 +46,7 @@ node_v="20"
 # Defining software pack for all distros
 software="acl apache2 apache2.2-common apache2-suexec-custom apache2-utils apparmor-utils at awstats bc bind9 bsdmainutils bsdutils
   clamav-daemon cron curl dnsutils dovecot-imapd dovecot-managesieved dovecot-pop3d dovecot-sieve e2fslibs e2fsprogs
-  exim4 exim4-daemon-heavy expect fail2ban flex ftp git hestia=${HESTIA_INSTALL_VER} hestia-nginx hestia-php hestia-web-terminal
+  exim4 exim4-daemon-heavy expect fail2ban flex ftp git hestia=${SKYNET_INSTALL_VER} hestia-nginx hestia-php hestia-web-terminal
   idn2 imagemagick ipset jq libapache2-mod-fcgid libapache2-mod-php$fpm_v libapache2-mod-rpaf libonig5 libzip4 lsb-release
   lsof mariadb-client mariadb-common mariadb-server mc mysql-client mysql-common mysql-server nginx nodejs openssh-server
   php$fpm_v php$fpm_v-apcu php$fpm_v-bz2 php$fpm_v-cgi php$fpm_v-cli php$fpm_v-common php$fpm_v-curl php$fpm_v-gd
@@ -163,25 +163,25 @@ set_default_port() {
 	fi
 }
 
-# Write configuration KEY/VALUE pair to $HESTIA/conf/hestia.conf
+# Write configuration KEY/VALUE pair to $SKYNET/conf/hestia.conf
 write_config_value() {
 	local key="$1"
 	local value="$2"
-	echo "$key='$value'" >> $HESTIA/conf/hestia.conf
+	echo "$key='$value'" >> $SKYNET/conf/hestia.conf
 }
 
 # Sort configuration file values
-# Write final copy to $HESTIA/conf/hestia.conf for active usage
-# Duplicate file to $HESTIA/conf/defaults/hestia.conf to restore known good installation values
+# Write final copy to $SKYNET/conf/hestia.conf for active usage
+# Duplicate file to $SKYNET/conf/defaults/hestia.conf to restore known good installation values
 sort_config_file() {
-	sort $HESTIA/conf/hestia.conf -o /tmp/updconf
-	mv $HESTIA/conf/hestia.conf $HESTIA/conf/hestia.conf.bak
-	mv /tmp/updconf $HESTIA/conf/hestia.conf
-	rm -f $HESTIA/conf/hestia.conf.bak
-	if [ ! -d "$HESTIA/conf/defaults/" ]; then
-		mkdir -p "$HESTIA/conf/defaults/"
+	sort $SKYNET/conf/hestia.conf -o /tmp/updconf
+	mv $SKYNET/conf/hestia.conf $SKYNET/conf/hestia.conf.bak
+	mv /tmp/updconf $SKYNET/conf/hestia.conf
+	rm -f $SKYNET/conf/hestia.conf.bak
+	if [ ! -d "$SKYNET/conf/defaults/" ]; then
+		mkdir -p "$SKYNET/conf/defaults/"
 	fi
-	cp $HESTIA/conf/hestia.conf $HESTIA/conf/defaults/hestia.conf
+	cp $SKYNET/conf/hestia.conf $SKYNET/conf/defaults/hestia.conf
 }
 
 # todo add check for usernames that are blocked
@@ -547,7 +547,7 @@ esac
 #----------------------------------------------------------#
 
 install_welcome_message() {
-	DISPLAY_VER=$(echo $HESTIA_INSTALL_VER | sed "s|~alpha||g" | sed "s|~beta||g")
+	DISPLAY_VER=$(echo $SKYNET_INSTALL_VER | sed "s|~alpha||g" | sed "s|~beta||g")
 	echo
 	echo '                _   _           _   _        ____ ____                  '
 	echo '               | | | | ___  ___| |_(_) __ _ / ___|  _ \                 '
@@ -556,10 +556,10 @@ install_welcome_message() {
 	echo '               |_| |_|\___||___/\__|_|\__,_|\____|_|                    '
 	echo "                                                                        "
 	echo "                          Skynet Control Panel                          "
-	if [[ "$HESTIA_INSTALL_VER" =~ "beta" ]]; then
+	if [[ "$SKYNET_INSTALL_VER" =~ "beta" ]]; then
 		echo "                              BETA RELEASE                          "
 	fi
-	if [[ "$HESTIA_INSTALL_VER" =~ "alpha" ]]; then
+	if [[ "$SKYNET_INSTALL_VER" =~ "alpha" ]]; then
 		echo "                          DEVELOPMENT SNAPSHOT                      "
 		echo "                    NOT INTENDED FOR PRODUCTION USE                 "
 		echo "                          USE AT YOUR OWN RISK                      "
@@ -926,9 +926,9 @@ mv -f /root/.my.cnf $hst_backups/mysql > /dev/null 2>&1
 
 # Backup Hestia
 systemctl stop hestia > /dev/null 2>&1
-cp -r $HESTIA/* $hst_backups/hestia > /dev/null 2>&1
+cp -r $SKYNET/* $hst_backups/hestia > /dev/null 2>&1
 apt-get -y purge hestia hestia-nginx hestia-php > /dev/null 2>&1
-rm -rf $HESTIA > /dev/null 2>&1
+rm -rf $SKYNET > /dev/null 2>&1
 
 #----------------------------------------------------------#
 #                     Package Includes                     #
@@ -1039,7 +1039,7 @@ if [ -d "$withdebs" ]; then
 	software=$(echo "$software" | sed -e "s/hestia-nginx//")
 	software=$(echo "$software" | sed -e "s/hestia-php//")
 	software=$(echo "$software" | sed -e "s/hestia-web-terminal//")
-	software=$(echo "$software" | sed -e "s/hestia=${HESTIA_INSTALL_VER}//")
+	software=$(echo "$software" | sed -e "s/hestia=${SKYNET_INSTALL_VER}//")
 fi
 
 if [ "$release" = '24.04' ]; then
@@ -1183,7 +1183,7 @@ systemctl restart ssh
 # Disable AWStats cron
 rm -f /etc/cron.d/awstats
 # Replace AWStats function
-cp -f $HESTIA_INSTALL_DIR/logrotate/httpd-prerotate/* /etc/logrotate.d/httpd-prerotate/
+cp -f $SKYNET_INSTALL_DIR/logrotate/httpd-prerotate/* /etc/logrotate.d/httpd-prerotate/
 
 # Set directory color
 if [ -z "$(grep 'LS_COLORS="$LS_COLORS:di=00;33"' /etc/profile)" ]; then
@@ -1256,7 +1256,7 @@ fi
 echo "[ * ] Configuring Skynet Control Panel..."
 # Installing sudo configuration
 mkdir -p /etc/sudoers.d
-cp -f $HESTIA_COMMON_DIR/sudo/hestiaweb /etc/sudoers.d/
+cp -f $SKYNET_COMMON_DIR/sudo/hestiaweb /etc/sudoers.d/
 chmod 440 /etc/sudoers.d/hestiaweb
 
 # Add Hestia global config
@@ -1266,37 +1266,37 @@ if [[ ! -e /etc/hestiacp/hestia.conf ]]; then
 fi
 
 # Configuring system env
-echo "export HESTIA='$HESTIA'" > /etc/profile.d/hestia.sh
-echo 'PATH=$PATH:'$HESTIA'/bin' >> /etc/profile.d/hestia.sh
+echo "export HESTIA='$SKYNET'" > /etc/profile.d/hestia.sh
+echo 'PATH=$PATH:'$SKYNET'/bin' >> /etc/profile.d/hestia.sh
 echo 'export PATH' >> /etc/profile.d/hestia.sh
 chmod 755 /etc/profile.d/hestia.sh
 source /etc/profile.d/hestia.sh
 
 # Configuring logrotate for Hestia logs
-cp -f $HESTIA_INSTALL_DIR/logrotate/hestia /etc/logrotate.d/hestia
+cp -f $SKYNET_INSTALL_DIR/logrotate/hestia /etc/logrotate.d/hestia
 
 # Create log path and symbolic link
 rm -f /var/log/hestia
 mkdir -p /var/log/hestia
-ln -s /var/log/hestia $HESTIA/log
+ln -s /var/log/hestia $SKYNET/log
 
 # Building directory tree and creating some blank files for Hestia
-mkdir -p $HESTIA/conf $HESTIA/ssl $HESTIA/data/ips \
-	$HESTIA/data/queue $HESTIA/data/users $HESTIA/data/firewall \
-	$HESTIA/data/sessions
-touch $HESTIA/data/queue/backup.pipe $HESTIA/data/queue/disk.pipe \
-	$HESTIA/data/queue/webstats.pipe $HESTIA/data/queue/restart.pipe \
-	$HESTIA/data/queue/traffic.pipe $HESTIA/data/queue/daily.pipe $HESTIA/log/system.log \
-	$HESTIA/log/nginx-error.log $HESTIA/log/auth.log $HESTIA/log/backup.log
-chmod 750 $HESTIA/conf $HESTIA/data/users $HESTIA/data/ips $HESTIA/log
-chmod -R 750 $HESTIA/data/queue
+mkdir -p $SKYNET/conf $SKYNET/ssl $SKYNET/data/ips \
+	$SKYNET/data/queue $SKYNET/data/users $SKYNET/data/firewall \
+	$SKYNET/data/sessions
+touch $SKYNET/data/queue/backup.pipe $SKYNET/data/queue/disk.pipe \
+	$SKYNET/data/queue/webstats.pipe $SKYNET/data/queue/restart.pipe \
+	$SKYNET/data/queue/traffic.pipe $SKYNET/data/queue/daily.pipe $SKYNET/log/system.log \
+	$SKYNET/log/nginx-error.log $SKYNET/log/auth.log $SKYNET/log/backup.log
+chmod 750 $SKYNET/conf $SKYNET/data/users $SKYNET/data/ips $SKYNET/log
+chmod -R 750 $SKYNET/data/queue
 chmod 660 /var/log/hestia/*
-chmod 770 $HESTIA/data/sessions
+chmod 770 $SKYNET/data/sessions
 
 # Generating Hestia configuration
-rm -f $HESTIA/conf/hestia.conf > /dev/null 2>&1
-touch $HESTIA/conf/hestia.conf
-chmod 660 $HESTIA/conf/hestia.conf
+rm -f $SKYNET/conf/hestia.conf > /dev/null 2>&1
+touch $SKYNET/conf/hestia.conf
+chmod 660 $SKYNET/conf/hestia.conf
 
 # Write default port value to hestia.conf
 # If a custom port is specified it will be set at the end of the installation process
@@ -1416,7 +1416,7 @@ write_config_value "THEME" "dark"
 write_config_value "INACTIVE_SESSION_TIMEOUT" "60"
 
 # Version & Release Branch
-write_config_value "VERSION" "${HESTIA_INSTALL_VER}"
+write_config_value "VERSION" "${SKYNET_INSTALL_VER}"
 write_config_value "RELEASE_BRANCH" "release"
 
 # Email notifications after upgrade
@@ -1427,55 +1427,55 @@ write_config_value "UPGRADE_SEND_EMAIL_LOG" "false"
 write_config_value "ROOT_USER" "$username"
 
 # Installing hosting packages
-cp -rf $HESTIA_COMMON_DIR/packages $HESTIA/data/
+cp -rf $SKYNET_COMMON_DIR/packages $SKYNET/data/
 
 # Update nameservers in hosting package
 IFS='.' read -r -a domain_elements <<< "$servername"
 if [ -n "${domain_elements[-2]}" ] && [ -n "${domain_elements[-1]}" ]; then
 	serverdomain="${domain_elements[-2]}.${domain_elements[-1]}"
-	sed -i s/"domain.tld"/"$serverdomain"/g $HESTIA/data/packages/*.pkg
+	sed -i s/"domain.tld"/"$serverdomain"/g $SKYNET/data/packages/*.pkg
 fi
 
 # Installing templates
-cp -rf $HESTIA_INSTALL_DIR/templates $HESTIA/data/
-cp -rf $HESTIA_COMMON_DIR/templates/web/ $HESTIA/data/templates
-cp -rf $HESTIA_COMMON_DIR/templates/dns/ $HESTIA/data/templates
+cp -rf $SKYNET_INSTALL_DIR/templates $SKYNET/data/
+cp -rf $SKYNET_COMMON_DIR/templates/web/ $SKYNET/data/templates
+cp -rf $SKYNET_COMMON_DIR/templates/dns/ $SKYNET/data/templates
 
 mkdir -p /var/www/html
 mkdir -p /var/www/document_errors
 
 # Install default success page
-cp -rf $HESTIA_COMMON_DIR/templates/web/unassigned/index.html /var/www/html/
-cp -rf $HESTIA_COMMON_DIR/templates/web/skel/document_errors/* /var/www/document_errors/
+cp -rf $SKYNET_COMMON_DIR/templates/web/unassigned/index.html /var/www/html/
+cp -rf $SKYNET_COMMON_DIR/templates/web/skel/document_errors/* /var/www/document_errors/
 
 # Installing firewall rules
-cp -rf $HESTIA_COMMON_DIR/firewall $HESTIA/data/
-rm -f $HESTIA/data/firewall/ipset/blacklist.sh $HESTIA/data/firewall/ipset/blacklist.ipv6.sh
+cp -rf $SKYNET_COMMON_DIR/firewall $SKYNET/data/
+rm -f $SKYNET/data/firewall/ipset/blacklist.sh $SKYNET/data/firewall/ipset/blacklist.ipv6.sh
 
 # Delete rules for services that are not installed
 if [ "$vsftpd" = "no" ] && [ "$proftpd" = "no" ]; then
 	# Remove FTP
-	sed -i "/COMMENT='FTP'/d" $HESTIA/data/firewall/rules.conf
+	sed -i "/COMMENT='FTP'/d" $SKYNET/data/firewall/rules.conf
 fi
 if [ "$exim" = "no" ]; then
 	# Remove SMTP
-	sed -i "/COMMENT='SMTP'/d" $HESTIA/data/firewall/rules.conf
+	sed -i "/COMMENT='SMTP'/d" $SKYNET/data/firewall/rules.conf
 fi
 if [ "$dovecot" = "no" ]; then
 	# Remove IMAP / Dovecot
-	sed -i "/COMMENT='IMAP'/d" $HESTIA/data/firewall/rules.conf
-	sed -i "/COMMENT='POP3'/d" $HESTIA/data/firewall/rules.conf
+	sed -i "/COMMENT='IMAP'/d" $SKYNET/data/firewall/rules.conf
+	sed -i "/COMMENT='POP3'/d" $SKYNET/data/firewall/rules.conf
 fi
 if [ "$named" = "no" ]; then
 	# Remove IMAP / Dovecot
-	sed -i "/COMMENT='DNS'/d" $HESTIA/data/firewall/rules.conf
+	sed -i "/COMMENT='DNS'/d" $SKYNET/data/firewall/rules.conf
 fi
 
 # Installing API
-cp -rf $HESTIA_COMMON_DIR/api $HESTIA/data/
+cp -rf $SKYNET_COMMON_DIR/api $SKYNET/data/
 
 # Configuring server hostname
-$HESTIA/bin/v-change-sys-hostname $servername > /dev/null 2>&1
+$SKYNET/bin/v-change-sys-hostname $servername > /dev/null 2>&1
 
 # Configuring global OpenSSL options
 echo "[ * ] Configuring OpenSSL to improve TLS performance..."
@@ -1495,7 +1495,7 @@ fi
 
 # Generating SSL certificate
 echo "[ * ] Generating default self-signed SSL certificate..."
-$HESTIA/bin/v-generate-ssl-cert $(hostname) '' 'US' 'California' \
+$SKYNET/bin/v-generate-ssl-cert $(hostname) '' 'US' 'California' \
 	'San Francisco' 'Skynet Control Panel' 'IT' > /tmp/hst.pem
 
 # Parsing certificate file
@@ -1505,34 +1505,34 @@ key_end=$(grep -n "END RSA" /tmp/hst.pem | cut -f 1 -d:)
 
 # Adding SSL certificate
 echo "[ * ] Adding SSL certificate to Skynet Control Panel..."
-cd $HESTIA/ssl
+cd $SKYNET/ssl
 sed -n "1,${crt_end}p" /tmp/hst.pem > certificate.crt
 sed -n "$key_start,${key_end}p" /tmp/hst.pem > certificate.key
-chown root:mail $HESTIA/ssl/*
-chmod 660 $HESTIA/ssl/*
+chown root:mail $SKYNET/ssl/*
+chmod 660 $SKYNET/ssl/*
 rm /tmp/hst.pem
 
 # Install dhparam.pem
-cp -f $HESTIA_INSTALL_DIR/ssl/dhparam.pem /etc/ssl
+cp -f $SKYNET_INSTALL_DIR/ssl/dhparam.pem /etc/ssl
 
 # Enable SFTP jail
 echo "[ * ] Enabling SFTP jail..."
-$HESTIA/bin/v-add-sys-sftp-jail > /dev/null 2>&1
+$SKYNET/bin/v-add-sys-sftp-jail > /dev/null 2>&1
 check_result $? "can't enable sftp jail"
 
 # Enable SSH jail
 echo "[ * ] Enabling SSH jail..."
-$HESTIA/bin/v-add-sys-ssh-jail > /dev/null 2>&1
+$SKYNET/bin/v-add-sys-ssh-jail > /dev/null 2>&1
 check_result $? "can't enable ssh jail"
 
 # Adding Hestia admin account
 echo "[ * ] Creating default admin account..."
-$HESTIA/bin/v-add-user $username $vpass $email "default" "System Administrator"
+$SKYNET/bin/v-add-user $username $vpass $email "default" "System Administrator"
 check_result $? "can't create admin user"
-$HESTIA/bin/v-change-user-shell $username nologin no
-$HESTIA/bin/v-change-user-role $username admin
-$HESTIA/bin/v-change-user-language $username $lang
-$HESTIA/bin/v-change-sys-config-value 'POLICY_SYSTEM_PROTECTED_ADMIN' 'yes'
+$SKYNET/bin/v-change-user-shell $username nologin no
+$SKYNET/bin/v-change-user-role $username admin
+$SKYNET/bin/v-change-user-language $username $lang
+$SKYNET/bin/v-change-sys-config-value 'POLICY_SYSTEM_PROTECTED_ADMIN' 'yes'
 
 #----------------------------------------------------------#
 #                     Configure Nginx                      #
@@ -1540,15 +1540,15 @@ $HESTIA/bin/v-change-sys-config-value 'POLICY_SYSTEM_PROTECTED_ADMIN' 'yes'
 
 echo "[ * ] Configuring NGINX..."
 rm -f /etc/nginx/conf.d/*.conf
-cp -f $HESTIA_INSTALL_DIR/nginx/nginx.conf /etc/nginx/
-cp -f $HESTIA_INSTALL_DIR/nginx/status.conf /etc/nginx/conf.d/
-cp -f $HESTIA_INSTALL_DIR/nginx/0rtt-anti-replay.conf /etc/nginx/conf.d/
-cp -f $HESTIA_INSTALL_DIR/nginx/agents.conf /etc/nginx/conf.d/
+cp -f $SKYNET_INSTALL_DIR/nginx/nginx.conf /etc/nginx/
+cp -f $SKYNET_INSTALL_DIR/nginx/status.conf /etc/nginx/conf.d/
+cp -f $SKYNET_INSTALL_DIR/nginx/0rtt-anti-replay.conf /etc/nginx/conf.d/
+cp -f $SKYNET_INSTALL_DIR/nginx/agents.conf /etc/nginx/conf.d/
 # Copy over cloudflare.inc incase in the next step there are connection issues with CF
-cp -f $HESTIA_INSTALL_DIR/nginx/cloudflare.inc /etc/nginx/conf.d/
-cp -f $HESTIA_INSTALL_DIR/nginx/phpmyadmin.inc /etc/nginx/conf.d/
-cp -f $HESTIA_INSTALL_DIR/nginx/phppgadmin.inc /etc/nginx/conf.d/
-cp -f $HESTIA_INSTALL_DIR/logrotate/nginx /etc/logrotate.d/
+cp -f $SKYNET_INSTALL_DIR/nginx/cloudflare.inc /etc/nginx/conf.d/
+cp -f $SKYNET_INSTALL_DIR/nginx/phpmyadmin.inc /etc/nginx/conf.d/
+cp -f $SKYNET_INSTALL_DIR/nginx/phppgadmin.inc /etc/nginx/conf.d/
+cp -f $SKYNET_INSTALL_DIR/logrotate/nginx /etc/logrotate.d/
 mkdir -p /etc/nginx/conf.d/domains
 mkdir -p /etc/nginx/conf.d/main
 mkdir -p /etc/nginx/modules-enabled
@@ -1605,10 +1605,10 @@ if [ "$apache" = 'yes' ]; then
 	mkdir -p /etc/apache2/conf.d/domains
 
 	# Copy configuration files
-	cp -f $HESTIA_INSTALL_DIR/apache2/apache2.conf /etc/apache2/
-	cp -f $HESTIA_INSTALL_DIR/apache2/status.conf /etc/apache2/mods-available/hestia-status.conf
+	cp -f $SKYNET_INSTALL_DIR/apache2/apache2.conf /etc/apache2/
+	cp -f $SKYNET_INSTALL_DIR/apache2/status.conf /etc/apache2/mods-available/hestia-status.conf
 	cp -f /etc/apache2/mods-available/status.load /etc/apache2/mods-available/hestia-status.load
-	cp -f $HESTIA_INSTALL_DIR/logrotate/apache2 /etc/logrotate.d/
+	cp -f $SKYNET_INSTALL_DIR/logrotate/apache2 /etc/logrotate.d/
 
 	# Enable needed modules
 	a2enmod rewrite > /dev/null 2>&1
@@ -1625,7 +1625,7 @@ if [ "$apache" = 'yes' ]; then
 		a2dismod php$fpm_v > /dev/null 2>&1
 		a2dismod mpm_prefork > /dev/null 2>&1
 		a2enmod mpm_event > /dev/null 2>&1
-		cp -f $HESTIA_INSTALL_DIR/apache2/hestia-event.conf /etc/apache2/conf.d/
+		cp -f $SKYNET_INSTALL_DIR/apache2/hestia-event.conf /etc/apache2/conf.d/
 	else
 		a2enmod ruid2 > /dev/null 2>&1
 	fi
@@ -1659,16 +1659,16 @@ if [ "$phpfpm" = "yes" ]; then
 	if [ "$multiphp" = 'yes' ]; then
 		for v in "${multiphp_v[@]}"; do
 			echo "[ * ] Installing PHP $v..."
-			$HESTIA/bin/v-add-web-php "$v" > /dev/null 2>&1
+			$SKYNET/bin/v-add-web-php "$v" > /dev/null 2>&1
 		done
 	else
 		echo "[ * ] Installing PHP $fpm_v..."
-		$HESTIA/bin/v-add-web-php "$fpm_v" > /dev/null 2>&1
+		$SKYNET/bin/v-add-web-php "$fpm_v" > /dev/null 2>&1
 	fi
 
 	echo "[ * ] Configuring PHP-FPM $fpm_v..."
 	# Create www.conf for webmail and php(*)admin
-	cp -f $HESTIA_INSTALL_DIR/php-fpm/www.conf /etc/php/$fpm_v/fpm/pool.d/www.conf
+	cp -f $SKYNET_INSTALL_DIR/php-fpm/www.conf /etc/php/$fpm_v/fpm/pool.d/www.conf
 	update-rc.d php$fpm_v-fpm defaults > /dev/null 2>&1
 	systemctl start php$fpm_v-fpm >> $LOG
 	check_result $? "php-fpm start failed"
@@ -1693,7 +1693,7 @@ done
 # Cleanup php session files not changed in the last 7 days (60*24*7 minutes)
 echo '#!/bin/sh' > /etc/cron.daily/php-session-cleanup
 echo "find -O3 /home/*/tmp/ -ignore_readdir_race -depth -mindepth 1 -name 'sess_*' -type f -cmin '+10080' -delete > /dev/null 2>&1" >> /etc/cron.daily/php-session-cleanup
-echo "find -O3 $HESTIA/data/sessions/ -ignore_readdir_race -depth -mindepth 1 -name 'sess_*' -type f -cmin '+10080' -delete > /dev/null 2>&1" >> /etc/cron.daily/php-session-cleanup
+echo "find -O3 $SKYNET/data/sessions/ -ignore_readdir_race -depth -mindepth 1 -name 'sess_*' -type f -cmin '+10080' -delete > /dev/null 2>&1" >> /etc/cron.daily/php-session-cleanup
 chmod 755 /etc/cron.daily/php-session-cleanup
 
 #----------------------------------------------------------#
@@ -1702,7 +1702,7 @@ chmod 755 /etc/cron.daily/php-session-cleanup
 
 if [ "$vsftpd" = 'yes' ]; then
 	echo "[ * ] Configuring Vsftpd server..."
-	cp -f $HESTIA_INSTALL_DIR/vsftpd/vsftpd.conf /etc/
+	cp -f $SKYNET_INSTALL_DIR/vsftpd/vsftpd.conf /etc/
 	touch /var/log/vsftpd.log
 	chown root:adm /var/log/vsftpd.log
 	chmod 640 /var/log/vsftpd.log
@@ -1724,8 +1724,8 @@ fi
 if [ "$proftpd" = 'yes' ]; then
 	echo "[ * ] Configuring ProFTPD server..."
 	echo "127.0.0.1 $servername" >> /etc/hosts
-	cp -f $HESTIA_INSTALL_DIR/proftpd/proftpd.conf /etc/proftpd/
-	cp -f $HESTIA_INSTALL_DIR/proftpd/tls.conf /etc/proftpd/
+	cp -f $SKYNET_INSTALL_DIR/proftpd/proftpd.conf /etc/proftpd/
+	cp -f $SKYNET_INSTALL_DIR/proftpd/tls.conf /etc/proftpd/
 
 	update-rc.d proftpd defaults > /dev/null 2>&1
 	systemctl start proftpd >> $LOG
@@ -1760,7 +1760,7 @@ if [ "$mysql" = 'yes' ] || [ "$mysql8" = 'yes' ]; then
 	# Remove symbolic link
 	rm -f /etc/mysql/my.cnf
 	# Configuring MariaDB
-	cp -f $HESTIA_INSTALL_DIR/mysql/$mycnf /etc/mysql/my.cnf
+	cp -f $SKYNET_INSTALL_DIR/mysql/$mycnf /etc/mysql/my.cnf
 
 	# Switch MariaDB inclusions to the MySQL
 	if [ "$mysql_type" = 'MySQL' ]; then
@@ -1818,7 +1818,7 @@ fi
 
 # Source upgrade.conf with phpmyadmin versions
 # shellcheck source=/usr/local/hestia/install/upgrade/upgrade.conf
-source $HESTIA/install/upgrade/upgrade.conf
+source $SKYNET/install/upgrade/upgrade.conf
 
 if [ "$mysql" = 'yes' ] || [ "$mysql8" = 'yes' ]; then
 	# Display upgrade information
@@ -1845,7 +1845,7 @@ if [ "$mysql" = 'yes' ] || [ "$mysql8" = 'yes' ]; then
 	cp -rf phpMyAdmin-$pma_v-all-languages/* /usr/share/phpmyadmin
 
 	# Create copy of config file
-	cp -f $HESTIA_INSTALL_DIR/phpmyadmin/config.inc.php /etc/phpmyadmin/
+	cp -f $SKYNET_INSTALL_DIR/phpmyadmin/config.inc.php /etc/phpmyadmin/
 
 	# Set config and log directory
 	sed -i "s|'configFile' => ROOT_PATH . 'config.inc.php',|'configFile' => '/etc/phpmyadmin/config.inc.php',|g" /usr/share/phpmyadmin/libraries/vendor_config.php
@@ -1864,12 +1864,12 @@ if [ "$mysql" = 'yes' ] || [ "$mysql8" = 'yes' ]; then
 	rm -f phpMyAdmin-$pma_v-all-languages.tar.gz
 
 	write_config_value "DB_PMA_ALIAS" "phpmyadmin"
-	$HESTIA/bin/v-change-sys-db-alias 'pma' "phpmyadmin"
+	$SKYNET/bin/v-change-sys-db-alias 'pma' "phpmyadmin"
 
 	# Special thanks to Pavel Galkin (https://skurudo.ru)
 	# https://github.com/skurudo/phpmyadmin-fixer
 	# shellcheck source=/usr/local/hestia/install/deb/phpmyadmin/pma.sh
-	source $HESTIA_INSTALL_DIR/phpmyadmin/pma.sh > /dev/null 2>&1
+	source $SKYNET_INSTALL_DIR/phpmyadmin/pma.sh > /dev/null 2>&1
 
 	# Limit access to /etc/phpmyadmin/
 	chown -R root:hestiamail /etc/phpmyadmin/
@@ -1884,7 +1884,7 @@ fi
 if [ "$postgresql" = 'yes' ]; then
 	echo "[ * ] Configuring PostgreSQL database server..."
 	ppass=$(gen_pass)
-	cp -f $HESTIA_INSTALL_DIR/postgresql/pg_hba.conf /etc/postgresql/*/main/
+	cp -f $SKYNET_INSTALL_DIR/postgresql/pg_hba.conf /etc/postgresql/*/main/
 	systemctl restart postgresql
 	sudo -iu postgres psql -c "ALTER USER postgres WITH PASSWORD '$ppass'" > /dev/null 2>&1
 
@@ -1894,18 +1894,18 @@ if [ "$postgresql" = 'yes' ]; then
 	wget --retry-connrefused --quiet https://github.com/hestiacp/phppgadmin/releases/download/v$pga_v/phppgadmin-v$pga_v.tar.gz
 	tar xzf phppgadmin-v$pga_v.tar.gz -C /usr/share/phppgadmin/
 
-	cp -f $HESTIA_INSTALL_DIR/pga/config.inc.php /etc/phppgadmin/
+	cp -f $SKYNET_INSTALL_DIR/pga/config.inc.php /etc/phppgadmin/
 
 	ln -s /etc/phppgadmin/config.inc.php /usr/share/phppgadmin/conf/
 
 	# Configuring phpPgAdmin
 	if [ "$apache" = 'yes' ]; then
-		cp -f $HESTIA_INSTALL_DIR/pga/phppgadmin.conf /etc/apache2/conf.d/phppgadmin.inc
+		cp -f $SKYNET_INSTALL_DIR/pga/phppgadmin.conf /etc/apache2/conf.d/phppgadmin.inc
 	fi
 
 	rm phppgadmin-v$pga_v.tar.gz
 	write_config_value "DB_PGA_ALIAS" "phppgadmin"
-	$HESTIA/bin/v-change-sys-db-alias 'pga' "phppgadmin"
+	$SKYNET/bin/v-change-sys-db-alias 'pga' "phppgadmin"
 
 	# Limit access to /etc/phppgadmin/
 	chown -R root:hestiamail /etc/phppgadmin/
@@ -1918,8 +1918,8 @@ fi
 
 if [ "$named" = 'yes' ]; then
 	echo "[ * ] Configuring Bind DNS server..."
-	cp -f $HESTIA_INSTALL_DIR/bind/named.conf /etc/bind/
-	cp -f $HESTIA_INSTALL_DIR/bind/named.conf.options /etc/bind/
+	cp -f $SKYNET_INSTALL_DIR/bind/named.conf /etc/bind/
+	cp -f $SKYNET_INSTALL_DIR/bind/named.conf.options /etc/bind/
 	chown root:bind /etc/bind/named.conf
 	chown root:bind /etc/bind/named.conf.options
 	chown bind:bind /var/cache/bind
@@ -1954,14 +1954,14 @@ if [ "$exim" = 'yes' ]; then
 	# if Exim version > 4.9.4 or greater!
 	if ! version_ge "4.94" "$exim_version"; then
 		# Ubuntu 22.04 (Jammy) uses Exim 4.95 instead but config works with Exim4.94
-		cp -f $HESTIA_INSTALL_DIR/exim/exim4.conf.4.95.template /etc/exim4/exim4.conf.template
+		cp -f $SKYNET_INSTALL_DIR/exim/exim4.conf.4.95.template /etc/exim4/exim4.conf.template
 	else
-		cp -f $HESTIA_INSTALL_DIR/exim/exim4.conf.template /etc/exim4/
+		cp -f $SKYNET_INSTALL_DIR/exim/exim4.conf.template /etc/exim4/
 	fi
-	cp -f $HESTIA_INSTALL_DIR/exim/dnsbl.conf /etc/exim4/
-	cp -f $HESTIA_INSTALL_DIR/exim/spam-blocks.conf /etc/exim4/
-	cp -f $HESTIA_INSTALL_DIR/exim/limit.conf /etc/exim4/
-	cp -f $HESTIA_INSTALL_DIR/exim/system.filter /etc/exim4/
+	cp -f $SKYNET_INSTALL_DIR/exim/dnsbl.conf /etc/exim4/
+	cp -f $SKYNET_INSTALL_DIR/exim/spam-blocks.conf /etc/exim4/
+	cp -f $SKYNET_INSTALL_DIR/exim/limit.conf /etc/exim4/
+	cp -f $SKYNET_INSTALL_DIR/exim/system.filter /etc/exim4/
 	touch /etc/exim4/white-blocks.conf
 
 	if [ "$spamd" = 'yes' ]; then
@@ -1999,8 +1999,8 @@ fi
 if [ "$dovecot" = 'yes' ]; then
 	echo "[ * ] Configuring Dovecot POP/IMAP mail server..."
 	gpasswd -a dovecot mail > /dev/null 2>&1
-	cp -rf $HESTIA_COMMON_DIR/dovecot /etc/
-	cp -f $HESTIA_INSTALL_DIR/logrotate/dovecot /etc/logrotate.d/
+	cp -rf $SKYNET_COMMON_DIR/dovecot /etc/
+	cp -f $SKYNET_INSTALL_DIR/logrotate/dovecot /etc/logrotate.d/
 	rm -f /etc/dovecot/conf.d/15-mailboxes.conf
 	chown -R root:root /etc/dovecot*
 	touch /var/log/dovecot.log
@@ -2028,7 +2028,7 @@ fi
 if [ "$clamd" = 'yes' ]; then
 	gpasswd -a clamav mail > /dev/null 2>&1
 	gpasswd -a clamav Debian-exim > /dev/null 2>&1
-	cp -f $HESTIA_INSTALL_DIR/clamav/clamd.conf /etc/clamav/
+	cp -f $SKYNET_INSTALL_DIR/clamav/clamd.conf /etc/clamav/
 	update-rc.d clamav-daemon defaults
 	echo -ne "[ * ] Installing ClamAV anti-virus definitions... "
 	/usr/bin/freshclam >> $LOG > /dev/null 2>&1
@@ -2072,7 +2072,7 @@ fi
 
 if [ "$fail2ban" = 'yes' ]; then
 	echo "[ * ] Configuring fail2ban access monitor..."
-	cp -rf $HESTIA_INSTALL_DIR/fail2ban /etc/
+	cp -rf $SKYNET_INSTALL_DIR/fail2ban /etc/
 	if [ "$dovecot" = 'no' ]; then
 		fline=$(cat /etc/fail2ban/jail.local | grep -n dovecot-iptables -A 2)
 		fline=$(echo "$fline" | grep enabled | tail -n1 | cut -f 1 -d -)
@@ -2105,12 +2105,12 @@ fi
 
 # Configuring MariaDB/MySQL host
 if [ "$mysql" = 'yes' ] || [ "$mysql8" = 'yes' ]; then
-	$HESTIA/bin/v-add-database-host mysql localhost root $mpass
+	$SKYNET/bin/v-add-database-host mysql localhost root $mpass
 fi
 
 # Configuring PostgreSQL host
 if [ "$postgresql" = 'yes' ]; then
-	$HESTIA/bin/v-add-database-host pgsql localhost postgres $ppass
+	$SKYNET/bin/v-add-database-host pgsql localhost postgres $ppass
 fi
 
 #----------------------------------------------------------#
@@ -2120,7 +2120,7 @@ fi
 # Min requirements Dovecot + Exim + Mysql
 if ([ "$mysql" == 'yes' ] || [ "$mysql8" == 'yes' ]) && [ "$dovecot" == "yes" ]; then
 	echo "[ * ] Installing Roundcube..."
-	$HESTIA/bin/v-add-sys-roundcube
+	$SKYNET/bin/v-add-sys-roundcube
 	write_config_value "WEBMAIL_ALIAS" "webmail"
 else
 	write_config_value "WEBMAIL_ALIAS" ""
@@ -2151,7 +2151,7 @@ if [ "$sieve" = 'yes' ]; then
 	sed -i "s/mail_plugins = quota imap_quota/mail_plugins = quota imap_quota imap_sieve/g" /etc/dovecot/conf.d/20-imap.conf
 
 	# Replace dovecot-sieve config files
-	cp -f $HESTIA_COMMON_DIR/dovecot/sieve/* /etc/dovecot/conf.d
+	cp -f $SKYNET_COMMON_DIR/dovecot/sieve/* /etc/dovecot/conf.d
 
 	# Dovecot default file install
 	echo -e "require [\"fileinto\"];\n# rule:[SPAM]\nif header :contains \"X-Spam-Flag\" \"YES\" {\n    fileinto \"INBOX.Spam\";\n}\n" > /etc/dovecot/sieve/default
@@ -2168,7 +2168,7 @@ if [ "$sieve" = 'yes' ]; then
 	if [ -d "/var/lib/roundcube" ]; then
 		# Modify Roundcube config
 		mkdir -p $RC_CONFIG_DIR/plugins/managesieve
-		cp -f $HESTIA_COMMON_DIR/roundcube/plugins/config_managesieve.inc.php $RC_CONFIG_DIR/plugins/managesieve/config.inc.php
+		cp -f $SKYNET_COMMON_DIR/roundcube/plugins/config_managesieve.inc.php $RC_CONFIG_DIR/plugins/managesieve/config.inc.php
 		ln -s $RC_CONFIG_DIR/plugins/managesieve/config.inc.php $RC_INSTALL_DIR/plugins/managesieve/config.inc.php
 		chown -R hestiamail:www-data $RC_CONFIG_DIR/
 		chmod 751 -R $RC_CONFIG_DIR
@@ -2196,7 +2196,7 @@ else
 	write_config_value "API" "no"
 	write_config_value "API_SYSTEM" "0"
 	write_config_value "API_ALLOWED_IP" ""
-	$HESTIA/bin/v-change-sys-api disable
+	$SKYNET/bin/v-change-sys-api disable
 fi
 
 #----------------------------------------------------------#
@@ -2204,7 +2204,7 @@ fi
 #----------------------------------------------------------#
 
 echo "[ * ] Configuring File Manager..."
-$HESTIA/bin/v-add-sys-filemanager quiet
+$SKYNET/bin/v-add-sys-filemanager quiet
 
 #----------------------------------------------------------#
 #              Configure Web terminal                      #
@@ -2225,7 +2225,7 @@ fi
 #----------------------------------------------------------#
 
 echo "[ * ] Configuring PHP dependencies..."
-$HESTIA/bin/v-add-sys-dependencies quiet
+$SKYNET/bin/v-add-sys-dependencies quiet
 
 echo "[ * ] Installing Rclone & Update Restic ..."
 curl -s https://rclone.org/install.sh | bash > /dev/null 2>&1
@@ -2237,7 +2237,7 @@ restic self-update > /dev/null 2>&1
 
 # Configuring system IPs
 echo "[ * ] Configuring System IP..."
-$HESTIA/bin/v-update-sys-ip > /dev/null 2>&1
+$SKYNET/bin/v-update-sys-ip > /dev/null 2>&1
 
 # Get primary IP
 default_nic="$(ip -d -j route show | jq -r '.[] | if .dst == "default" then .dev else empty end')"
@@ -2250,7 +2250,7 @@ local_ip="$primary_ipv4"
 
 # Configuring firewall
 if [ "$iptables" = 'yes' ]; then
-	$HESTIA/bin/v-update-firewall
+	$SKYNET/bin/v-update-firewall
 fi
 
 # Get public IP
@@ -2271,13 +2271,13 @@ if [ -n "$pub_ipv4" ] && [ "$pub_ipv4" != "$ip" ]; then
 	check_pve=$(uname -r | grep pve)
 	if [ ! -z "$check_pve" ]; then
 		echo 'hostname=$(hostname --fqdn)' >> /etc/rc.local
-		echo ""$HESTIA/bin/v-change-sys-hostname" "'"$hostname"'"" >> /etc/rc.local
+		echo ""$SKYNET/bin/v-change-sys-hostname" "'"$hostname"'"" >> /etc/rc.local
 	fi
-	echo "$HESTIA/bin/v-update-sys-ip" >> /etc/rc.local
+	echo "$SKYNET/bin/v-update-sys-ip" >> /etc/rc.local
 	echo "exit 0" >> /etc/rc.local
 	chmod +x /etc/rc.local
 	systemctl enable rc-local > /dev/null 2>&1
-	$HESTIA/bin/v-change-sys-ip-nat "$ip" "$pub_ipv4" > /dev/null 2>&1
+	$SKYNET/bin/v-change-sys-ip-nat "$ip" "$pub_ipv4" > /dev/null 2>&1
 	ip="$pub_ipv4"
 fi
 
@@ -2302,7 +2302,7 @@ if [ "$apache" = 'yes' ] && [ "$nginx" = 'yes' ]; then
 fi
 
 # Adding default domain
-$HESTIA/bin/v-add-web-domain "$username" "$servername" "$ip"
+$SKYNET/bin/v-add-web-domain "$username" "$servername" "$ip"
 check_result $? "can't create $servername domain"
 
 # Adding cron jobs
@@ -2328,21 +2328,21 @@ chmod 600 /var/spool/cron/crontabs/hestiaweb
 chown hestiaweb:hestiaweb /var/spool/cron/crontabs/hestiaweb
 
 # Enable automatic updates
-$HESTIA/bin/v-add-cron-hestia-autoupdate apt
+$SKYNET/bin/v-add-cron-hestia-autoupdate apt
 
 # Building initial rrd images
-$HESTIA/bin/v-update-sys-rrd
+$SKYNET/bin/v-update-sys-rrd
 
 # Enabling file system quota
 if [ "$quota" = 'yes' ]; then
-	$HESTIA/bin/v-add-sys-quota
+	$SKYNET/bin/v-add-sys-quota
 fi
 
 # Set backend port
-$HESTIA/bin/v-change-sys-port $port > /dev/null 2>&1
+$SKYNET/bin/v-change-sys-port $port > /dev/null 2>&1
 
 # Create default configuration files
-$HESTIA/bin/v-update-sys-defaults
+$SKYNET/bin/v-update-sys-defaults
 
 # Update remaining packages since repositories have changed
 echo -ne "[ * ] Installing remaining software updates..."
@@ -2355,7 +2355,7 @@ echo
 update-rc.d hestia defaults
 systemctl start hestia
 check_result $? "hestia start failed"
-chown hestiaweb:hestiaweb $HESTIA/data/sessions
+chown hestiaweb:hestiaweb $SKYNET/data/sessions
 
 # Create backup folder and set correct permission
 mkdir -p /backup/
@@ -2369,8 +2369,8 @@ echo "@reboot root sleep 10 && rm /etc/cron.d/hestia-ssl && PATH='/usr/local/sbi
 #----------------------------------------------------------#
 
 echo "[ * ] Updating configuration files..."
-BIN="$HESTIA/bin"
-source $HESTIA/func/syshealth.sh
+BIN="$SKYNET/bin"
+source $SKYNET/func/syshealth.sh
 syshealth_repair_system_config
 
 # Add /usr/local/hestia/bin/ to path variable
@@ -2429,7 +2429,7 @@ The Skynet Control Panel development team
 Made with love & pride by the open-source community around the world.
 " >> $tmpfile
 
-send_mail="$HESTIA/web/inc/mail-wrapper.php"
+send_mail="$SKYNET/web/inc/mail-wrapper.php"
 cat $tmpfile | $send_mail -s "Skynet Control Panel" $email
 
 # Congrats
@@ -2438,7 +2438,7 @@ cat $tmpfile
 rm -f $tmpfile
 
 # Add welcome message to notification panel
-$HESTIA/bin/v-add-user-notification "$username" 'Welcome to Skynet Control Panel!' '<p>You are now ready to begin adding <a href="/add/user/">user accounts</a> and <a href="/add/web/">domains</a>. For help and assistance, <a href="https://hestiacp.com/docs/" target="_blank">view the documentation</a> or <a href="https://forum.hestiacp.com/" target="_blank">visit our forum</a>.</p><p>Please <a href="https://github.com/hestiacp/hestiacp/issues" target="_blank">report any issues via GitHub</a>.</p><p class="u-text-bold">Have a wonderful day!</p><p><i class="fas fa-heart icon-red"></i> The Skynet Control Panel development team</p>'
+$SKYNET/bin/v-add-user-notification "$username" 'Welcome to Skynet Control Panel!' '<p>You are now ready to begin adding <a href="/add/user/">user accounts</a> and <a href="/add/web/">domains</a>. For help and assistance, <a href="https://hestiacp.com/docs/" target="_blank">view the documentation</a> or <a href="https://forum.hestiacp.com/" target="_blank">visit our forum</a>.</p><p>Please <a href="https://github.com/hestiacp/hestiacp/issues" target="_blank">report any issues via GitHub</a>.</p><p class="u-text-bold">Have a wonderful day!</p><p><i class="fas fa-heart icon-red"></i> The Skynet Control Panel development team</p>'
 
 # Clean-up
 # Sort final configuration file
