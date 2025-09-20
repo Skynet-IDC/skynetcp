@@ -111,7 +111,7 @@ $application -> register('apps')
 	foreach($appInstallers as $appInstaller){
 		$app = basename(dirname($appInstaller));
 		$SKYNET = new \skynet\System\skynetApp();
-		$domain = 'demo.hestiacp.com';
+		$domain = 'demo.skynetcp.com';
 		if( !file_exists(__DIR__ . "/../web/src/app/WebApp/Installers/" . $app . "/". $app . "Setup.php") ){
 			continue;
 		}
