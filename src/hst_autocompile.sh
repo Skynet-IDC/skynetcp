@@ -206,10 +206,6 @@ if [ -z $install ]; then
 	read install
 fi
 
-echo "REPO ===>>>: $REPO"
-echo "Nginx version ===>>>: $NGINX_V"
-echo "PHP version ===>>>: $PHP_V"
-echo "Web Terminal version ===>>>:  $WEB_TERMINAL_V"
 
 # Set Version for compiling
 if [ -f "$SRC_DIR/src/deb/skynet/control" ] && [ "$use_src_folder" == 'true' ]; then
@@ -223,6 +219,11 @@ else
 	PHP_V=$(curl -s https://raw.githubusercontent.com/$REPO/$branch/src/deb/php/control | grep "Version:" | cut -d' ' -f2)
 	WEB_TERMINAL_V=$(curl -s https://raw.githubusercontent.com/$REPO/$branch/src/deb/web-terminal/control | grep "Version:" | cut -d' ' -f2)
 fi
+
+echo "REPO ===>>>: $REPO"
+echo "Nginx version ===>>>: $NGINX_V"
+echo "PHP version ===>>>: $PHP_V"
+echo "Web Terminal version ===>>>:  $WEB_TERMINAL_V"
 
 if [ -z "$BUILD_VER" ]; then
 	echo "Error: Branch invalid, could not detect version"
