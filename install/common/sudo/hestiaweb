@@ -1,0 +1,4 @@
+Defaults:root !requiretty
+
+# sudo is limited to skynet scripts
+skynetweb   ALL=NOPASSWD:/usr/local/skynet/bin/*

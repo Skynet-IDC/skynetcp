@@ -1,0 +1,69 @@
+#!/bin/bash
+# info: deletes temp database user
+# options: USER DBUSER [TYPE] [HOST]
+#
+# example: v-delete-database-temp-user wordpress skynet_sso_user mysql
+#
+# Revokes "temp user" access to a database and removes the user
+# To be used in combination with v-add-database-temp-user
+
+#----------------------------------------------------------#
+#                Variables & Functions                     #
+#----------------------------------------------------------#
+
+# Argument definition
+user=$1
+database=$2
+dbuser=$3
+type=${4-mysql}
+host=$5
+
+# Includes
+# shellcheck source=/etc/skynetcp/skynet.conf
+source /etc/skynetcp/skynet.conf
+# shellcheck source=/usr/local/skynet/func/main.sh
+source $SKYNET/func/main.sh
+# shellcheck source=/usr/local/skynet/func/db.sh
+source $SKYNET/func/db.sh
+# load config file
+source_conf "$SKYNET/conf/skynet.conf"
+
+#----------------------------------------------------------#
+#                    Verifications                         #
+#----------------------------------------------------------#
+
+check_args '3' "$#" 'USER DATABASE DBUSER [TYPE] [HOST]'
+is_format_valid 'user' 'database' 'dbuser'
+is_system_enabled "$DB_SYSTEM" 'DB_SYSTEM'
+is_object_valid 'user' 'USER' "$user"
+is_object_unsuspended 'user' 'USER' "$user"
+is_object_valid 'db' 'DB' "$database"
+is_object_unsuspended 'db' 'DB' "$database"
+get_next_dbhost
+
+if [[ $dbuser != *"skynet_sso"* ]]; then
+	echo "DBUSER is invalid SSO user"
+	exit "$E_INVALID"
+fi
+
+# Perform verification if read-only mode is enabled
+check_skynet_demo_mode
+
+#----------------------------------------------------------#
+#                       Action                             #
+#----------------------------------------------------------#
+
+# Get database values
+get_database_values
+
+delete_mysql_database_temp_user
+
+#----------------------------------------------------------#
+#                       Skynet                             #
+#----------------------------------------------------------#
+
+# Logging
+$BIN/v-log-action "$user" "Info" "Database" "Revoked user access (Database: $database, User: $dbuser)."
+log_event "$OK" "$ARGUMENTS"
+
+exit

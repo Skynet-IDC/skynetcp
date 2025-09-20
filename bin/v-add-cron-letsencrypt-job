@@ -1,0 +1,46 @@
+#!/bin/bash
+# info: add cron job for Let's Encrypt certificates
+# options: NONE
+#
+# This function adds a new cron job for Let's Encrypt.
+
+#----------------------------------------------------------#
+#                Variables & Functions                     #
+#----------------------------------------------------------#
+
+# Includes
+# shellcheck source=/etc/skynetcp/skynet.conf
+source /etc/skynetcp/skynet.conf
+# shellcheck source=/usr/local/skynet/func/main.sh
+source $SKYNET/func/main.sh
+# load config file
+source_conf "$SKYNET/conf/skynet.conf"
+
+#----------------------------------------------------------#
+#                    Verifications                         #
+#----------------------------------------------------------#
+
+is_system_enabled "$CRON_SYSTEM" 'CRON_SYSTEM'
+
+# Perform verification if read-only mode is enabled
+check_skynet_demo_mode
+
+#----------------------------------------------------------#
+#                       Action                             #
+#----------------------------------------------------------#
+
+# Add cron job
+cmd="bin/v-update-sys-queue letsencrypt"
+check_cron=$(grep "$cmd" "/var/spool/cron/crontabs/skynetweb" 2> /dev/null)
+if [ -z "$check_cron" ] && [ -n "$CRON_SYSTEM" ]; then
+	sed -i -e "\$a*/5 * * * * sudo /usr/local/skynet/bin/v-update-sys-queue letsencrypt" "/var/spool/cron/crontabs/skynetweb"
+fi
+
+#----------------------------------------------------------#
+#                       Skynet                             #
+#----------------------------------------------------------#
+
+# Logging
+log_event "$OK" "$ARGUMENTS"
+
+exit

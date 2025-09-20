@@ -1,0 +1,51 @@
+#!/bin/bash
+# info: delete web terminal
+# options: NONE
+#
+# example: v-delete-sys-web-terminal
+#
+# This function disables the web terminal.
+
+#----------------------------------------------------------#
+#                Variables & Functions                     #
+#----------------------------------------------------------#
+
+# Includes
+# shellcheck source=/etc/skynetcp/skynet.conf
+source /etc/skynetcp/skynet.conf
+# shellcheck source=/usr/local/skynet/func/main.sh
+source $SKYNET/func/main.sh
+# load config file
+source_conf "$SKYNET/conf/skynet.conf"
+
+#----------------------------------------------------------#
+#                    Verifications                         #
+#----------------------------------------------------------#
+
+if [ -z "$WEB_TERMINAL" ]; then
+	exit
+fi
+
+# Perform verification if read-only mode is enabled
+check_skynet_demo_mode
+
+#----------------------------------------------------------#
+#                       Action                             #
+#----------------------------------------------------------#
+
+# Updating WEB_TERMINAL value
+$BIN/v-change-sys-config-value "WEB_TERMINAL" "false"
+
+# Stopping web terminal websocket server
+$BIN/v-stop-service "skynet-web-terminal"
+systemctl disable skynet-web-terminal
+
+#----------------------------------------------------------#
+#                       Skynet                             #
+#----------------------------------------------------------#
+
+# Logging
+$BIN/v-log-action "system" "Warning" "Web Terminal" "Web terminal disabled."
+log_event "$OK" "$ARGUMENTS"
+
+exit

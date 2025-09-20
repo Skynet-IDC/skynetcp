@@ -1,0 +1,36 @@
+#!/bin/bash
+
+set -e
+
+if [ "$1" != "configure" ]; then
+	exit 0
+fi
+
+# Run triggers below only on updates
+if [ ! -e "/usr/local/skynet/data/users/admin" ]; then
+	exit
+fi
+
+###############################################################
+#                Initialize functions/variables               #
+###############################################################
+
+if [ -z "$SKYNET" ]; then
+	export skynet='/usr/local/skynet'
+	PATH=$PATH:/usr/local/skynet/bin
+	export PATH
+fi
+
+# Load upgrade functions and variables
+source /usr/local/skynet/func/main.sh
+source /usr/local/skynet/func/upgrade.sh
+source /usr/local/skynet/conf/skynet.conf
+source /usr/local/skynet/install/upgrade/upgrade.conf
+
+# Restart skynet-web-terminal service if enabled
+if [ -f "/etc/systemd/system/skynet-web-terminal.service" ]; then
+	systemctl daemon-reload > /dev/null 2>&1
+	if systemctl is-enabled skynet-web-terminal > /dev/null 2>&1; then
+		systemctl restart skynet-web-terminal
+	fi
+fi

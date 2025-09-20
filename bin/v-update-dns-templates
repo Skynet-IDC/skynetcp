@@ -1,0 +1,45 @@
+#!/bin/bash
+# info: update dns templates
+# options: [RESTART]
+#
+# example: v-update-dns-templates
+#
+# This function for obtaining updated dns templates from Skynet package.
+
+#----------------------------------------------------------#
+#                Variables & Functions                     #
+#----------------------------------------------------------#
+
+# Argument definition
+restart=$1
+
+# Includes
+# shellcheck source=/etc/skynetcp/skynet.conf
+source /etc/skynetcp/skynet.conf
+# shellcheck source=/usr/local/skynet/func/main.sh
+source $SKYNET/func/main.sh
+# load config file
+source_conf "$SKYNET/conf/skynet.conf"
+
+# Perform verification if read-only mode is enabled
+check_skynet_demo_mode
+
+#----------------------------------------------------------#
+#                    Verifications                         #
+#----------------------------------------------------------#
+
+is_format_valid 'restart'
+
+#----------------------------------------------------------#
+#                       Action                             #
+#----------------------------------------------------------#
+
+# Update templates
+cp -rf $SKYNET_COMMON_DIR/templates/dns $SKYNET/data/templates/
+
+#----------------------------------------------------------#
+#                       Skynet                             #
+#----------------------------------------------------------#
+
+$BIN/v-log-action "system" "Info" "Updates" "Default DNS zone templates updated."
+exit

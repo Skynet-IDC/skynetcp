@@ -1,0 +1,55 @@
+#!/bin/bash
+# info: update skynet package/configs
+# options: PACKAGE
+#
+# example: v-update-sys-skynet skynet-php
+#
+# This function runs as apt update trigger. It pulls shell script from skynet
+# server and runs it. (skynet, skynet-nginx and skynet-php are valid options)
+
+#----------------------------------------------------------#
+#                Variables & Functions                     #
+#----------------------------------------------------------#
+
+# Argument definition
+package=$1
+
+# Includes
+# shellcheck source=/etc/skynetcp/skynet.conf
+source /etc/skynetcp/skynet.conf
+# shellcheck source=/usr/local/skynet/func/main.sh
+source $SKYNET/func/main.sh
+# load config file
+source_conf "$SKYNET/conf/skynet.conf"
+
+#----------------------------------------------------------#
+#                    Verifications                         #
+#----------------------------------------------------------#
+
+# Checking arg number
+check_args '1' "$#" 'PACKAGE'
+is_skynet_package "skynet skynet-nginx skynet-php" "$package"
+
+# Perform verification if read-only mode is enabled
+check_skynet_demo_mode
+
+#----------------------------------------------------------#
+#                       Action                             #
+#----------------------------------------------------------#
+
+# Update repo
+apt-get update -o Dir::Etc::sourcelist="sources.list.d/skynet.list" \
+	-o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0" -qq
+
+# Update skynet package
+apt-get install $package -qq > /dev/null 2>&1
+check_result $? "$package update failed" "$E_UPDATE"
+
+#----------------------------------------------------------#
+#                       Skynet                             #
+#----------------------------------------------------------#
+
+# Logging
+log_event "$OK" "$ARGUMENTS"
+
+exit

@@ -1,0 +1,43 @@
+#!/bin/bash
+
+set -e
+
+if [ "$1" != "configure" ]; then
+	exit 0
+fi
+
+# Run triggers below only on updates
+if [ ! -e "/usr/local/skynet/data/users/" ]; then
+	exit
+fi
+
+# Check if preinstall hook exists
+if [ -e "/etc/skynetcp/hooks/php/pre_install.sh" ]; then
+	/etc/skynetcp/hooks/php/pre_install.sh
+fi
+
+###############################################################
+#                Initialize functions/variables               #
+###############################################################
+
+if [ -z "$SKYNET" ]; then
+	export skynet='/usr/local/skynet'
+	PATH=$PATH:/usr/local/skynet/bin
+	export PATH
+fi
+
+# Load upgrade functions and variables
+source /usr/local/skynet/func/main.sh
+source /usr/local/skynet/func/upgrade.sh
+source /usr/local/skynet/conf/skynet.conf
+source /usr/local/skynet/install/upgrade/upgrade.conf
+
+# Restart skynet service
+if [ -f "/etc/init.d/skynet" ]; then
+	systemctl restart skynet > /dev/null 2>&1
+fi
+
+# Check if preinstall hook exists
+if [ -e "/etc/skynetcp/hooks/php/post_install.sh" ]; then
+	/etc/skynetcp/hooks/php/post_install.sh
+fi

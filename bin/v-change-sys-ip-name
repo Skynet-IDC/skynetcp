@@ -1,0 +1,54 @@
+#!/bin/bash
+# info: change IP name
+# options: IP NAME
+#
+# example: v-change-sys-ip-name 203.0.113.1 acme.com
+#
+# This function for changing dns domain associated with IP.
+
+#----------------------------------------------------------#
+#                Variables & Functions                     #
+#----------------------------------------------------------#
+
+# Argument definition
+ip="$1"
+ip_name="$2"
+
+# Includes
+# shellcheck source=/etc/skynetcp/skynet.conf
+source /etc/skynetcp/skynet.conf
+# shellcheck source=/usr/local/skynet/func/main.sh
+source $SKYNET/func/main.sh
+# shellcheck source=/usr/local/skynet/func/ip.sh
+source $SKYNET/func/ip.sh
+# load config file
+source_conf "$SKYNET/conf/skynet.conf"
+
+#----------------------------------------------------------#
+#                    Verifications                         #
+#----------------------------------------------------------#
+
+check_args '2' "$#" 'IP IP_NAME'
+is_format_valid 'ip'
+is_format_valid 'ip_name'
+is_ip_valid "$ip"
+
+# Perform verification if read-only mode is enabled
+check_skynet_demo_mode
+
+#----------------------------------------------------------#
+#                       Action                             #
+#----------------------------------------------------------#
+
+# Changing IP name
+update_ip_value '$NAME' "$ip_name"
+
+#----------------------------------------------------------#
+#                       Skynet                             #
+#----------------------------------------------------------#
+
+# Logging
+$BIN/v-log-action "system" "Info" "System" "Changed associated DNS on $ip to $ip_name."
+log_event "$OK" "$ARGUMENTS"
+
+exit

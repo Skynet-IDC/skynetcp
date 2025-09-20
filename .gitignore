@@ -1,25 +1,53 @@
-# CakePHP 3
+# Packages
+*.tar
+*.zip
+*.gzip
+*.gz
+*.bz2
+*.deb
 
-/vendor/*
-/config/app.php
+# Editors
+.vs/
+.nova/
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+nbproject/project.properties
+nbproject/project.xml
 
-/tmp/cache/models/*
-!/tmp/cache/models/empty
-/tmp/cache/persistent/*
-!/tmp/cache/persistent/empty
-/tmp/cache/views/*
-!/tmp/cache/views/empty
-/tmp/sessions/*
-!/tmp/sessions/empty
-/tmp/tests/*
-!/tmp/tests/empty
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
 
-/logs/*
-!/logs/empty
+.env
 
-# CakePHP 2
+# Distribution CSS
+web/css/themes/
 
-/app/tmp/*
-/app/Config/core.php
-/app/Config/database.php
-/vendors/*
+# Distribution JS
+web/js/dist/
+
+# Composer
+composer.phar
+test/vendor/
+# PHPMailer
+web/inc/vendor/
+# Quick install
+web/src/vendor/
+.phpunit.result.cache
+
+# vitepress build output
+**/.vitepress/dist/
+**/.vitepress/cache/
+# Node
+**/node_modules/
+npm-debug.log
+
+# optional eslint cache
+.eslintcache

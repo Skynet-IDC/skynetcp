@@ -1,0 +1,57 @@
+#!/bin/bash
+# info: list mail status
+# options:
+#
+# example: v-list-sys-mail-status
+#
+# This function lists mail server status
+
+#----------------------------------------------------------#
+#                Variables & Functions                     #
+#----------------------------------------------------------#
+
+# Argument definition
+#format=${1-shell}
+
+# Includes
+# shellcheck source=/etc/skynetcp/skynet.conf
+source /etc/skynetcp/skynet.conf
+# shellcheck source=/usr/local/skynet/func/main.sh
+source $SKYNET/func/main.sh
+# shellcheck source=/usr/local/skynet/conf/skynet.conf
+source $SKYNET/conf/skynet.conf
+# load config file
+source_conf "$SKYNET/conf/skynet.conf"
+
+#----------------------------------------------------------#
+#                       Action                             #
+#----------------------------------------------------------#
+
+# Checking mail system
+if [ -z "$MAIL_SYSTEM" ]; then
+	exit
+fi
+
+# Displaying exim queue status
+echo "Exim queue status"
+exim -bp
+echo -en "\n---------------------------------------------"
+echo -en "---------------------------------------------\n\n"
+
+# Displaying exim stats
+if [ -e "/var/log/exim4/mainlog" ]; then
+	eximstats /var/log/exim4/mainlog 2> /dev/null
+else
+	eximstats /var/log/exim/main.log 2> /dev/null
+fi
+
+if [ $? -ne 0 ]; then
+	echo "[Exim4] No valid log lines read"
+	exit 0
+fi
+
+#----------------------------------------------------------#
+#                       Skynet                             #
+#----------------------------------------------------------#
+
+exit 0

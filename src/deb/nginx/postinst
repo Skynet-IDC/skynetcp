@@ -1,0 +1,56 @@
+#!/bin/bash
+
+set -e
+
+if [ "$1" != "configure" ]; then
+	exit 0
+fi
+
+# Touch and set permisions on default log files on installation
+update-rc.d skynet defaults > /dev/null
+invoke-rc.d skynet start || true
+
+# Adapt Port Listing in skynet NGINX Backend
+source /usr/local/skynet/func/syshealth.sh # Load syshealth functions
+syshealth_adapt_skynet_nginx_listen_ports  # Adapt port listing
+syshealth_adapt_nginx_resolver
+
+# Run triggers only on updates
+if [ ! -e "/usr/local/skynet/data/users/" ]; then
+	exit
+fi
+
+###############################################################
+#                Initialize functions/variables               #
+###############################################################
+
+if [ -z "$SKYNET" ]; then
+	export skynet='/usr/local/skynet'
+	PATH=$PATH:/usr/local/skynet/bin
+	export PATH
+fi
+
+# Check if preinstall hook exists
+if [ -e "/etc/skynetcp/hooks/nginx/pre_install.sh" ]; then
+	/etc/skynetcp/hooks/nginx/pre_install.sh
+fi
+
+# Load upgrade functions and variables
+source /usr/local/skynet/func/main.sh
+source /usr/local/skynet/func/upgrade.sh
+source /usr/local/skynet/conf/skynet.conf
+source /usr/local/skynet/install/upgrade/upgrade.conf
+
+# Reset backend port
+if [ -n "$BACKEND_PORT" ]; then
+	/usr/local/skynet/bin/v-change-sys-port $BACKEND_PORT
+fi
+
+if [ -e "/etc/skynetcp/hooks/nginx/post_install.sh" ]; then
+	/etc/skynetcp/hooks/nginx/post_install.sh
+fi
+
+# Restart skynet service
+if [ -f "/etc/init.d/skynet" ]; then
+	systemctl restart skynet > /dev/null 2>&1
+fi

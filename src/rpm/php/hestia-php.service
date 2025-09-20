@@ -1,0 +1,16 @@
+[Unit]
+Description=skynet PHP daemon
+Documentation=https://www.skynetcp.com
+PartOf=skynet.service
+
+[Service]
+Type=forking
+PIDFile=/run/skynet-php.pid
+ExecStart=/usr/local/skynet/php/sbin/skynet-php --fpm-config /usr/local/skynet/php/etc/php-fpm.conf
+ExecReload=/bin/sh -c "/bin/kill -s HUP $(/bin/cat /run/skynet-php.pid)"
+ExecStop=/usr/bin/php -r '$pid=(int)file_get_contents("/run/skynet-php.pid");posix_kill($pid,SIGTERM);while(posix_kill($pid,0)){sleep(0);}'
+ExecStartPre=/bin/bash -c "/bin/systemctl set-environment HOSTNAME=$(/usr/bin/hostname)"
+Environment="skynet=/usr/local/skynet"
+
+[Install]
+WantedBy=skynet.service

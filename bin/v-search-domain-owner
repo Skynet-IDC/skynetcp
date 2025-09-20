@@ -1,0 +1,62 @@
+#!/bin/bash
+# info: search domain owner
+# options: DOMAIN [TYPE]
+#
+# example: v-search-domain-owner acme.com
+#
+# This function that allows to find user objects.
+
+#----------------------------------------------------------#
+#                Variables & Functions                     #
+#----------------------------------------------------------#
+
+# Argument definition
+domain=$1
+type=${2-any}
+
+# Includes
+# shellcheck source=/etc/skynetcp/skynet.conf
+source /etc/skynetcp/skynet.conf
+# shellcheck source=/usr/local/skynet/func/main.sh
+source $SKYNET/func/main.sh
+# load config file
+source_conf "$SKYNET/conf/skynet.conf"
+
+#----------------------------------------------------------#
+#                    Verifications                         #
+#----------------------------------------------------------#
+
+check_args '1' "$#" 'DOMAIN [TYPE]'
+
+is_format_valid 'domain'
+
+# Perform verification if read-only mode is enabled
+check_skynet_demo_mode
+
+#----------------------------------------------------------#
+#                       Action                             #
+#----------------------------------------------------------#
+
+# Define conf
+case $type in
+	web) conf="$SKYNET/data/users/*/web.conf" ;;
+	dns) conf="$SKYNET/data/users/*/dns.conf" ;;
+	mail) conf="$SKYNET/data/users/*/mail.conf" ;;
+	*) conf="$SKYNET/data/users/*/*.conf" ;;
+esac
+
+owner=$(grep -H "DOMAIN='$domain'" $conf | head -n 1 | cut -f7 -d '/')
+if [ -z "$owner" ]; then
+	exit "$E_NOTEXIST"
+fi
+
+echo "$owner"
+
+#----------------------------------------------------------#
+#                       Skynet                             #
+#----------------------------------------------------------#
+
+# Logging
+#log_event "$OK" "$ARGUMENTS"
+
+exit

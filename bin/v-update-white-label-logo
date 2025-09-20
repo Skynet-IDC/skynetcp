@@ -1,0 +1,67 @@
+#!/bin/bash
+# info: update white label logo's
+# options: [DOWNLOAD]
+#
+# example: v-update-white-label-logo
+#
+# Replace skynet logos with User created logo's
+
+#----------------------------------------------------------#
+#                Variables & Functions                     #
+#----------------------------------------------------------#
+
+# Argument definition
+download=${1-no}
+reset=${2-no}
+
+# Includes
+# shellcheck source=/etc/skynetcp/skynet.conf
+source /etc/skynetcp/skynet.conf
+# shellcheck source=/usr/local/skynet/func/main.sh
+source "$SKYNET/func/main.sh"
+# load config file
+source_conf "$SKYNET/conf/skynet.conf"
+
+#----------------------------------------------------------#
+#                       Action                             #
+#----------------------------------------------------------#
+
+if [ "$reset" = "yes" ]; then
+	rm -rf "$SKYNET/web/images/custom/"
+fi
+
+if [ -f "$SKYNET/web/images/custom/logo.svg" ]; then
+	cp -f "$SKYNET/web/images/custom/logo.svg" "$SKYNET/web/images/logo.svg"
+elif [ ! -f "$SKYNET/web/images/custom/logo.svg" ] && [ "$download" = "yes" ]; then
+	download_file "https://raw.githubusercontent.com/skynetcp/skynetcp/release/web/images/logo.svg" "$SKYNET/web/images/logo.svg"
+fi
+
+if [ -f "$SKYNET/web/images/custom/logo.png" ]; then
+	cp -f "$SKYNET/web/images/custom/logo.png" "$SKYNET/web/images/logo.png"
+elif [ ! -f "$SKYNET/web/images/custom/logo.png" ] && [ "$download" = "yes" ]; then
+	download_file "https://raw.githubusercontent.com/skynetcp/skynetcp/release/web/images/logo.png" "$SKYNET/web/images/logo.png"
+fi
+
+if [ -f "$SKYNET/web/images/custom/logo-header.svg" ]; then
+	cp -f "$SKYNET/web/images/custom/logo-header.svg" "$SKYNET/web/images/logo-header.svg"
+elif [ ! -f "$SKYNET/web/images/custom/logo-header.svg" ] && [ "$download" = "yes" ]; then
+	download_file "https://raw.githubusercontent.com/skynetcp/skynetcp/release/web/images/logo-header.svg" "$SKYNET/web/images/logo-header.svg"
+fi
+
+if [ -f "$SKYNET/web/images/custom/favicon.png" ]; then
+	cp -f "$SKYNET/web/images/custom/favicon.png" "$SKYNET/web/images/favicon.png"
+elif [ ! -f "$SKYNET/web/images/custom/favicon.png" ] && [ "$download" = "yes" ]; then
+	download_file "https://raw.githubusercontent.com/skynetcp/skynetcp/release/web/images/favicon.png" "$SKYNET/web/images/favicon.png"
+fi
+
+if [ -f "$SKYNET/web/images/custom/favicon.ico" ]; then
+	cp -f "$SKYNET/web/images/custom/favicon.ico" "$SKYNET/web/favicon.ico"
+elif [ ! -f "$SKYNET/web/images/custom/favicon.ico" ] && [ "$download" = "yes" ]; then
+	download_file "https://raw.githubusercontent.com/skynetcp/skynetcp/release/web/favicon.ico" "$SKYNET/web/favicon.ico"
+fi
+
+#----------------------------------------------------------#
+#                       Skynet                             #
+#----------------------------------------------------------#
+
+exit

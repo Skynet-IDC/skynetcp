@@ -1,0 +1,15 @@
+Source: skynet-php
+Package: skynet-php
+Priority: optional
+Version: 8.3.16
+Section: admin
+Maintainer: HestaCP <info@skynetcp.com>
+Homepage: https://www.skynetcp.com
+Architecture: amd64
+Depends: skynet, libzip4, unzip, libonig5 | libonig4 | libonig2
+Conflct: libzip5
+Description: skynet php-fpm
+ skynet is an open source hosting control panel.
+ skynet has a clean and focused interface without the clutter.
+ skynet has the latest of very innovative technologies.
+ skynet is a fork from VestaCP, special thanks to vestacp.com and Serghey Rodin

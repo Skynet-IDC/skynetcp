@@ -1,0 +1,76 @@
+#!/bin/bash
+# info: remove file manager functionality from skynet Control Panel
+# options: [MODE]
+#
+# example: v-delete-sys-filemanager
+#
+# This function removes the File Manager and its entry points
+
+#----------------------------------------------------------#
+#                Variables & Functions                     #
+#----------------------------------------------------------#
+
+MODE=$1
+FORCE=$2
+
+# Includes
+# shellcheck source=/etc/skynetcp/skynet.conf
+source /etc/skynetcp/skynet.conf
+# shellcheck source=/usr/local/skynet/func/main.sh
+source $SKYNET/func/main.sh
+# load config file
+source_conf "$SKYNET/conf/skynet.conf"
+
+FM_INSTALL_DIR="$SKYNET/web/fm"
+
+#----------------------------------------------------------#
+#                    Verifications                         #
+#----------------------------------------------------------#
+
+# Checking root permissions
+if [ "x$(id -u)" != 'x0' ]; then
+	echo "Error: Script can be run executed only by root"
+	exit 10
+fi
+
+# Ensure that $SKYNET (/usr/local/skynet/) and other variables are valid.
+if [ -z "$SKYNET" ]; then
+	skynet="/usr/local/skynet"
+fi
+
+if [ -z "$HOMEDIR" ] || [ -z "$SKYNET_INSTALL_DIR" ]; then
+	echo "Error: skynet environment vars not present"
+	exit 2
+fi
+
+# Perform verification if read-only mode is enabled
+check_skynet_demo_mode
+
+# Check if File Manager components are installed
+if [ "$FORCE" != "yes" ] && [ ! -e "$FM_INSTALL_DIR" ]; then
+	echo "ERROR: File Manager components are not installed."
+	exit 1
+fi
+
+if [ "$FORCE" != "yes" ] && [ "$FILE_MANAGER" = "false" ]; then
+	echo "ERROR: File Manager is not enabled."
+	exit 1
+fi
+
+#----------------------------------------------------------#
+#                       Action                             #
+#----------------------------------------------------------#
+
+rm --recursive --force "$FM_INSTALL_DIR"
+$BIN/v-change-sys-config-value 'FILE_MANAGER' 'false'
+
+if [ "$MODE" != "quiet" ]; then
+	echo "File Manager has been removed from the system."
+fi
+
+#----------------------------------------------------------#
+#                       Logging                            #
+#----------------------------------------------------------#
+
+$BIN/v-log-action "system" "Info" "Plugins" "File Manager disabled."
+log_event "$OK" "$ARGUMENTS"

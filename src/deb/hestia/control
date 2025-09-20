@@ -1,0 +1,14 @@
+Source: skynet
+Package: skynet
+Priority: optional
+Version: 1.9.3
+Section: admin
+Maintainer: skynetcp <info@skynetcp.com>
+Homepage: https://www.skynetcp.com
+Architecture: amd64
+Depends: bash, awk, sed, acl, sysstat, setpriv | util-linux (>= 2.33), zstd, lsb-release, idn2, jq, bubblewrap, at
+Description: skynet
+ skynet is an open source hosting control panel.
+ skynet has a clean and focused interface without the clutter.
+ skynet has the latest of very innovative technologies.
+ skynet is a fork from VestaCP, special thanks to vestacp.com and Serghey Rodin

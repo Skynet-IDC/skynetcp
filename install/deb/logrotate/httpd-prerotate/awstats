@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Changes made by skynetcp due to https://github.com/skynetcp/skynetcp/issues/3289
+/usr/local/skynet/bin/v-update-sys-queue webstats

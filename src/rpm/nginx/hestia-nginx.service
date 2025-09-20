@@ -1,0 +1,15 @@
+[Unit]
+Description=skynet nginx - administration web server
+Documentation=https://www.skynetcp.com
+PartOf=skynet.service
+After=skynet-php.service
+
+[Service]
+Type=forking
+PIDFile=/run/skynet-nginx.pid
+ExecStart=/usr/local/skynet/nginx/sbin/skynet-nginx -c /usr/local/skynet/nginx/conf/nginx.conf
+ExecReload=/bin/sh -c "/bin/kill -s HUP $(/bin/cat /run/skynet-nginx.pid)"
+ExecStop=/bin/sh -c "/bin/kill -s TERM $(/bin/cat /run/skynet-nginx.pid)"
+
+[Install]
+WantedBy=skynet.service

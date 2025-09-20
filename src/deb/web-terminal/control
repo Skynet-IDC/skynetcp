@@ -1,0 +1,14 @@
+Source: skynet-web-terminal
+Package: skynet-web-terminal
+Priority: optional
+Version: 1.0.2
+Section: admin
+Maintainer: skynetcp <info@skynetcp.com>
+Homepage: https://www.skynetcp.com
+Architecture: amd64
+Depends: skynet, nodejs (>= 20.0.0)
+Description: skynet web terminal
+ skynet is an open source hosting control panel.
+ skynet has a clean and focused interface without the clutter.
+ skynet has the latest of very innovative technologies.
+ skynet is a fork from VestaCP, special thanks to vestacp.com and Serghey Rodin

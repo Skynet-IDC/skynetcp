@@ -1,0 +1,16 @@
+[Unit]
+Description=skynetcp Web Terminal
+Documentation=https://skynetcp.com/docs/
+After=network.target
+
+[Service]
+User=root
+Group=skynet-users
+Environment=NODE_ENV=production
+Environment=skynet=/usr/local/skynet
+ExecStart=/usr/local/skynet/web-terminal/server.js
+ExecStop=/bin/kill -s TERM $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
