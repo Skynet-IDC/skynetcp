@@ -521,6 +521,26 @@ if [ -d /etc/netplan ] && [ -z "$force" ]; then
 	fi
 fi
 
+# Validate whether installation script matches release version before continuing with install
+if [ -z "$withdebs" ] || [ ! -d "$withdebs" ]; then
+	release_branch_ver=$(curl -s https://raw.githubusercontent.com/hestiacp/hestiacp/release/src/deb/hestia/control | grep "Version:" | awk '{print $2}')
+	if [ "$HESTIA_INSTALL_VER" != "$release_branch_ver" ]; then
+		echo
+		echo -e "\e[91mInstallation aborted\e[0m"
+		echo "===================================================================="
+		echo -e "\e[33mERROR: Install script version does not match package version!\e[0m"
+		echo -e "\e[33mPlease download the installer from the release branch in order to continue:\e[0m"
+		echo ""
+		echo -e "\e[33mhttps://raw.githubusercontent.com/hestiacp/hestiacp/release/install/hst-install.sh\e[0m"
+		echo ""
+		echo -e "\e[33mTo test pre-release versions, build the .deb packages and re-run the installer:\e[0m"
+		echo -e "  \e[33m./hst_autocompile.sh \e[1m--hestia branchname no\e[21m\e[0m"
+		echo -e "  \e[33m./hst-install.sh .. \e[1m--with-debs /tmp/hestiacp-src/debs\e[21m\e[0m"
+		echo ""
+		check_result 1 "Installation aborted"
+	fi
+fi
+
 case $architecture in
 	x86_64)
 		ARCH="amd64"
@@ -2411,15 +2431,15 @@ we hope that you enjoy using it as much as we do!
 Please feel free to contact us at any time if you have any questions,
 or if you encounter any bugs or problems:
 
-Documentation:  https://docs.skynetcp.com/
-Forum:          https://forum.skynetcp.com/
-GitHub:         https://www.github.com/Skynet-IDC/skynetcp
+Documentation:  https://docs.hestiacp.com/
+Forum:          https://forum.hestiacp.com/
+GitHub:         https://www.github.com/hestiacp/hestiacp
 
 Note: Automatic updates are enabled by default. If you would like to disable them,
 please log in and navigate to Server > Updates to turn them off.
 
 Help support the Skynet Control Panel project by donating via PayPal:
-https://www.skynetcp.com/donate
+https://www.hestiacp.com/donate
 
 --
 Sincerely yours,
