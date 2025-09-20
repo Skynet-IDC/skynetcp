@@ -27,7 +27,7 @@ release="$(lsb_release -s -r)"
 codename="$(lsb_release -s -c)"
 architecture="$(arch)"
 SKYNET_INSTALL_DIR="$SKYNET/install/deb"
-HESTIA_COMMON_DIR="$SKYNET/install/common"
+SKYNET_COMMON_DIR="$SKYNET/install/common"
 VERBOSE='no'
 
 # Define software versions
