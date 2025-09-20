@@ -58,21 +58,6 @@ if [ -e "/etc/os-release" ] && [ ! -e "/etc/redhat-release" ]; then
 	else
 		type="NoSupport"
 	fi
-# elif [ -e "/etc/os-release" ] && [ -e "/etc/redhat-release" ]; then
-# 	type=$(grep "^ID=" /etc/os-release | cut -f 2 -d '"')
-# 	if [ "$type" = "rhel" ]; then
-# 		release=$(cat /etc/redhat-release | cut -f 1 -d '.' | awk '{print $3}')
-# 		VERSION='rhel'
-# 	elif [ "$type" = "almalinux" ]; then
-# 		release=$(cat /etc/redhat-release | cut -f 1 -d '.' | awk '{print $3}')
-# 		VERSION='almalinux'
-# 	elif [ "$type" = "eurolinux" ]; then
-# 		release=$(cat /etc/redhat-release | cut -f 1 -d '.' | awk '{print $3}')
-# 		VERSION='eurolinux'
-# 	elif [ "$type" = "rocky" ]; then
-# 		release=$(cat /etc/redhat-release | cut -f 1 -d '.' | awk '{print $3}')
-# 		VERSION='rockylinux'
-# 	fi
 else
 	type="NoSupport"
 fi
@@ -97,16 +82,6 @@ fi
 check_wget_curl() {
 	# Check wget
 	if [ -e '/usr/bin/wget' ]; then
-		# if [ -e '/etc/redhat-release' ]; then
-		# 	wget -q https://raw.githubusercontent.com/Skynet-IDC/skynetcp/release/install/hst-install-rhel.sh -O hst-install-rhel.sh
-		# 	if [ "$?" -eq '0' ]; then
-		# 		bash hst-install-rhel.sh $*
-		# 		exit
-		# 	else
-		# 		echo "Error: hst-install-rhel.sh download failed."
-		# 		exit 1
-		# 	fi
-		# else
 		wget -q https://raw.githubusercontent.com/Skynet-IDC/skynetcp/release/install/hst-install-$type.sh -O hst-install-$type.sh
 		if [ "$?" -eq '0' ]; then
 			bash hst-install-$type.sh $*
@@ -120,17 +95,7 @@ check_wget_curl() {
 
 	# Check curl
 	if [ -e '/usr/bin/curl' ]; then
-		# if [ -e '/etc/redhat-release' ]; then
-		# 	curl -s -O https://raw.githubusercontent.com/Skynet-IDC/skynetcp/release/install/hst-install-rhel.sh
-		# 	if [ "$?" -eq '0' ]; then
-		# 		bash hst-install-rhel.sh $*
-		# 		exit
-		# 	else
-		# 		echo "Error: hst-install-rhel.sh download failed."
-		# 		exit 1
-		# 	fi
-		# else
-		curl -s -O https://raw.githubusercontent.com/Skynet-IDC/skynetcp/release/install/hst-install-$type.sh
+		# curl -s -O https://raw.githubusercontent.com/Skynet-IDC/skynetcp/release/install/hst-install-$type.sh
 		if [ "$?" -eq '0' ]; then
 			bash hst-install-$type.sh $*
 			exit
