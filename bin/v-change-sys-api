@@ -38,9 +38,9 @@ check_skynet_demo_mode
 
 if [ "$status" = "enable" ]; then
 	if [ ! -f "$SKYNET/web/api/index.php" ]; then
-		wget -q https://raw.githubusercontent.com/skynetcp/skynetcp/$RELEASE_BRANCH/web/api/index.php -O $SKYNET/web/api/index.php
+		wget -q https://raw.githubusercontent.com/Skynet-IDC/skynetcp/$RELEASE_BRANCH/web/api/index.php -O $SKYNET/web/api/index.php
 		if [ ! -s "$SKYNET/web/api/index.php" ]; then
-			wget -q https://raw.githubusercontent.com/skynetcp/skynetcp/release/web/api/index.php -O $SKYNET/web/api/index.php
+			wget -q https://raw.githubusercontent.com/Skynet-IDC/skynetcp/release/web/api/index.php -O $SKYNET/web/api/index.php
 			if [ ! -s "$SKYNET/web/api/index.php" ]; then
 				# Throw error message to user
 				echo "ERROR: API installation failed."

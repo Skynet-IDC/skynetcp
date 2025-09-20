@@ -9,7 +9,7 @@
 				</p>
 				<CopyToClipboardInput
 					class="u-mb10"
-					value="wget https://raw.githubusercontent.com/skynetcp/skynetcp/release/install/hst-install.sh"
+					value="wget https://raw.githubusercontent.com/Skynet-IDC/skynetcp/release/install/hst-install.sh"
 				/>
 				<p class="u-mb10">
 					Check you are running as the <code>root</code> user, configure the options you want below,

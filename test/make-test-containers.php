@@ -259,7 +259,7 @@ function getskynetVersion($branch) {
 		$control_file = file_get_contents(SHARED_HOST_FOLDER . "/skynetcp/src/deb/skynet/control");
 	} else {
 		$control_file = file_get_contents(
-			"https://raw.githubusercontent.com/skynetcp/skynetcp/${branch}/src/deb/skynet/control",
+			"https://raw.githubusercontent.com/Skynet-IDC/skynetcp/${branch}/src/deb/skynet/control",
 		);
 	}
 

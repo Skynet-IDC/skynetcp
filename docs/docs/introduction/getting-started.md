@@ -43,7 +43,7 @@ Interactive installer that will install the default skynet software configuratio
 Download the installation script for the latest release:
 
 ```bash
-wget https://raw.githubusercontent.com/skynetcp/skynetcp/release/install/hst-install.sh
+wget https://raw.githubusercontent.com/Skynet-IDC/skynetcp/release/install/hst-install.sh
 ```
 
 If the download fails due to an SSL validation error, please be sure you've installed the ca-certificate package on your system - you can do this with the following command:

@@ -4,7 +4,7 @@ branch=${1-main}
 
 apt -y install curl wget
 
-curl https://raw.githubusercontent.com/skynetcp/skynetcp/$branch/src/hst_autocompile.sh > /tmp/hst_autocompile.sh
+curl https://raw.githubusercontent.com/Skynet-IDC/skynetcp/$branch/src/hst_autocompile.sh > /tmp/hst_autocompile.sh
 chmod +x /tmp/hst_autocompile.sh
 
 mkdir -p /opt/skynetcp
