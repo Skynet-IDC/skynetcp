@@ -3,7 +3,7 @@
 # ======================================================== #
 #
 # Skynet Control Panel Installer for Ubuntu
-# https://www.hestiacp.com/
+# https://www.skynetcp.com/
 #
 # Currently Supported Versions:
 # Ubuntu 22.04, 24.04 LTS
@@ -46,7 +46,7 @@ node_v="20"
 # Defining software pack for all distros
 software="acl apache2 apache2.2-common apache2-suexec-custom apache2-utils apparmor-utils at awstats bc bind9 bsdmainutils bsdutils
   clamav-daemon cron curl dnsutils dovecot-imapd dovecot-managesieved dovecot-pop3d dovecot-sieve e2fslibs e2fsprogs
-  exim4 exim4-daemon-heavy expect fail2ban flex ftp git hestia=${SKYNET_INSTALL_VER} hestia-nginx hestia-php hestia-web-terminal
+  exim4 exim4-daemon-heavy expect fail2ban flex ftp git skynet=${SKYNET_INSTALL_VER} skynet-nginx skynet-php skynet-web-terminal
   idn2 imagemagick ipset jq libapache2-mod-fcgid libapache2-mod-php$fpm_v libapache2-mod-rpaf libonig5 libzip4 lsb-release
   lsof mariadb-client mariadb-common mariadb-server mc mysql-client mysql-common mysql-server nginx nodejs openssh-server
   php$fpm_v php$fpm_v-apcu php$fpm_v-bz2 php$fpm_v-cgi php$fpm_v-cli php$fpm_v-common php$fpm_v-curl php$fpm_v-gd
@@ -87,11 +87,11 @@ help() {
   -e, --email             Set admin email
   -u, --username          Set admin user
   -p, --password          Set admin password
-  -D, --with-debs         Path to Hestia debs
+  -D, --with-debs         Path to Skynet debs
   -f, --force             Force installation
   -h, --help              Print this help
 
-  Example: bash $0 -e demo@hestiacp.com -p p4ssw0rd --multiphp yes"
+  Example: bash $0 -e demo@skynetcp.com -p p4ssw0rd --multiphp yes"
 	exit 1
 }
 
@@ -163,25 +163,25 @@ set_default_port() {
 	fi
 }
 
-# Write configuration KEY/VALUE pair to $SKYNET/conf/hestia.conf
+# Write configuration KEY/VALUE pair to $SKYNET/conf/skynet.conf
 write_config_value() {
 	local key="$1"
 	local value="$2"
-	echo "$key='$value'" >> $SKYNET/conf/hestia.conf
+	echo "$key='$value'" >> $SKYNET/conf/skynet.conf
 }
 
 # Sort configuration file values
-# Write final copy to $SKYNET/conf/hestia.conf for active usage
-# Duplicate file to $SKYNET/conf/defaults/hestia.conf to restore known good installation values
+# Write final copy to $SKYNET/conf/skynet.conf for active usage
+# Duplicate file to $SKYNET/conf/defaults/skynet.conf to restore known good installation values
 sort_config_file() {
-	sort $SKYNET/conf/hestia.conf -o /tmp/updconf
-	mv $SKYNET/conf/hestia.conf $SKYNET/conf/hestia.conf.bak
-	mv /tmp/updconf $SKYNET/conf/hestia.conf
-	rm -f $SKYNET/conf/hestia.conf.bak
+	sort $SKYNET/conf/skynet.conf -o /tmp/updconf
+	mv $SKYNET/conf/skynet.conf $SKYNET/conf/skynet.conf.bak
+	mv /tmp/updconf $SKYNET/conf/skynet.conf
+	rm -f $SKYNET/conf/skynet.conf.bak
 	if [ ! -d "$SKYNET/conf/defaults/" ]; then
 		mkdir -p "$SKYNET/conf/defaults/"
 	fi
-	cp $SKYNET/conf/hestia.conf $SKYNET/conf/defaults/hestia.conf
+	cp $SKYNET/conf/skynet.conf $SKYNET/conf/defaults/skynet.conf
 }
 
 # todo add check for usernames that are blocked
@@ -313,7 +313,7 @@ while getopts "a:w:v:j:k:m:M:g:d:x:z:Z:c:t:i:b:r:o:q:L:l:y:s:u:e:p:W:D:fh" Optio
 		e) email=$OPTARG ;;         # Admin email
 		u) username=$OPTARG ;;      # Admin username
 		p) vpass=$OPTARG ;;         # Admin password
-		D) withdebs=$OPTARG ;;      # Hestia debs path
+		D) withdebs=$OPTARG ;;      # Skynet debs path
 		f) force='yes' ;;           # Force install
 		h) help ;;                  # Help
 		*) help ;;                  # Print help (default)
@@ -418,8 +418,8 @@ if [ "x$(id -u)" != 'x0' ]; then
 	check_result 1 "Script can be run executed only by root"
 fi
 
-if [ -d "/usr/local/hestia" ]; then
-	check_result 1 "Hestia install detected. Unable to continue"
+if [ -d "/usr/local/skynet" ]; then
+	check_result 1 "Skynet install detected. Unable to continue"
 fi
 
 type=$(grep "^ID=" /etc/os-release | cut -f 2 -d '=')
@@ -456,12 +456,12 @@ check_result $? "Package installation failed, check log file for more details."
 
 # Check repository availability
 wget --quiet "https://$RHOST" -O /dev/null
-check_result $? "Unable to connect to the Hestia APT repository"
+check_result $? "Unable to connect to the Skynet APT repository"
 
 # Check installed packages
 tmpfile=$(mktemp -p /tmp)
 dpkg --get-selections > $tmpfile
-conflicts_pkg="exim4 mariadb-server apache2 nginx hestia postfix ufw"
+conflicts_pkg="exim4 mariadb-server apache2 nginx skynet postfix ufw"
 
 # Drop postfix from the list if exim should not be installed
 if [ "$exim" = 'no' ]; then
@@ -536,7 +536,7 @@ case $architecture in
 		echo -e "\e[33mERROR: $architecture is currently not supported!\e[0m"
 		echo -e "\e[33mPlease verify the achitecture used is currenlty supported\e[0m"
 		echo ""
-		echo -e "\e[33mhttps://github.com/hestiacp/hestiacp/blob/main/README.md\e[0m"
+		echo -e "\e[33mhttps://github.com/Skynet-IDC/skynetcp/blob/main/README.md\e[0m"
 		echo ""
 		check_result 1 "Installation aborted"
 		;;
@@ -545,27 +545,33 @@ esac
 #----------------------------------------------------------#
 #                       Brief Info                         #
 #----------------------------------------------------------#
-
+███████╗██╗  ██╗██╗   ██╗███╗   ██╗███████╗████████╗ ██████╗██████╗
+██╔════╝██║ ██╔╝╚██╗ ██╔╝████╗  ██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗
+███████╗█████╔╝  ╚████╔╝ ██╔██╗ ██║█████╗     ██║   ██║     ██████╔╝
+╚════██║██╔═██╗   ╚██╔╝  ██║╚██╗██║██╔══╝     ██║   ██║     ██╔═══╝
+███████║██║  ██╗   ██║   ██║ ╚████║███████╗   ██║   ╚██████╗██║
+╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═══╝╚══════╝   ╚═╝    ╚═════╝╚═╝
 install_welcome_message() {
 	DISPLAY_VER=$(echo $SKYNET_INSTALL_VER | sed "s|~alpha||g" | sed "s|~beta||g")
 	echo
-	echo '                _   _           _   _        ____ ____                  '
-	echo '               | | | | ___  ___| |_(_) __ _ / ___|  _ \                 '
-	echo '               | |_| |/ _ \/ __| __| |/ _` | |   | |_) |                '
-	echo '               |  _  |  __/\__ \ |_| | (_| | |___|  __/                 '
-	echo '               |_| |_|\___||___/\__|_|\__,_|\____|_|                    '
-	echo "                                                                        "
-	echo "                          Skynet Control Panel                          "
+	echo '          ███████╗██╗  ██╗██╗   ██╗███╗   ██╗███████╗████████╗ ██████╗██████╗          '
+	echo '          ██╔════╝██║ ██╔╝╚██╗ ██╔╝████╗  ██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗         '
+	echo '          ███████╗█████╔╝  ╚████╔╝ ██╔██╗ ██║█████╗     ██║   ██║     ██████╔╝         '
+	echo '          ╚════██║██╔═██╗   ╚██╔╝  ██║╚██╗██║██╔══╝     ██║   ██║     ██╔═══╝          '
+	echo '          ███████║██║  ██╗   ██║   ██║ ╚████║███████╗   ██║   ╚██████╗██║              '
+	echo '          ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═══╝╚══════╝   ╚═╝    ╚═════╝╚═╝              '
+	echo "                                                                                       "
+	echo "                                   Skynet Control Panel                                "
 	if [[ "$SKYNET_INSTALL_VER" =~ "beta" ]]; then
-		echo "                              BETA RELEASE                          "
+		echo "                                    BETA RELEASE                                     "
 	fi
 	if [[ "$SKYNET_INSTALL_VER" =~ "alpha" ]]; then
-		echo "                          DEVELOPMENT SNAPSHOT                      "
-		echo "                    NOT INTENDED FOR PRODUCTION USE                 "
-		echo "                          USE AT YOUR OWN RISK                      "
+	echo "                                 DEVELOPMENT SNAPSHOT                                  "
+	echo "                            NOT INTENDED FOR PRODUCTION USE                            "
+	echo "                                 USE AT YOUR OWN RISK                                  "
 	fi
-	echo "                                  ${DISPLAY_VER}                        "
-	echo "                            www.hestiacp.com                            "
+	echo "                                      ${DISPLAY_VER}                                   "
+	echo "                                    www.skynetcp.com                                   "
 	echo
 	echo "========================================================================"
 	echo
@@ -819,10 +825,10 @@ if [ "$mysql" = 'yes' ]; then
 	curl -s https://mariadb.org/mariadb_release_signing_key.asc | gpg --dearmor | tee /usr/share/keyrings/mariadb-keyring.gpg > /dev/null 2>&1
 fi
 
-# Installing HestiaCP repo
+# Installing SkynetCP repo
 echo "[ * ] Skynet Control Panel"
-echo "deb [arch=$ARCH signed-by=/usr/share/keyrings/hestia-keyring.gpg] https://$RHOST/ $codename main" > $apt/hestia.list
-gpg --no-default-keyring --keyring /usr/share/keyrings/hestia-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A189E93654F0B0E5 > /dev/null 2>&1
+echo "deb [arch=$ARCH signed-by=/usr/share/keyrings/skynet-keyring.gpg] https://$RHOST/ $codename main" > $apt/skynet.list
+gpg --no-default-keyring --keyring /usr/share/keyrings/skynet-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A189E93654F0B0E5 > /dev/null 2>&1
 
 # Installing Node.js repo
 if [ "$webterminal" = 'yes' ]; then
@@ -870,7 +876,7 @@ check_result $? 'apt-get upgrade failed'
 mkdir -p $hst_backups
 cd $hst_backups
 mkdir nginx apache2 php vsftpd proftpd bind exim4 dovecot clamd
-mkdir spamassassin mysql postgresql openssl hestia
+mkdir spamassassin mysql postgresql openssl skynet
 
 # Backup OpenSSL configuration
 cp /etc/ssl/openssl.cnf $hst_backups/openssl > /dev/null 2>&1
@@ -924,10 +930,10 @@ mv /var/lib/mysql $hst_backups/mysql/mysql_datadir > /dev/null 2>&1
 cp -r /etc/mysql/* $hst_backups/mysql > /dev/null 2>&1
 mv -f /root/.my.cnf $hst_backups/mysql > /dev/null 2>&1
 
-# Backup Hestia
-systemctl stop hestia > /dev/null 2>&1
-cp -r $SKYNET/* $hst_backups/hestia > /dev/null 2>&1
-apt-get -y purge hestia hestia-nginx hestia-php > /dev/null 2>&1
+# Backup Skynet
+systemctl stop skynet > /dev/null 2>&1
+cp -r $SKYNET/* $hst_backups/skynet > /dev/null 2>&1
+apt-get -y purge skynet skynet-nginx skynet-php > /dev/null 2>&1
 rm -rf $SKYNET > /dev/null 2>&1
 
 #----------------------------------------------------------#
@@ -1028,7 +1034,7 @@ if [ "$iptables" = 'no' ]; then
 fi
 if [ "$webterminal" = 'no' ]; then
 	software=$(echo "$software" | sed -e "s/nodejs//")
-	software=$(echo "$software" | sed -e "s/hestia-web-terminal//")
+	software=$(echo "$software" | sed -e "s/skynet-web-terminal//")
 fi
 if [ "$phpfpm" = 'yes' ]; then
 	software=$(echo "$software" | sed -e "s/php$fpm_v-cgi//")
@@ -1036,10 +1042,10 @@ if [ "$phpfpm" = 'yes' ]; then
 	software=$(echo "$software" | sed -e "s/libapache2-mod-php$fpm_v//")
 fi
 if [ -d "$withdebs" ]; then
-	software=$(echo "$software" | sed -e "s/hestia-nginx//")
-	software=$(echo "$software" | sed -e "s/hestia-php//")
-	software=$(echo "$software" | sed -e "s/hestia-web-terminal//")
-	software=$(echo "$software" | sed -e "s/hestia=${SKYNET_INSTALL_VER}//")
+	software=$(echo "$software" | sed -e "s/skynet-nginx//")
+	software=$(echo "$software" | sed -e "s/skynet-php//")
+	software=$(echo "$software" | sed -e "s/skynet-web-terminal//")
+	software=$(echo "$software" | sed -e "s/skynet=${SKYNET_INSTALL_VER}//")
 fi
 
 if [ "$release" = '24.04' ]; then
@@ -1099,35 +1105,35 @@ echo
 echo "========================================================================"
 echo
 
-# Install Hestia packages from local folder
+# Install Skynet packages from local folder
 if [ -n "$withdebs" ] && [ -d "$withdebs" ]; then
 	echo "[ * ] Installing local package files..."
-	echo "    - hestia core package"
-	dpkg -i $withdebs/hestia_*.deb > /dev/null 2>&1
+	echo "    - skynet core package"
+	dpkg -i $withdebs/skynet_*.deb > /dev/null 2>&1
 
-	if [ -z $(ls $withdebs/hestia-php_*.deb 2> /dev/null) ]; then
-		echo "    - hestia-php backend package (from apt)"
-		apt-get -y install hestia-php > /dev/null 2>&1
+	if [ -z $(ls $withdebs/skynet-php_*.deb 2> /dev/null) ]; then
+		echo "    - skynet-php backend package (from apt)"
+		apt-get -y install skynet-php > /dev/null 2>&1
 	else
-		echo "    - hestia-php backend package"
-		dpkg -i $withdebs/hestia-php_*.deb > /dev/null 2>&1
+		echo "    - skynet-php backend package"
+		dpkg -i $withdebs/skynet-php_*.deb > /dev/null 2>&1
 	fi
 
-	if [ -z $(ls $withdebs/hestia-nginx_*.deb 2> /dev/null) ]; then
-		echo "    - hestia-nginx backend package (from apt)"
-		apt-get -y install hestia-nginx > /dev/null 2>&1
+	if [ -z $(ls $withdebs/skynet-nginx_*.deb 2> /dev/null) ]; then
+		echo "    - skynet-nginx backend package (from apt)"
+		apt-get -y install skynet-nginx > /dev/null 2>&1
 	else
-		echo "    - hestia-nginx backend package"
-		dpkg -i $withdebs/hestia-nginx_*.deb > /dev/null 2>&1
+		echo "    - skynet-nginx backend package"
+		dpkg -i $withdebs/skynet-nginx_*.deb > /dev/null 2>&1
 	fi
 
 	if [ "$webterminal" = "yes" ]; then
-		if [ -z $(ls $withdebs/hestia-web-terminal_*.deb 2> /dev/null) ]; then
-			echo "    - hestia-web-terminal package (from apt)"
-			apt-get -y install hestia-web-terminal > /dev/null 2>&1
+		if [ -z $(ls $withdebs/skynet-web-terminal_*.deb 2> /dev/null) ]; then
+			echo "    - skynet-web-terminal package (from apt)"
+			apt-get -y install skynet-web-terminal > /dev/null 2>&1
 		else
-			echo "    - hestia-web-terminal"
-			dpkg -i $withdebs/hestia-web-terminal_*.deb > /dev/null 2>&1
+			echo "    - skynet-web-terminal"
+			dpkg -i $withdebs/skynet-web-terminal_*.deb > /dev/null 2>&1
 		fi
 	fi
 fi
@@ -1143,20 +1149,20 @@ echo "[ * ] Configuring system settings..."
 
 # Generate a random password
 random_password=$(gen_pass '32')
-# Create the new hestiaweb user
-/usr/sbin/useradd "hestiaweb" -c "$email" --no-create-home
-# do not allow login into hestiaweb user
-echo hestiaweb:$random_password | sudo chpasswd -e
+# Create the new skynetweb user
+/usr/sbin/useradd "skynetweb" -c "$email" --no-create-home
+# do not allow login into skynetweb user
+echo skynetweb:$random_password | sudo chpasswd -e
 
-# Add a general group for normal users created by Hestia
-if [ -z "$(grep ^hestia-users: /etc/group)" ]; then
-	groupadd --system "hestia-users"
+# Add a general group for normal users created by Skynet
+if [ -z "$(grep ^skynet-users: /etc/group)" ]; then
+	groupadd --system "skynet-users"
 fi
 
 # Create user for php-fpm configs
-/usr/sbin/useradd "hestiamail" -c "$email" --no-create-home
-# Ensures proper permissions for Hestia service interactions.
-/usr/sbin/adduser hestiamail hestia-users
+/usr/sbin/useradd "skynetmail" -c "$email" --no-create-home
+# Ensures proper permissions for Skynet service interactions.
+/usr/sbin/adduser skynetmail skynet-users
 
 # Enable SFTP subsystem for SSH
 sftp_subsys_enabled=$(grep -iE "^#?.*subsystem.+(sftp )?sftp-server" /etc/ssh/sshd_config)
@@ -1246,41 +1252,41 @@ mount -o remount,defaults,hidepid=2 /proc > /dev/null 2>&1
 if [ $? -ne 0 ]; then
 	echo "Info: Cannot remount /proc (LXC containers require additional perm added to host apparmor profile)"
 else
-	echo "@reboot root sleep 5 && mount -o remount,defaults,hidepid=2 /proc" > /etc/cron.d/hestia-proc
+	echo "@reboot root sleep 5 && mount -o remount,defaults,hidepid=2 /proc" > /etc/cron.d/skynet-proc
 fi
 
 #----------------------------------------------------------#
-#                     Configure Hestia                     #
+#                     Configure Skynet                     #
 #----------------------------------------------------------#
 
 echo "[ * ] Configuring Skynet Control Panel..."
 # Installing sudo configuration
 mkdir -p /etc/sudoers.d
-cp -f $SKYNET_COMMON_DIR/sudo/hestiaweb /etc/sudoers.d/
-chmod 440 /etc/sudoers.d/hestiaweb
+cp -f $SKYNET_COMMON_DIR/sudo/skynetweb /etc/sudoers.d/
+chmod 440 /etc/sudoers.d/skynetweb
 
-# Add Hestia global config
-if [[ ! -e /etc/hestiacp/hestia.conf ]]; then
-	mkdir -p /etc/hestiacp
-	echo -e "# Do not edit this file, will get overwritten on next upgrade, use /etc/hestiacp/local.conf instead\n\nexport HESTIA='/usr/local/hestia'\n\n[[ -f /etc/hestiacp/local.conf ]] && source /etc/hestiacp/local.conf" > /etc/hestiacp/hestia.conf
+# Add Skynet global config
+if [[ ! -e /etc/skynetcp/skynet.conf ]]; then
+	mkdir -p /etc/skynetcp
+	echo -e "# Do not edit this file, will get overwritten on next upgrade, use /etc/skynetcp/local.conf instead\n\nexport SKYNET='/usr/local/skynet'\n\n[[ -f /etc/skynetcp/local.conf ]] && source /etc/skynetcp/local.conf" > /etc/skynetcp/skynet.conf
 fi
 
 # Configuring system env
-echo "export HESTIA='$SKYNET'" > /etc/profile.d/hestia.sh
-echo 'PATH=$PATH:'$SKYNET'/bin' >> /etc/profile.d/hestia.sh
-echo 'export PATH' >> /etc/profile.d/hestia.sh
-chmod 755 /etc/profile.d/hestia.sh
-source /etc/profile.d/hestia.sh
+echo "export SKYNET='$SKYNET'" > /etc/profile.d/skynet.sh
+echo 'PATH=$PATH:'$SKYNET'/bin' >> /etc/profile.d/skynet.sh
+echo 'export PATH' >> /etc/profile.d/skynet.sh
+chmod 755 /etc/profile.d/skynet.sh
+source /etc/profile.d/skynet.sh
 
-# Configuring logrotate for Hestia logs
-cp -f $SKYNET_INSTALL_DIR/logrotate/hestia /etc/logrotate.d/hestia
+# Configuring logrotate for Skynet logs
+cp -f $SKYNET_INSTALL_DIR/logrotate/skynet /etc/logrotate.d/skynet
 
 # Create log path and symbolic link
-rm -f /var/log/hestia
-mkdir -p /var/log/hestia
-ln -s /var/log/hestia $SKYNET/log
+rm -f /var/log/skynet
+mkdir -p /var/log/skynet
+ln -s /var/log/skynet $SKYNET/log
 
-# Building directory tree and creating some blank files for Hestia
+# Building directory tree and creating some blank files for Skynet
 mkdir -p $SKYNET/conf $SKYNET/ssl $SKYNET/data/ips \
 	$SKYNET/data/queue $SKYNET/data/users $SKYNET/data/firewall \
 	$SKYNET/data/sessions
@@ -1290,15 +1296,15 @@ touch $SKYNET/data/queue/backup.pipe $SKYNET/data/queue/disk.pipe \
 	$SKYNET/log/nginx-error.log $SKYNET/log/auth.log $SKYNET/log/backup.log
 chmod 750 $SKYNET/conf $SKYNET/data/users $SKYNET/data/ips $SKYNET/log
 chmod -R 750 $SKYNET/data/queue
-chmod 660 /var/log/hestia/*
+chmod 660 /var/log/skynet/*
 chmod 770 $SKYNET/data/sessions
 
-# Generating Hestia configuration
-rm -f $SKYNET/conf/hestia.conf > /dev/null 2>&1
-touch $SKYNET/conf/hestia.conf
-chmod 660 $SKYNET/conf/hestia.conf
+# Generating Skynet configuration
+rm -f $SKYNET/conf/skynet.conf > /dev/null 2>&1
+touch $SKYNET/conf/skynet.conf
+chmod 660 $SKYNET/conf/skynet.conf
 
-# Write default port value to hestia.conf
+# Write default port value to skynet.conf
 # If a custom port is specified it will be set at the end of the installation process
 write_config_value "BACKEND_PORT" "8083"
 
@@ -1481,15 +1487,15 @@ $SKYNET/bin/v-change-sys-hostname $servername > /dev/null 2>&1
 echo "[ * ] Configuring OpenSSL to improve TLS performance..."
 tls13_ciphers="TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384"
 if [ "$release" = "22.04" ]; then
-	sed -i '/^system_default = system_default_sect$/a system_default = hestia_openssl_sect\n\n[hestia_openssl_sect]\nCiphersuites = '"$tls13_ciphers"'\nOptions = PrioritizeChaCha' /etc/ssl/openssl.cnf
+	sed -i '/^system_default = system_default_sect$/a system_default = skynet_openssl_sect\n\n[skynet_openssl_sect]\nCiphersuites = '"$tls13_ciphers"'\nOptions = PrioritizeChaCha' /etc/ssl/openssl.cnf
 elif [ "$release" = "24.04" ]; then
 	if ! grep -qw "^ssl_conf = ssl_sect$" /etc/ssl/openssl.cnf 2> /dev/null; then
 		sed -i '/providers = provider_sect$/a ssl_conf = ssl_sect' /etc/ssl/openssl.cnf
 	fi
 	if ! grep -qw "^[ssl_sect]$" /etc/ssl/openssl.cnf 2> /dev/null; then
-		sed -i '$a \\n[ssl_sect]\nsystem_default = hestia_openssl_sect\n\n[hestia_openssl_sect]\nCiphersuites = '"$tls13_ciphers"'\nOptions = PrioritizeChaCha' /etc/ssl/openssl.cnf
+		sed -i '$a \\n[ssl_sect]\nsystem_default = skynet_openssl_sect\n\n[skynet_openssl_sect]\nCiphersuites = '"$tls13_ciphers"'\nOptions = PrioritizeChaCha' /etc/ssl/openssl.cnf
 	elif grep -qw "^system_default = system_default_sect$" /etc/ssl/openssl.cnf 2> /dev/null; then
-		sed -i '/^system_default = system_default_sect$/a system_default = hestia_openssl_sect\n\n[hestia_openssl_sect]\nCiphersuites = '"$tls13_ciphers"'\nOptions = PrioritizeChaCha' /etc/ssl/openssl.cnf
+		sed -i '/^system_default = system_default_sect$/a system_default = skynet_openssl_sect\n\n[skynet_openssl_sect]\nCiphersuites = '"$tls13_ciphers"'\nOptions = PrioritizeChaCha' /etc/ssl/openssl.cnf
 	fi
 fi
 
@@ -1525,7 +1531,7 @@ echo "[ * ] Enabling SSH jail..."
 $SKYNET/bin/v-add-sys-ssh-jail > /dev/null 2>&1
 check_result $? "can't enable ssh jail"
 
-# Adding Hestia admin account
+# Adding Skynet admin account
 echo "[ * ] Creating default admin account..."
 $SKYNET/bin/v-add-user $username $vpass $email "default" "System Administrator"
 check_result $? "can't create admin user"
@@ -1606,8 +1612,8 @@ if [ "$apache" = 'yes' ]; then
 
 	# Copy configuration files
 	cp -f $SKYNET_INSTALL_DIR/apache2/apache2.conf /etc/apache2/
-	cp -f $SKYNET_INSTALL_DIR/apache2/status.conf /etc/apache2/mods-available/hestia-status.conf
-	cp -f /etc/apache2/mods-available/status.load /etc/apache2/mods-available/hestia-status.load
+	cp -f $SKYNET_INSTALL_DIR/apache2/status.conf /etc/apache2/mods-available/skynet-status.conf
+	cp -f /etc/apache2/mods-available/status.load /etc/apache2/mods-available/skynet-status.load
 	cp -f $SKYNET_INSTALL_DIR/logrotate/apache2 /etc/logrotate.d/
 
 	# Enable needed modules
@@ -1617,7 +1623,7 @@ if [ "$apache" = 'yes' ]; then
 	a2enmod actions > /dev/null 2>&1
 	a2enmod headers > /dev/null 2>&1
 	a2dismod --quiet status > /dev/null 2>&1
-	a2enmod --quiet hestia-status > /dev/null 2>&1
+	a2enmod --quiet skynet-status > /dev/null 2>&1
 
 	# Enable mod_ruid/mpm_itk or mpm_event
 	if [ "$phpfpm" = 'yes' ]; then
@@ -1625,14 +1631,14 @@ if [ "$apache" = 'yes' ]; then
 		a2dismod php$fpm_v > /dev/null 2>&1
 		a2dismod mpm_prefork > /dev/null 2>&1
 		a2enmod mpm_event > /dev/null 2>&1
-		cp -f $SKYNET_INSTALL_DIR/apache2/hestia-event.conf /etc/apache2/conf.d/
+		cp -f $SKYNET_INSTALL_DIR/apache2/skynet-event.conf /etc/apache2/conf.d/
 	else
 		a2enmod ruid2 > /dev/null 2>&1
 	fi
 
-	echo "# Powered by hestia" > /etc/apache2/sites-available/default
-	echo "# Powered by hestia" > /etc/apache2/sites-available/default-ssl
-	echo "# Powered by hestia" > /etc/apache2/ports.conf
+	echo "# Powered by skynet" > /etc/apache2/sites-available/default
+	echo "# Powered by skynet" > /etc/apache2/sites-available/default-ssl
+	echo "# Powered by skynet" > /etc/apache2/ports.conf
 	echo -e "/home\npublic_html/cgi-bin" > /etc/apache2/suexec/www-data
 	touch /var/log/apache2/access.log /var/log/apache2/error.log
 	mkdir -p /var/log/apache2/domains
@@ -1641,7 +1647,7 @@ if [ "$apache" = 'yes' ]; then
 	chmod 751 /var/log/apache2/domains
 
 	# Prevent remote access to server-status page
-	sed -i '/Allow from all/d' /etc/apache2/mods-available/hestia-status.conf
+	sed -i '/Allow from all/d' /etc/apache2/mods-available/skynet-status.conf
 
 	update-rc.d apache2 defaults > /dev/null 2>&1
 	systemctl start apache2 >> $LOG
@@ -1817,7 +1823,7 @@ fi
 #----------------------------------------------------------#
 
 # Source upgrade.conf with phpmyadmin versions
-# shellcheck source=/usr/local/hestia/install/upgrade/upgrade.conf
+# shellcheck source=/usr/local/skynet/install/upgrade/upgrade.conf
 source $SKYNET/install/upgrade/upgrade.conf
 
 if [ "$mysql" = 'yes' ] || [ "$mysql8" = 'yes' ]; then
@@ -1853,7 +1859,7 @@ if [ "$mysql" = 'yes' ] || [ "$mysql8" = 'yes' ]; then
 	# Create temporary folder and change permission
 	mkdir -p /var/lib/phpmyadmin/tmp
 	chmod 770 /var/lib/phpmyadmin/tmp
-	chown -R hestiamail:www-data /usr/share/phpmyadmin/tmp/
+	chown -R skynetmail:www-data /usr/share/phpmyadmin/tmp/
 
 	# Generate blow fish
 	blowfish=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 32)
@@ -1868,11 +1874,11 @@ if [ "$mysql" = 'yes' ] || [ "$mysql8" = 'yes' ]; then
 
 	# Special thanks to Pavel Galkin (https://skurudo.ru)
 	# https://github.com/skurudo/phpmyadmin-fixer
-	# shellcheck source=/usr/local/hestia/install/deb/phpmyadmin/pma.sh
+	# shellcheck source=/usr/local/skynet/install/deb/phpmyadmin/pma.sh
 	source $SKYNET_INSTALL_DIR/phpmyadmin/pma.sh > /dev/null 2>&1
 
 	# Limit access to /etc/phpmyadmin/
-	chown -R root:hestiamail /etc/phpmyadmin/
+	chown -R root:skynetmail /etc/phpmyadmin/
 	chmod 640 /etc/phpmyadmin/config.inc.php
 	chmod 750 /etc/phpmyadmin/conf.d/
 fi
@@ -1908,7 +1914,7 @@ if [ "$postgresql" = 'yes' ]; then
 	$SKYNET/bin/v-change-sys-db-alias 'pga' "phppgadmin"
 
 	# Limit access to /etc/phppgadmin/
-	chown -R root:hestiamail /etc/phppgadmin/
+	chown -R root:skynetmail /etc/phppgadmin/
 	chmod 640 /etc/phppgadmin/config.inc.php
 fi
 
@@ -2170,7 +2176,7 @@ if [ "$sieve" = 'yes' ]; then
 		mkdir -p $RC_CONFIG_DIR/plugins/managesieve
 		cp -f $SKYNET_COMMON_DIR/roundcube/plugins/config_managesieve.inc.php $RC_CONFIG_DIR/plugins/managesieve/config.inc.php
 		ln -s $RC_CONFIG_DIR/plugins/managesieve/config.inc.php $RC_INSTALL_DIR/plugins/managesieve/config.inc.php
-		chown -R hestiamail:www-data $RC_CONFIG_DIR/
+		chown -R skynetmail:www-data $RC_CONFIG_DIR/
 		chmod 751 -R $RC_CONFIG_DIR
 		chmod 644 $RC_CONFIG_DIR/*.php
 		chmod 644 $RC_CONFIG_DIR/plugins/managesieve/config.inc.php
@@ -2214,8 +2220,8 @@ $SKYNET/bin/v-add-sys-filemanager quiet
 if [ "$webterminal" = 'yes' ]; then
 	write_config_value "WEB_TERMINAL" "true"
 	systemctl daemon-reload > /dev/null 2>&1
-	systemctl enable hestia-web-terminal > /dev/null 2>&1
-	systemctl restart hestia-web-terminal > /dev/null 2>&1
+	systemctl enable skynet-web-terminal > /dev/null 2>&1
+	systemctl restart skynet-web-terminal > /dev/null 2>&1
 else
 	write_config_value "WEB_TERMINAL" "false"
 fi
@@ -2310,22 +2316,22 @@ export SCHEDULED_RESTART="yes"
 
 min=$(gen_pass '012345' '2')
 hour=$(gen_pass '1234567' '1')
-echo "MAILTO=\"\"" > /var/spool/cron/crontabs/hestiaweb
-echo "CONTENT_TYPE=\"text/plain; charset=utf-8\"" >> /var/spool/cron/crontabs/hestiaweb
-echo "*/2 * * * * sudo /usr/local/hestia/bin/v-update-sys-queue restart" >> /var/spool/cron/crontabs/hestiaweb
-echo "10 00 * * * sudo /usr/local/hestia/bin/v-update-sys-queue daily" >> /var/spool/cron/crontabs/hestiaweb
-echo "15 02 * * * sudo /usr/local/hestia/bin/v-update-sys-queue disk" >> /var/spool/cron/crontabs/hestiaweb
-echo "10 00 * * * sudo /usr/local/hestia/bin/v-update-sys-queue traffic" >> /var/spool/cron/crontabs/hestiaweb
-echo "30 03 * * * sudo /usr/local/hestia/bin/v-update-sys-queue webstats" >> /var/spool/cron/crontabs/hestiaweb
-echo "*/5 * * * * sudo /usr/local/hestia/bin/v-update-sys-queue backup" >> /var/spool/cron/crontabs/hestiaweb
-echo "10 05 * * * sudo /usr/local/hestia/bin/v-backup-users" >> /var/spool/cron/crontabs/hestiaweb
-echo "20 00 * * * sudo /usr/local/hestia/bin/v-update-user-stats" >> /var/spool/cron/crontabs/hestiaweb
-echo "*/5 * * * * sudo /usr/local/hestia/bin/v-update-sys-rrd" >> /var/spool/cron/crontabs/hestiaweb
-echo "$min $hour * * * sudo /usr/local/hestia/bin/v-update-letsencrypt-ssl" >> /var/spool/cron/crontabs/hestiaweb
-echo "41 4 * * * sudo /usr/local/hestia/bin/v-update-sys-hestia-all" >> /var/spool/cron/crontabs/hestiaweb
+echo "MAILTO=\"\"" > /var/spool/cron/crontabs/skynetweb
+echo "CONTENT_TYPE=\"text/plain; charset=utf-8\"" >> /var/spool/cron/crontabs/skynetweb
+echo "*/2 * * * * sudo /usr/local/skynet/bin/v-update-sys-queue restart" >> /var/spool/cron/crontabs/skynetweb
+echo "10 00 * * * sudo /usr/local/skynet/bin/v-update-sys-queue daily" >> /var/spool/cron/crontabs/skynetweb
+echo "15 02 * * * sudo /usr/local/skynet/bin/v-update-sys-queue disk" >> /var/spool/cron/crontabs/skynetweb
+echo "10 00 * * * sudo /usr/local/skynet/bin/v-update-sys-queue traffic" >> /var/spool/cron/crontabs/skynetweb
+echo "30 03 * * * sudo /usr/local/skynet/bin/v-update-sys-queue webstats" >> /var/spool/cron/crontabs/skynetweb
+echo "*/5 * * * * sudo /usr/local/skynet/bin/v-update-sys-queue backup" >> /var/spool/cron/crontabs/skynetweb
+echo "10 05 * * * sudo /usr/local/skynet/bin/v-backup-users" >> /var/spool/cron/crontabs/skynetweb
+echo "20 00 * * * sudo /usr/local/skynet/bin/v-update-user-stats" >> /var/spool/cron/crontabs/skynetweb
+echo "*/5 * * * * sudo /usr/local/skynet/bin/v-update-sys-rrd" >> /var/spool/cron/crontabs/skynetweb
+echo "$min $hour * * * sudo /usr/local/skynet/bin/v-update-letsencrypt-ssl" >> /var/spool/cron/crontabs/skynetweb
+echo "41 4 * * * sudo /usr/local/skynet/bin/v-update-sys-hestia-all" >> /var/spool/cron/crontabs/skynetweb
 
-chmod 600 /var/spool/cron/crontabs/hestiaweb
-chown hestiaweb:hestiaweb /var/spool/cron/crontabs/hestiaweb
+chmod 600 /var/spool/cron/crontabs/skynetweb
+chown skynetweb:skynetweb /var/spool/cron/crontabs/skynetweb
 
 # Enable automatic updates
 $SKYNET/bin/v-add-cron-hestia-autoupdate apt
@@ -2351,21 +2357,21 @@ apt-get -y upgrade >> $LOG &
 BACK_PID=$!
 echo
 
-# Starting Hestia service
-update-rc.d hestia defaults
-systemctl start hestia
-check_result $? "hestia start failed"
-chown hestiaweb:hestiaweb $SKYNET/data/sessions
+# Starting Skynet service
+update-rc.d skynet defaults
+systemctl start skynet
+check_result $? "skynet start failed"
+chown skynetweb:skynetweb $SKYNET/data/sessions
 
 # Create backup folder and set correct permission
 mkdir -p /backup/
 chmod 755 /backup/
 
 # Create cronjob to generate ssl
-echo "@reboot root sleep 10 && rm /etc/cron.d/hestia-ssl && PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:' && /usr/local/hestia/bin/v-add-letsencrypt-host" > /etc/cron.d/hestia-ssl
+echo "@reboot root sleep 10 && rm /etc/cron.d/skynet-ssl && PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:' && /usr/local/skynet/bin/v-add-letsencrypt-host" > /etc/cron.d/skynet-ssl
 
 #----------------------------------------------------------#
-#              Set hestia.conf default values              #
+#              Set skynet.conf default values              #
 #----------------------------------------------------------#
 
 echo "[ * ] Updating configuration files..."
@@ -2373,13 +2379,13 @@ BIN="$SKYNET/bin"
 source $SKYNET/func/syshealth.sh
 syshealth_repair_system_config
 
-# Add /usr/local/hestia/bin/ to path variable
-echo 'if [ "${PATH#*/usr/local/hestia/bin*}" = "$PATH" ]; then
-    . /etc/profile.d/hestia.sh
+# Add /usr/local/skynet/bin/ to path variable
+echo 'if [ "${PATH#*/usr/local/skynet/bin*}" = "$PATH" ]; then
+    . /etc/profile.d/skynet.sh
 fi' >> /root/.bashrc
 
 #----------------------------------------------------------#
-#                   Hestia Access Info                     #
+#                   Skynet Access Info                     #
 #----------------------------------------------------------#
 
 # Comparing hostname and IP
@@ -2412,15 +2418,15 @@ we hope that you enjoy using it as much as we do!
 Please feel free to contact us at any time if you have any questions,
 or if you encounter any bugs or problems:
 
-Documentation:  https://docs.hestiacp.com/
-Forum:          https://forum.hestiacp.com/
-GitHub:         https://www.github.com/hestiacp/hestiacp
+Documentation:  https://docs.skynetcp.com/
+Forum:          https://forum.skynetcp.com/
+GitHub:         https://www.github.com/Skynet-IDC/skynetcp
 
 Note: Automatic updates are enabled by default. If you would like to disable them,
 please log in and navigate to Server > Updates to turn them off.
 
 Help support the Skynet Control Panel project by donating via PayPal:
-https://www.hestiacp.com/donate
+https://www.skynetcp.com/donate
 
 --
 Sincerely yours,
@@ -2438,7 +2444,7 @@ cat $tmpfile
 rm -f $tmpfile
 
 # Add welcome message to notification panel
-$SKYNET/bin/v-add-user-notification "$username" 'Welcome to Skynet Control Panel!' '<p>You are now ready to begin adding <a href="/add/user/">user accounts</a> and <a href="/add/web/">domains</a>. For help and assistance, <a href="https://hestiacp.com/docs/" target="_blank">view the documentation</a> or <a href="https://forum.hestiacp.com/" target="_blank">visit our forum</a>.</p><p>Please <a href="https://github.com/hestiacp/hestiacp/issues" target="_blank">report any issues via GitHub</a>.</p><p class="u-text-bold">Have a wonderful day!</p><p><i class="fas fa-heart icon-red"></i> The Skynet Control Panel development team</p>'
+$SKYNET/bin/v-add-user-notification "$username" 'Welcome to Skynet Control Panel!' '<p>You are now ready to begin adding <a href="/add/user/">user accounts</a> and <a href="/add/web/">domains</a>. For help and assistance, <a href="https://hestiacp.com/docs/" target="_blank">view the documentation</a> or <a href="https://forum.skynetcp.com/" target="_blank">visit our forum</a>.</p><p>Please <a href="https://github.com/Skynet-IDC/skynetcp/issues" target="_blank">report any issues via GitHub</a>.</p><p class="u-text-bold">Have a wonderful day!</p><p><i class="fas fa-heart icon-red"></i> The Skynet Control Panel development team</p>'
 
 # Clean-up
 # Sort final configuration file
