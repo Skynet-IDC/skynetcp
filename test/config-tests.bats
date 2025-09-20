@@ -21,8 +21,8 @@ function setup() {
         echo 'userpass1=test-5285' >> /tmp/skynet-test-env.sh
         echo 'userpass2=t3st-p4ssw0rd' >> /tmp/skynet-test-env.sh
         echo 'skynet=/usr/local/skynet' >> /tmp/skynet-test-env.sh
-        echo 'domain=test-5285.skynetcp.com' >> /tmp/skynet-test-env.sh
-        echo 'domainuk=test-5285.skynetcp.com.uk' >> /tmp/skynet-test-env.sh
+        echo 'domain=test-5285.hestiacp.com' >> /tmp/skynet-test-env.sh
+        echo 'domainuk=test-5285.hestiacp.com.uk' >> /tmp/skynet-test-env.sh
         echo 'rootdomain=testskynetcp.com' >> /tmp/skynet-test-env.sh
         echo 'subdomain=cdn.testskynetcp.com' >> /tmp/skynet-test-env.sh
         echo 'database=test-5285_database' >> /tmp/skynet-test-env.sh

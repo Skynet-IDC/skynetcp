@@ -1,6 +1,6 @@
 [Unit]
 Description=skynet nginx - administration web server
-Documentation=https://www.skynetcp.com
+Documentation=https://www.hestiacp.com
 PartOf=skynet.service
 After=skynet-php.service
 

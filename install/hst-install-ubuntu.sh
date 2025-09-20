@@ -3,7 +3,7 @@
 # ======================================================== #
 #
 # skynet Control Panel Installer for Ubuntu
-# https://www.skynetcp.com/
+# https://www.hestiacp.com/
 #
 # Currently Supported Versions:
 # Ubuntu 20.04, 22.04, 24.04 LTS
@@ -15,7 +15,7 @@
 #----------------------------------------------------------#
 export PATH=$PATH:/sbin
 export DEBIAN_FRONTEND=noninteractive
-RHOST='apt.skynetcp.com'
+RHOST='apt.hestiacp.com'
 VERSION='ubuntu'
 skynet='/usr/local/skynet'
 LOG="/root/hst_install_backups/hst_install-$(date +%d%m%Y%H%M).log"
@@ -584,7 +584,7 @@ install_welcome_message() {
 		echo "                          USE AT YOUR OWN RISK                      "
 	fi
 	echo "                                  ${DISPLAY_VER}                        "
-	echo "                            www.skynetcp.com                            "
+	echo "                            www.hestiacp.com                            "
 	echo
 	echo "========================================================================"
 	echo
@@ -2295,7 +2295,7 @@ if [ "$iptables" = 'yes' ]; then
 fi
 
 # Get public IP
-pub_ipv4="$(curl -fsLm5 --retry 2 --ipv4 https://ip.skynetcp.com/)"
+pub_ipv4="$(curl -fsLm5 --retry 2 --ipv4 https://ip.hestiacp.com/)"
 if [ -n "$pub_ipv4" ] && [ "$pub_ipv4" != "$ip" ]; then
 	if [ -e /etc/rc.local ]; then
 		sed -i '/exit 0/d' /etc/rc.local
@@ -2453,15 +2453,15 @@ we hope that you enjoy using it as much as we do!
 Please feel free to contact us at any time if you have any questions,
 or if you encounter any bugs or problems:
 
-Documentation:  https://docs.skynetcp.com/
-Forum:          https://forum.skynetcp.com/
+Documentation:  https://docs.hestiacp.com/
+Forum:          https://forum.hestiacp.com/
 GitHub:         https://www.github.com/skynetcp/skynetcp
 
 Note: Automatic updates are enabled by default. If you would like to disable them,
 please log in and navigate to Server > Updates to turn them off.
 
 Help support the skynet Control Panel project by donating via PayPal:
-https://www.skynetcp.com/donate
+https://www.hestiacp.com/donate
 
 --
 Sincerely yours,
@@ -2479,7 +2479,7 @@ cat $tmpfile
 rm -f $tmpfile
 
 # Add welcome message to notification panel
-$SKYNET/bin/v-add-user-notification "$username" 'Welcome to skynet Control Panel!' '<p>You are now ready to begin adding <a href="/add/user/">user accounts</a> and <a href="/add/web/">domains</a>. For help and assistance, <a href="https://skynetcp.com/docs/" target="_blank">view the documentation</a> or <a href="https://forum.skynetcp.com/" target="_blank">visit our forum</a>.</p><p>Please <a href="https://github.com/skynetcp/skynetcp/issues" target="_blank">report any issues via GitHub</a>.</p><p class="u-text-bold">Have a wonderful day!</p><p><i class="fas fa-heart icon-red"></i> The skynet Control Panel development team</p>'
+$SKYNET/bin/v-add-user-notification "$username" 'Welcome to skynet Control Panel!' '<p>You are now ready to begin adding <a href="/add/user/">user accounts</a> and <a href="/add/web/">domains</a>. For help and assistance, <a href="https://skynetcp.com/docs/" target="_blank">view the documentation</a> or <a href="https://forum.hestiacp.com/" target="_blank">visit our forum</a>.</p><p>Please <a href="https://github.com/skynetcp/skynetcp/issues" target="_blank">report any issues via GitHub</a>.</p><p class="u-text-bold">Have a wonderful day!</p><p><i class="fas fa-heart icon-red"></i> The skynet Control Panel development team</p>'
 
 # Clean-up
 # Sort final configuration file

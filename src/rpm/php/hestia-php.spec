@@ -6,7 +6,7 @@ Version:        8.2.8
 Release:        1%{dist}
 Summary:        skynet internal PHP
 Group:          System Environment/Base
-URL:            https://www.skynetcp.com
+URL:            https://www.hestiacp.com
 Source0:        https://www.php.net/distributions/php-%{version}.tar.gz
 Source1:        skynet-php.service
 Source2:        php-fpm.conf

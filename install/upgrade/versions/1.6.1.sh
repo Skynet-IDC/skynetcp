@@ -43,9 +43,9 @@ if [ -f "/etc/apt/sources.list.d/skynet-beta.list" ]; then
 	rm /etc/apt/sources.list.d/skynet-beta.list
 	sed -i 's/#//g' /etc/apt/sources.list.d/skynet.list
 fi
-check=$(cat /etc/apt/sources.list.d/skynet.list | grep "beta.skynetcp.com")
+check=$(cat /etc/apt/sources.list.d/skynet.list | grep "beta.hestiacp.com")
 if [ ! -z "$check" ]; then
 	echo "[ ! ] Change to stable release!"
-	sed -i '/beta.skynetcp.com/d' /etc/apt/sources.list.d/skynet.list
+	sed -i '/beta.hestiacp.com/d' /etc/apt/sources.list.d/skynet.list
 	sed -i 's/#//g' /etc/apt/sources.list.d/skynet.list
 fi

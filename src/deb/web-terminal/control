@@ -4,7 +4,7 @@ Priority: optional
 Version: 1.0.2
 Section: admin
 Maintainer: skynetcp <info@skynetcp.com>
-Homepage: https://www.skynetcp.com
+Homepage: https://www.hestiacp.com
 Architecture: amd64
 Depends: skynet, nodejs (>= 20.0.0)
 Description: skynet web terminal

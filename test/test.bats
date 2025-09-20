@@ -22,8 +22,8 @@ function setup() {
         echo 'userpass1=test-5285' >> /tmp/skynet-test-env.sh
         echo 'userpass2=t3st-p4ssw0rd' >> /tmp/skynet-test-env.sh
         echo 'skynet=/usr/local/skynet' >> /tmp/skynet-test-env.sh
-        echo 'domain=test-5285.skynetcp.com' >> /tmp/skynet-test-env.sh
-        echo 'domainuk=test-5285.skynetcp.com.uk' >> /tmp/skynet-test-env.sh
+        echo 'domain=test-5285.hestiacp.com' >> /tmp/skynet-test-env.sh
+        echo 'domainuk=test-5285.hestiacp.com.uk' >> /tmp/skynet-test-env.sh
         echo 'rootdomain=testskynetcp.com' >> /tmp/skynet-test-env.sh
         echo 'subdomain=cdn.testskynetcp.com' >> /tmp/skynet-test-env.sh
         echo 'database=test-5285_database' >> /tmp/skynet-test-env.sh
@@ -1368,11 +1368,11 @@ function check_ip_not_banned(){
 }
 
 @test "DNS: Add domain record MX" {
-    run v-add-dns-record $user $domain '@' MX mx.skynetcp.com  '' 50
+    run v-add-dns-record $user $domain '@' MX mx.hestiacp.com  '' 50
     assert_success
     refute_output
 
-    assert_file_contains "$HOMEDIR/$user/conf/dns/${domain}.db" "mx.skynetcp.com."
+    assert_file_contains "$HOMEDIR/$user/conf/dns/${domain}.db" "mx.hestiacp.com."
 
     run v-change-dns-record $user $domain 50 '@' MX mx.skynet.com
     assert_success
@@ -1387,11 +1387,11 @@ function check_ip_not_banned(){
 
 @test "DNS: Add domain record NS" {
     run v-delete-dns-record $user $domain 50
-    run v-add-dns-record $user $domain '@' NS mx.skynetcp.com  '' 50
+    run v-add-dns-record $user $domain '@' NS mx.hestiacp.com  '' 50
     assert_success
     refute_output
 
-    assert_file_contains "$HOMEDIR/$user/conf/dns/${domain}.db" "mx.skynetcp.com."
+    assert_file_contains "$HOMEDIR/$user/conf/dns/${domain}.db" "mx.hestiacp.com."
 
     run v-change-dns-record $user $domain 50 '@' NS mx.skynet.com
     assert_success
@@ -1406,11 +1406,11 @@ function check_ip_not_banned(){
 
 @test "DNS: Add domain record SRV" {
     run v-delete-dns-record $user $domain 50
-    run v-add-dns-record $user $domain '_test_domain' SRV mx.skynetcp.com  '' 50
+    run v-add-dns-record $user $domain '_test_domain' SRV mx.hestiacp.com  '' 50
     assert_success
     refute_output
 
-    assert_file_contains "$HOMEDIR/$user/conf/dns/${domain}.db" "mx.skynetcp.com."
+    assert_file_contains "$HOMEDIR/$user/conf/dns/${domain}.db" "mx.hestiacp.com."
 
     run v-change-dns-record $user $domain 50 '_test.domain' SRV mx.skynet.com
     assert_success
@@ -1425,11 +1425,11 @@ function check_ip_not_banned(){
 
 @test "DNS: Add domain record CNAME" {
     run v-delete-dns-record $user $domain 50
-    run v-add-dns-record $user $domain 'mail' CNAME mx.skynetcp.com  '' 50
+    run v-add-dns-record $user $domain 'mail' CNAME mx.hestiacp.com  '' 50
     assert_success
     refute_output
 
-    assert_file_contains "$HOMEDIR/$user/conf/dns/${domain}.db" "mx.skynetcp.com."
+    assert_file_contains "$HOMEDIR/$user/conf/dns/${domain}.db" "mx.hestiacp.com."
 
     run v-change-dns-record $user $domain 50 'mail' CNAME mx.skynet.com
     assert_success

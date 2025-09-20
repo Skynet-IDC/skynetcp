@@ -21,8 +21,8 @@ function setup() {
         echo 'userpass1=test-5285' >> /tmp/skynet-test-env.sh
         echo 'userpass2=t3st-p4ssw0rd' >> /tmp/skynet-test-env.sh
         echo 'skynet=/usr/local/skynet' >> /tmp/skynet-test-env.sh
-        echo 'domain=test-5285.skynetcp.com' >> /tmp/skynet-test-env.sh
-        echo 'domainuk=test-5285.skynetcp.com.uk' >> /tmp/skynet-test-env.sh
+        echo 'domain=test-5285.hestiacp.com' >> /tmp/skynet-test-env.sh
+        echo 'domainuk=test-5285.hestiacp.com.uk' >> /tmp/skynet-test-env.sh
         echo 'rootdomain=testskynetcp.com' >> /tmp/skynet-test-env.sh
         echo 'subdomain=cdn.testskynetcp.com' >> /tmp/skynet-test-env.sh
         echo 'database=test-5285_database' >> /tmp/skynet-test-env.sh
@@ -116,7 +116,7 @@ function validate_web_domain() {
 #        Ratelimit: 10
 #    mail acc:
 #      - testaccount@test.skynet.com
-#           Alias: info@test.skynetcp.com
+#           Alias: info@test.hestiacp.com
 #           Ratelimit: 20
 #      - support@test.skynet.com
 #    db:
@@ -139,7 +139,7 @@ function validate_web_domain() {
 #      - 1: /bin/true
 #
 
-@test "Check if test.skynetcp.com is present" {
+@test "Check if test.hestiacp.com is present" {
 	assert_file_contains /etc/hosts test.skynet.com
 }
 
@@ -154,7 +154,7 @@ function validate_web_domain() {
     mkdir -p /backup
 
     local archive_name="skynet111.2020-03-26"
-    run wget --quiet --tries=3 --timeout=15 --read-timeout=15 --waitretry=3 --no-dns-cache "https://storage.skynetcp.com/testing/data/${archive_name}.tar" -O "/backup/${archive_name}.tar"
+    run wget --quiet --tries=3 --timeout=15 --read-timeout=15 --waitretry=3 --no-dns-cache "https://storage.hestiacp.com/testing/data/${archive_name}.tar" -O "/backup/${archive_name}.tar"
     assert_success
 
     run v-restore-user $userbk "${archive_name}.tar"
@@ -224,7 +224,7 @@ function validate_web_domain() {
     mkdir -p /backup
 
     local archive_name="skynet111.2020-03-26"
-    run wget --quiet --tries=3 --timeout=15 --read-timeout=15 --waitretry=3 --no-dns-cache "https://storage.skynetcp.com/testing/data/${archive_name}.tar" -O "/backup/${archive_name}.tar"
+    run wget --quiet --tries=3 --timeout=15 --read-timeout=15 --waitretry=3 --no-dns-cache "https://storage.hestiacp.com/testing/data/${archive_name}.tar" -O "/backup/${archive_name}.tar"
     assert_success
 
     run v-restore-user $userbk "${archive_name}.tar"
@@ -288,7 +288,7 @@ function validate_web_domain() {
     mkdir -p /backup
 
     local archive_name="skynet170.2022-08-23"
-    run wget --quiet --tries=3 --timeout=15 --read-timeout=15 --waitretry=3 --no-dns-cache "https://storage.skynetcp.com/testing/data/${archive_name}.tar" -O "/backup/${archive_name}.tar"
+    run wget --quiet --tries=3 --timeout=15 --read-timeout=15 --waitretry=3 --no-dns-cache "https://storage.hestiacp.com/testing/data/${archive_name}.tar" -O "/backup/${archive_name}.tar"
     assert_success
 
     run v-restore-user $userbk "${archive_name}.tar"
@@ -381,7 +381,7 @@ function validate_web_domain() {
     mkdir -p /backup
 
     local archive_name="skynet170.2022-08-23"
-    run wget --quiet --tries=3 --timeout=15 --read-timeout=15 --waitretry=3 --no-dns-cache "https://storage.skynetcp.com/testing/data/${archive_name}.tar" -O "/backup/${archive_name}.tar"
+    run wget --quiet --tries=3 --timeout=15 --read-timeout=15 --waitretry=3 --no-dns-cache "https://storage.hestiacp.com/testing/data/${archive_name}.tar" -O "/backup/${archive_name}.tar"
     assert_success
 
     run v-restore-user $userbk "${archive_name}.tar"
@@ -470,7 +470,7 @@ function validate_web_domain() {
     mkdir -p /backup
 
     local archive_name="vesta09823.2018-10-18"
-    run wget --quiet --tries=3 --timeout=15 --read-timeout=15 --waitretry=3 --no-dns-cache "https://storage.skynetcp.com/testing/data/${archive_name}.tar" -O "/backup/${archive_name}.tar"
+    run wget --quiet --tries=3 --timeout=15 --read-timeout=15 --waitretry=3 --no-dns-cache "https://storage.hestiacp.com/testing/data/${archive_name}.tar" -O "/backup/${archive_name}.tar"
     assert_success
 
     run v-restore-user $userbk "${archive_name}.tar"
@@ -540,7 +540,7 @@ function validate_web_domain() {
     mkdir -p /backup
 
     local archive_name="vesta09823.2018-10-18"
-    run wget --quiet --tries=3 --timeout=15 --read-timeout=15 --waitretry=3 --no-dns-cache "https://storage.skynetcp.com/testing/data/${archive_name}.tar" -O "/backup/${archive_name}.tar"
+    run wget --quiet --tries=3 --timeout=15 --read-timeout=15 --waitretry=3 --no-dns-cache "https://storage.hestiacp.com/testing/data/${archive_name}.tar" -O "/backup/${archive_name}.tar"
     assert_success
 
     run v-restore-user $userbk "${archive_name}.tar"

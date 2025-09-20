@@ -21,8 +21,8 @@ function setup() {
         echo 'userpass1=test-5285' >> /tmp/skynet-test-env.sh
         echo 'userpass2=t3st-p4ssw0rd' >> /tmp/skynet-test-env.sh
         echo 'skynet=/usr/local/skynet' >> /tmp/skynet-test-env.sh
-        echo 'domain=test-5285.skynetcp.com' >> /tmp/skynet-test-env.sh
-        echo 'domainuk=test-5285.skynetcp.com.uk' >> /tmp/skynet-test-env.sh
+        echo 'domain=test-5285.hestiacp.com' >> /tmp/skynet-test-env.sh
+        echo 'domainuk=test-5285.hestiacp.com.uk' >> /tmp/skynet-test-env.sh
         echo 'rootdomain=testskynetcp.com' >> /tmp/skynet-test-env.sh
         echo 'subdomain=cdn.testskynetcp.com' >> /tmp/skynet-test-env.sh
         echo 'database=test-5285_database' >> /tmp/skynet-test-env.sh
@@ -155,7 +155,7 @@ r' "key"
 }
 
 @test "is_domain_format_valid skynetcp.com." {
-     run is_domain_format_valid 'mx.skynetcp.com.' "key"
+     run is_domain_format_valid 'mx.hestiacp.com.' "key"
     assert_success
 }
 
@@ -169,7 +169,7 @@ r' "key"
 @test "is_dns_record_format_valid" {
     rtype='MX'
     priority=1;
-    run is_dns_record_format_valid 'mx.skynetcp.com.'
+    run is_dns_record_format_valid 'mx.hestiacp.com.'
     assert_success
 }
 
@@ -188,21 +188,21 @@ r'
 }
 
 @test "is_alias_format_valid success www.domain.com" {
-     run is_alias_format_valid 'www.skynetcp.com' "key"
+     run is_alias_format_valid 'www.hestiacp.com' "key"
     assert_success
 }
-@test "is_alias_format_valid success skynetcp.com,www.skynetcp.com" {
-     run is_alias_format_valid 'skynetcp.com,www.skynetcp.com' "key"
-    assert_success
-}
-
-@test "is_alias_format_valid success *.skynetcp.com" {
-     run is_alias_format_valid '*.skynetcp.com' "key"
+@test "is_alias_format_valid success skynetcp.com,www.hestiacp.com" {
+     run is_alias_format_valid 'skynetcp.com,www.hestiacp.com' "key"
     assert_success
 }
 
-@test "is_alias_format_valid success www.skynetcp.com,*.skynetcp.com" {
-     run is_alias_format_valid 'www.skynetcp.com,*.skynetcp.com' "key"
+@test "is_alias_format_valid success *.hestiacp.com" {
+     run is_alias_format_valid '*.hestiacp.com' "key"
+    assert_success
+}
+
+@test "is_alias_format_valid success www.hestiacp.com,*.hestiacp.com" {
+     run is_alias_format_valid 'www.hestiacp.com,*.hestiacp.com' "key"
     assert_success
 }
 
