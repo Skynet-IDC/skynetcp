@@ -206,6 +206,11 @@ if [ -z $install ]; then
 	read install
 fi
 
+echo "REPO ===>>>: $REPO"
+echo "Nginx version ===>>>: $NGINX_V"
+echo "PHP version ===>>>: $PHP_V"
+echo "Web Terminal version ===>>>:  $WEB_TERMINAL_V"
+
 # Set Version for compiling
 if [ -f "$SRC_DIR/src/deb/skynet/control" ] && [ "$use_src_folder" == 'true' ]; then
 	BUILD_VER=$(cat $SRC_DIR/src/deb/skynet/control | grep "Version:" | cut -d' ' -f2)
