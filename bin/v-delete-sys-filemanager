@@ -1,5 +1,5 @@
 #!/bin/bash
-# info: remove file manager functionality from skynet Control Panel
+# info: remove file manager functionality from Skynet Control Panel
 # options: [MODE]
 #
 # example: v-delete-sys-filemanager

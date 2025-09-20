@@ -2,7 +2,7 @@
 
 #===========================================================================#
 #                                                                           #
-# skynet Control Panel - IP/Network Function Library                        #
+# Skynet Control Panel - IP/Network Function Library                        #
 #                                                                           #
 #===========================================================================#
 

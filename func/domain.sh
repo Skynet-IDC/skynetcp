@@ -2,7 +2,7 @@
 
 #===========================================================================#
 #                                                                           #
-# skynet Control Panel - Domain Function Library                            #
+# Skynet Control Panel - Domain Function Library                            #
 #                                                                           #
 #===========================================================================#
 

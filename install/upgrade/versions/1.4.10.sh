@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# skynet Control Panel upgrade script for target version 1.4.10
+# Skynet Control Panel upgrade script for target version 1.4.10
 
 #######################################################################################
 #######                      Place additional commands below.                   #######

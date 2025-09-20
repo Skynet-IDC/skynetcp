@@ -1,7 +1,7 @@
 <?php
 
 /**
- * skynet Control Panel Password Driver
+ * Skynet Control Panel Password Driver
  *
  * @version 1.0
  * @author skynetcp <info@skynetcp.com>
@@ -35,7 +35,7 @@ class rcube_skynet_password {
 				CURLOPT_HEADER => true,
 				CURLOPT_POST => true,
 				CURLOPT_POSTFIELDS => http_build_query($postvars),
-				CURLOPT_USERAGENT => "skynet Control Panel Password Driver",
+				CURLOPT_USERAGENT => "Skynet Control Panel Password Driver",
 				CURLOPT_SSL_VERIFYPEER => false,
 				CURLOPT_SSL_VERIFYHOST => false,
 			])

@@ -23,7 +23,7 @@ BuildRequires:  pkgconfig(sqlite3) >= 3.26.0
 BuildRequires:  systemd
 
 %description
-This package contains internal PHP for skynet Control Panel web interface.
+This package contains internal PHP for Skynet Control Panel web interface.
 
 %prep
 %autosetup -p1 -n php-%{version}

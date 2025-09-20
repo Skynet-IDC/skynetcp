@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# skynet Control Panel upgrade script for target version unreleased
+# Skynet Control Panel upgrade script for target version unreleased
 
 #######################################################################################
 #######                      Place additional commands below.                   #######

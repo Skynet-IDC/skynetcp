@@ -23,7 +23,7 @@ Provides:       skynet-nginx = %{version}
 BuildRequires:  gcc, zlib-devel, pcre2-devel, openssl-devel, systemd
 
 %description
-This package contains internal nginx webserver for skynet Control Panel web interface.
+This package contains internal nginx webserver for Skynet Control Panel web interface.
 
 %prep
 %autosetup -p1 -n nginx-%{version}

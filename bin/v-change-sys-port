@@ -98,9 +98,9 @@ fi
 #----------------------------------------------------------#
 
 # Logging
-"$BIN/v-log-action" "system" "Warning" "System" "skynet Control Panel backend port changed (New Value: $PORT, Old Value: $ORIGINAL_PORT)."
+"$BIN/v-log-action" "system" "Warning" "System" "Skynet Control Panel backend port changed (New Value: $PORT, Old Value: $ORIGINAL_PORT)."
 if [ $LISTEN_ROWS -gt 1 ]; then
-	"$BIN/v-log-action" "system" "Warning" "System" "skynet Control Panel backend port: Use first of $LISTEN_ROWS listened ports in $NGINX_CONFIG"
+	"$BIN/v-log-action" "system" "Warning" "System" "Skynet Control Panel backend port: Use first of $LISTEN_ROWS listened ports in $NGINX_CONFIG"
 fi
 log_event "$OK" "$ARGUMENTS"
 

@@ -2,7 +2,7 @@
 
 #===========================================================================#
 #                                                                           #
-# skynet Control Panel - Backup Function Library                            #
+# Skynet Control Panel - Backup Function Library                            #
 #                                                                           #
 #===========================================================================#
 

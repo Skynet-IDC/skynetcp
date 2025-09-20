@@ -3,7 +3,7 @@
 # options: [RESTART]
 #
 # This function for changing the release branch for the
-# skynet Control Panel. This allows the user to switch between
+# Skynet Control Panel. This allows the user to switch between
 # stable and pre-release builds which will automaticlly update
 # based on the appropriate release schedule if auto-update is
 # turned on.

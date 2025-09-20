@@ -65,7 +65,7 @@ fi
 no_support_message() {
 	echo "****************************************************"
 	echo "Your operating system (OS) is not supported by"
-	echo "skynet Control Panel. Officially supported releases:"
+	echo "Skynet Control Panel. Officially supported releases:"
 	echo "****************************************************"
 	echo "  Debian 11, 12"
 	echo "  Ubuntu 20.04, 22.04, 24.04 LTS"

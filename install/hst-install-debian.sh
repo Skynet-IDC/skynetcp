@@ -2,7 +2,7 @@
 
 # ======================================================== #
 #
-# skynet Control Panel Installer for Debian
+# Skynet Control Panel Installer for Debian
 # https://www.skynetcp.com/
 #
 # Currently Supported Versions:
@@ -442,7 +442,7 @@ if [ ! -f /etc/apt/apt.conf.d/80-retries ]; then
 fi
 
 # Welcome message
-echo "Welcome to the skynet Control Panel installer!"
+echo "Welcome to the Skynet Control Panel installer!"
 echo
 echo "Please wait, the installer is now checking for missing dependencies..."
 echo
@@ -501,7 +501,7 @@ if [ -n "$conflicts" ] && [ -z "$force" ]; then
 		check_result $? 'apt-get remove failed'
 		unset $answer
 	else
-		check_result 1 "skynet Control Panel should be installed on a clean server."
+		check_result 1 "Skynet Control Panel should be installed on a clean server."
 	fi
 fi
 
@@ -585,7 +585,7 @@ install_welcome_message() {
 	echo '               |  _  |  __/\__ \ |_| | (_| | |___|  __/                 '
 	echo '               |_| |_|\___||___/\__|_|\__,_|\____|_|                    '
 	echo "                                                                        "
-	echo "                          skynet Control Panel                          "
+	echo "                          Skynet Control Panel                          "
 	if [[ "$SKYNET_INSTALL_VER" =~ "beta" ]]; then
 		echo "                              BETA RELEASE                          "
 	fi
@@ -599,7 +599,7 @@ install_welcome_message() {
 	echo
 	echo "========================================================================"
 	echo
-	echo "Thank you for downloading skynet Control Panel! In a few moments,"
+	echo "Thank you for downloading Skynet Control Panel! In a few moments,"
 	echo "we will begin installing the following components on your server:"
 	echo
 }
@@ -864,7 +864,7 @@ if [ "$mysql8" = 'yes' ]; then
 fi
 
 # Installing skynetcp repo
-echo "[ * ] skynet Control Panel"
+echo "[ * ] Skynet Control Panel"
 echo "deb [arch=$ARCH signed-by=/usr/share/keyrings/skynet-keyring.gpg] https://$RHOST/ $codename main" > $apt/skynet.list
 gpg --no-default-keyring --keyring /usr/share/keyrings/skynet-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A189E93654F0B0E5 > /dev/null 2>&1
 
@@ -1245,7 +1245,7 @@ fi
 #                     Configure skynet                     #
 #----------------------------------------------------------#
 
-echo "[ * ] Configuring skynet Control Panel..."
+echo "[ * ] Configuring Skynet Control Panel..."
 # Installing sudo configuration
 mkdir -p /etc/sudoers.d
 cp -f $SKYNET_COMMON_DIR/sudo/skynetweb /etc/sudoers.d/
@@ -1492,7 +1492,7 @@ fi
 # Generating SSL certificate
 echo "[ * ] Generating default self-signed SSL certificate..."
 $SKYNET/bin/v-generate-ssl-cert $(hostname) '' 'US' 'California' \
-	'San Francisco' 'skynet Control Panel' 'IT' > /tmp/hst.pem
+	'San Francisco' 'Skynet Control Panel' 'IT' > /tmp/hst.pem
 
 crt_end=$(grep -n "END CERTIFICATE-" /tmp/hst.pem | cut -f 1 -d:)
 if [ "$release" = "12" ]; then

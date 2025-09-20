@@ -3,9 +3,9 @@ Upstream-Name: skynet
 Source: https://www.skynetcp.com
 
 Files: *
-Copyright: 2018-2025, skynet Control Panel <info@skynetcp.com>
+Copyright: 2018-2025, Skynet Control Panel <info@skynetcp.com>
 License: GPL-3.0+
-Remarks: skynet Control Panel is a fork from VestaCP, special thanks to vestacp.com and Serghey Rodin
+Remarks: Skynet Control Panel is a fork from VestaCP, special thanks to vestacp.com and Serghey Rodin
 
 License: GPL-3.0+
  This program is free software: you can redistribute it and/or modify

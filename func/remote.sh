@@ -2,7 +2,7 @@
 
 #===========================================================================#
 #                                                                           #
-# skynet Control Panel - API Function Library                               #
+# Skynet Control Panel - API Function Library                               #
 #                                                                           #
 #===========================================================================#
 
@@ -156,7 +156,7 @@ remote_dns_health_check() {
 			echo -e "following commands:\n" >> $tmpfile
 			echo "v-unsuspend-remote-dns-host $HOST" >> $tmpfile
 			echo "v-sync-dns-cluster $HOST" >> $tmpfile
-			echo -e "\n\n--\nskynet Control Panel\n$(hostname)" >> $tmpfile
+			echo -e "\n\n--\nSkynet Control Panel\n$(hostname)" >> $tmpfile
 
 			if [ "$1" = 'no_email' ]; then
 				cat $tmpfile

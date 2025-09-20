@@ -1,5 +1,5 @@
 #!/bin/bash
-# info: add file manager functionality to skynet Control Panel
+# info: add file manager functionality to Skynet Control Panel
 # options: [MODE]
 #
 # This function installs the File Manager on the server

@@ -2,7 +2,7 @@
 
 #===========================================================================#
 #                                                                           #
-# skynet Control Panel - System Health Check and Repair Function Library    #
+# Skynet Control Panel - System Health Check and Repair Function Library    #
 #                                                                           #
 #===========================================================================#
 
@@ -493,8 +493,8 @@ function syshealth_repair_system_config() {
 		$BIN/v-change-sys-config-value "DISABLE_IP_CHECK" "no"
 	fi
 	if [[ -z $(check_key_exists 'APP_NAME') ]]; then
-		echo "[ ! ] Adding missing variable to skynet.conf: APP_NAME ('skynet Control Panel')"
-		$BIN/v-change-sys-config-value "APP_NAME" "skynet Control Panel"
+		echo "[ ! ] Adding missing variable to skynet.conf: APP_NAME ('Skynet Control Panel')"
+		$BIN/v-change-sys-config-value "APP_NAME" "Skynet Control Panel"
 	fi
 	if [[ -z $(check_key_exists 'FROM_NAME') ]]; then
 		# Default is always APP_NAME

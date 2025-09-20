@@ -2,7 +2,7 @@
 
 #===========================================================================#
 #                                                                           #
-# skynet Control Panel - Rebuild Function Library                           #
+# Skynet Control Panel - Rebuild Function Library                           #
 #                                                                           #
 #===========================================================================#
 

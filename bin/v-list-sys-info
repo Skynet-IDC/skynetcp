@@ -21,9 +21,9 @@ source $SKYNET/func/main.sh
 # load config file
 source_conf "$SKYNET/conf/skynet.conf"
 
-# Retrieve skynet Control Panel version number
-skynet_VERSION=$(grep VERSION $SKYNET/conf/skynet.conf | cut -d '=' -f2 | sed "s|'||g")
-skynet_RELEASE=$(grep RELEASE_BRANCH $SKYNET/conf/skynet.conf | cut -d '=' -f2 | sed "s|'||g")
+# Retrieve Skynet Control Panel version number
+SKYNET_VERSION=$(grep VERSION $SKYNET/conf/skynet.conf | cut -d '=' -f2 | sed "s|'||g")
+SKYNET_RELEASE=$(grep RELEASE_BRANCH $SKYNET/conf/skynet.conf | cut -d '=' -f2 | sed "s|'||g")
 
 # JSON list function
 json_list() {

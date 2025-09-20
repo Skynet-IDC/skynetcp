@@ -2,7 +2,7 @@
 
 #===========================================================================#
 #                                                                           #
-# skynet Control Panel - Upgrade Function Library                           #
+# Skynet Control Panel - Upgrade Function Library                           #
 #                                                                           #
 #===========================================================================#
 
@@ -43,7 +43,7 @@ upgrade_health_check() {
 		export VERSION="1.1.0"
 		$BIN/v-change-sys-config-value 'VERSION' "$VERSION"
 		echo
-		echo "[ ! ] Unable to detect installed version of skynet Control Panel."
+		echo "[ ! ] Unable to detect installed version of Skynet Control Panel."
 		echo "      Setting default version to $VERSION and processing upgrade steps."
 		echo
 	fi
@@ -62,7 +62,7 @@ upgrade_welcome_message() {
 	echo '                 |  _  |  __/\__ \ |_| | (_| | |___|  __/                     '
 	echo '                 |_| |_|\___||___/\__|_|\__,_|\____|_|                        '
 	echo "                                                                              "
-	echo "                    skynet Control Panel Software Update                      "
+	echo "                    Skynet Control Panel Software Update                      "
 	echo "                               Version: ${DISPLAY_VER}"
 	if [[ "$new_version" =~ "beta" ]]; then
 		echo "                                BETA RELEASE                                 "
@@ -86,7 +86,7 @@ upgrade_welcome_message() {
 
 upgrade_welcome_message_log() {
 	echo "============================================================================="
-	echo "skynet Control Panel Software Update Log"
+	echo "Skynet Control Panel Software Update Log"
 	echo "============================================================================="
 	echo
 	echo "OPERATING SYSTEM:      $OS_TYPE ($OS_VERSION)"
@@ -124,18 +124,18 @@ upgrade_complete_message() {
 	echo "Read the release notes to learn about new fixes and features:                "
 	echo "https://github.com/skynetcp/skynetcp/blob/release/CHANGELOG.md               "
 	echo
-	echo "We hope that you enjoy using this version of skynet Control Panel,           "
+	echo "We hope that you enjoy using this version of Skynet Control Panel,           "
 	echo "have a wonderful day!                                                        "
 	echo
 	echo "Sincerely,                                                                   "
-	echo "The skynet Control Panel development team                                    "
+	echo "The Skynet Control Panel development team                                    "
 	echo
 	echo "Web:      https://www.skynetcp.com/                                          "
 	echo "Docs:     https://docs.skynetcp.com/										   "
 	echo "Forum:    https://forum.skynetcp.com/                                        "
 	echo "GitHub:   https://github.com/Skynet-IDC/skynetcp/                              "
 	echo
-	echo "Help support the skynet Control Panel project by donating via PayPal:        "
+	echo "Help support the Skynet Control Panel project by donating via PayPal:        "
 	echo "https://www.skynetcp.com/donate                                              "
 	echo
 	echo "Made with love & pride by the open-source community around the world.        "
@@ -162,7 +162,7 @@ upgrade_cleanup_message() {
 }
 
 upgrade_get_version() {
-	# Retrieve new version number for skynet Control Panel from .deb package
+	# Retrieve new version number for Skynet Control Panel from .deb package
 	new_version=$(dpkg -l | awk '$2=="skynet" { print $3 }')
 }
 
@@ -187,13 +187,13 @@ upgrade_send_notification_to_panel() {
 	# Add notification to panel if variable is set to true or is not set
 	if [[ "$new_version" =~ "alpha" ]]; then
 		# Send notifications for development releases
-		$BIN/v-add-user-notification "$ROOT_USER" 'Development snapshot installed' '<p><span class="u-text-bold">Version:</span> '$new_version'<br><span class="u-text-bold">Code Branch:</span> '$RELEASE_BRANCH'</p><p>Please report any bugs by <a href="https://github.com/skynetcp/skynetcp/issues" target="_blank">opening an issue on GitHub</a>, and feel free to share your feedback on our <a href="https://forum.hestiacp.com" target="_blank">discussion forum</a>.</p><p><i class="fas fa-heart icon-red"></i> The skynet Control Panel development team</p>'
+		$BIN/v-add-user-notification "$ROOT_USER" 'Development snapshot installed' '<p><span class="u-text-bold">Version:</span> '$new_version'<br><span class="u-text-bold">Code Branch:</span> '$RELEASE_BRANCH'</p><p>Please report any bugs by <a href="https://github.com/skynetcp/skynetcp/issues" target="_blank">opening an issue on GitHub</a>, and feel free to share your feedback on our <a href="https://forum.hestiacp.com" target="_blank">discussion forum</a>.</p><p><i class="fas fa-heart icon-red"></i> The Skynet Control Panel development team</p>'
 	elif [[ "$new_version" =~ "beta" ]]; then
 		# Send feedback notification for beta releases
-		$BIN/v-add-user-notification "$ROOT_USER" 'Thank you for testing skynet Control Panel '$new_version'.' '<p>Please share your feedback with our development team through our <a href="https://forum.hestiacp.com" target="_blank">discussion forum</a>.</p><p>Found a bug? <a href="https://github.com/skynetcp/skynetcp/issues" target="_blank">Open an issue on GitHub</a>!</p><p><i class="fas fa-heart icon-red"></i> The skynet Control Panel development team</p>'
+		$BIN/v-add-user-notification "$ROOT_USER" 'Thank you for testing Skynet Control Panel '$new_version'.' '<p>Please share your feedback with our development team through our <a href="https://forum.hestiacp.com" target="_blank">discussion forum</a>.</p><p>Found a bug? <a href="https://github.com/skynetcp/skynetcp/issues" target="_blank">Open an issue on GitHub</a>!</p><p><i class="fas fa-heart icon-red"></i> The Skynet Control Panel development team</p>'
 	else
 		# Send normal upgrade complete notification for stable releases
-		$BIN/v-add-user-notification "$ROOT_USER" 'Upgrade complete' '<p>skynet Control Panel has been updated to <span class="u-text-bold">v'$new_version'</span>.</p><p><a href="https://github.com/skynetcp/skynetcp/blob/release/CHANGELOG.md" target="_blank">View release notes</a></p><p>Please report any bugs by <a href="https://github.com/skynetcp/skynetcp/issues" target="_blank">opening an issue on GitHub</a>.</p><p class="u-text-bold">Have a wonderful day!</p><p><i class="fas fa-heart icon-red"></i> The skynet Control Panel development team</p>'
+		$BIN/v-add-user-notification "$ROOT_USER" 'Upgrade complete' '<p>Skynet Control Panel has been updated to <span class="u-text-bold">v'$new_version'</span>.</p><p><a href="https://github.com/skynetcp/skynetcp/blob/release/CHANGELOG.md" target="_blank">View release notes</a></p><p>Please report any bugs by <a href="https://github.com/skynetcp/skynetcp/issues" target="_blank">opening an issue on GitHub</a>.</p><p class="u-text-bold">Have a wonderful day!</p><p><i class="fas fa-heart icon-red"></i> The Skynet Control Panel development team</p>'
 	fi
 }
 
@@ -212,7 +212,7 @@ upgrade_send_notification_to_email() {
 		touch $message_tmp_file
 
 		# Write message to file
-		echo "$HOSTNAME has been upgraded from skynet Control Panel v$VERSION to v${new_version}." >> $message_tmp_file
+		echo "$HOSTNAME has been upgraded from Skynet Control Panel v$VERSION to v${new_version}." >> $message_tmp_file
 		echo "Installation log: $LOG" >> $message_tmp_file
 		echo "" >> $message_tmp_file
 

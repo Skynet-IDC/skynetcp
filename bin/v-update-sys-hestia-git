@@ -278,7 +278,7 @@ GIT_REP='https://raw.githubusercontent.com/'$REPO'/'$branch'/src/deb'
 skynet_ARCHIVE_LINK='https://github.com/'$REPO'/archive/'$branch'.tar.gz'
 echo $SKYNET_ARCHIVE_LINK
 
-echo "Building skynet Control Panel package..."
+echo "Building Skynet Control Panel package..."
 
 BUILD_DIR_skynet=$BUILD_DIR/skynet_$SKYNET_V
 

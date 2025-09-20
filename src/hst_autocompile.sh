@@ -103,7 +103,7 @@ usage() {
 	echo "following the branch name."
 	echo ""
 	echo "Example: bash hst_autocompile.sh --skynet develop Y"
-	echo "This would install a skynet Control Panel package compiled with the"
+	echo "This would install a Skynet Control Panel package compiled with the"
 	echo "develop branch code."
 }
 
@@ -138,7 +138,7 @@ for i in $*; do
 			NGINX_B='true'
 			PHP_B='true'
 			WEB_TERMINAL_B='true'
-			skynet_B='true'
+			SKYNET_B='true'
 			;;
 		--nginx)
 			NGINX_B='true'
@@ -150,7 +150,7 @@ for i in $*; do
 			WEB_TERMINAL_B='true'
 			;;
 		--skynet)
-			skynet_B='true'
+			SKYNET_B='true'
 			;;
 		--debug)
 			skynet_DEBUG='true'
@@ -328,7 +328,7 @@ if [ "$SKYNET_DEBUG" ]; then
 fi
 
 # Generate Links for sourcecode
-skynet_ARCHIVE_LINK='https://github.com/skynetcp/skynetcp/archive/'$branch'.tar.gz'
+SKYNET_ARCHIVE_LINK='https://github.com/Skynet-IDC/skynetcp/archive/'$branch'.tar.gz'
 if [[ $NGINX_V =~ - ]]; then
 	NGINX='https://nginx.org/download/nginx-'$(echo $NGINX_V | cut -d"-" -f1)'.tar.gz'
 else
@@ -721,7 +721,7 @@ if [ "$SKYNET_B" = true ]; then
 		arch="amd64 arm64"
 	fi
 	for BUILD_ARCH in $arch; do
-		echo "Building skynet Control Panel package..."
+		echo "Building Skynet Control Panel package..."
 
 		if [ "$BUILD_DEB" = true ]; then
 			BUILD_DIR_skynet=$BUILD_DIR/skynet_$SKYNET_V

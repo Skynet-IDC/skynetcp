@@ -2,7 +2,7 @@
 
 #===========================================================================#
 #                                                                           #
-# skynet Control Panel - Firewall Function Library                          #
+# Skynet Control Panel - Firewall Function Library                          #
 #                                                                           #
 #===========================================================================#
 

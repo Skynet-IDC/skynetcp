@@ -20,7 +20,7 @@ source_conf "$SKYNET/conf/skynet.conf"
 ###############################################################
 #             Set new version numbers for packages            #
 ###############################################################
-# skynet Control Panel
+# Skynet Control Panel
 new_version=$(dpkg -l | awk '$2=="skynet" { print $3 }')
 
 ###############################################################

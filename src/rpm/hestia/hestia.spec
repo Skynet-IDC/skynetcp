@@ -4,7 +4,7 @@
 Name:           skynet
 Version:        1.9.0~alpha
 Release:        1%{dist}
-Summary:        skynet Control Panel
+Summary:        Skynet Control Panel
 Group:          System Environment/Base
 License:        GPLv3
 URL:            https://www.skynetcp.com
@@ -18,7 +18,7 @@ Provides:       skynet = %{version}
 BuildRequires:  systemd
 
 %description
-This package contains the skynet Control Panel.
+This package contains the Skynet Control Panel.
 
 %prep
 %autosetup -p1 -n skynetcp
@@ -68,7 +68,7 @@ if [ -e "/usr/local/skynet/data/users/" ]; then
     ###############################################################
     #             Set new version numbers for packages            #
     ###############################################################
-    # skynet Control Panel
+    # Skynet Control Panel
     new_version=$(rpm --queryformat="%{VERSION}" -q skynet)
 
     # phpMyAdmin

@@ -16,8 +16,8 @@
 			<div class="top-bar">
 				<div class="container top-bar-inner">
 					<div class="top-bar-left">
-						<a href="/" class="top-bar-logo" title="<?= _("skynet Control Panel") ?>">
-							<img src="/images/logo-header.svg" alt="<?= _("skynet Control Panel") ?>" width="54" height="29">
+						<a href="/" class="top-bar-logo" title="<?= _("Skynet Control Panel") ?>">
+							<img src="/images/logo-header.svg" alt="<?= _("Skynet Control Panel") ?>" width="54" height="29">
 						</a>
 					</div>
 					<div class="top-bar-right">

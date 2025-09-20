@@ -2889,7 +2889,7 @@ msgstr ""
 
 #: ../../web/templates/pages/list_server_info.php:19
 #: ../../web/templates/pages/list_server_info.php:20
-msgid "skynet Control Panel"
+msgid "Skynet Control Panel"
 msgstr ""
 
 #: ../../web/templates/pages/list_server_info.php:30

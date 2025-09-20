@@ -10,7 +10,7 @@
 <body>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
-    <td><img src="logo.svg" title="skynet Control Panel"></td>
+    <td><img src="logo.svg" title="Skynet Control Panel"></td>
     <td><form name="period" action="" method="get">
     <select name="select" ONCHANGE="change()">
 %select_month%

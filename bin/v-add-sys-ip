@@ -109,7 +109,7 @@ if [ -z "$sys_ip_check" ]; then
 		echo -e "$sys_ip" >> /etc/netplan/60-skynet.yaml
 		unset IFS
 	else
-		sys_ip="\n# Added by skynet Control Panel"
+		sys_ip="\n# Added by Skynet Control Panel"
 		sys_ip="$sys_ip\nauto $iface"
 		sys_ip="$sys_ip\niface $iface inet static"
 		sys_ip="$sys_ip\naddress $ip"
