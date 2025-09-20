@@ -2445,8 +2445,8 @@ we hope that you enjoy using it as much as we do!
 Please feel free to contact us at any time if you have any questions,
 or if you encounter any bugs or problems:
 
-Documentation:  https://docs.hestiacp.com/
-Forum:          https://forum.hestiacp.com/
+Documentation:  https://docs.skynetcp.com/
+Forum:          https://forum.skynetcp.com/
 GitHub:         https://www.github.com/skynetcp/skynetcp
 
 Note: Automatic updates are enabled by default. If you would like to disable them,
@@ -2471,7 +2471,7 @@ cat $tmpfile
 rm -f $tmpfile
 
 # Add welcome message to notification panel
-$SKYNET/bin/v-add-user-notification "$username" 'Welcome to skynet Control Panel!' '<p>You are now ready to begin adding <a href="/add/user/">user accounts</a> and <a href="/add/web/">domains</a>. For help and assistance, <a href="https://skynetcp.com/docs/" target="_blank">view the documentation</a> or <a href="https://forum.hestiacp.com/" target="_blank">visit our forum</a>.</p><p>Please <a href="https://github.com/skynetcp/skynetcp/issues" target="_blank">report any issues via GitHub</a>.</p><p class="u-text-bold">Have a wonderful day!</p><p><i class="fas fa-heart icon-red"></i> The skynet Control Panel development team</p>'
+$SKYNET/bin/v-add-user-notification "$username" 'Welcome to skynet Control Panel!' '<p>You are now ready to begin adding <a href="/add/user/">user accounts</a> and <a href="/add/web/">domains</a>. For help and assistance, <a href="https://skynetcp.com/docs/" target="_blank">view the documentation</a> or <a href="https://forum.skynetcp.com/" target="_blank">visit our forum</a>.</p><p>Please <a href="https://github.com/skynetcp/skynetcp/issues" target="_blank">report any issues via GitHub</a>.</p><p class="u-text-bold">Have a wonderful day!</p><p><i class="fas fa-heart icon-red"></i> The skynet Control Panel development team</p>'
 
 # Clean-up
 # Sort final configuration file
