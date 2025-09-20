@@ -108,7 +108,7 @@ usage() {
 }
 
 # Set compiling directory
-REPO='skynetcp/skynetcp'
+REPO='Skynet-IDC/skynetcp'
 BUILD_DIR='/tmp/skynetcp-src'
 INSTALL_DIR='/usr/local/skynet'
 SRC_DIR="$(cd "$(dirname "$0")/.." && pwd)"
