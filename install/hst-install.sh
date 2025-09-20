@@ -2,7 +2,7 @@
 
 # ======================================================== #
 #
-# skynet Control Panel Installation Routine
+# Skynet Control Panel Installation Routine
 # Automatic OS detection wrapper
 # https://www.skynetcp.com/
 #
