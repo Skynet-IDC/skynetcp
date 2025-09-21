@@ -1,4 +1,4 @@
-sudo chmod -R 777 ./install/install*
+sudo chmod -R 777 ./install/*.sh
 sudo chmod -R 777 ./src/*.sh
 apt -y install acl idn2 bubblewrap at
 
