@@ -48,9 +48,9 @@ MAILTPL=$SKYNET/data/templates/mail
 DNSTPL=$SKYNET/data/templates/dns
 RRD=$SKYNET/web/rrd
 SENDMAIL="$SKYNET/web/inc/mail-wrapper.php"
-skynet_GIT_REPO="https://raw.githubusercontent.com/Skynet-IDC/skynetcp"
-skynet_THEMES="$SKYNET/web/css/themes"
-skynet_THEMES_CUSTOM="$SKYNET/web/css/themes/custom"
+SKYNET_GIT_REPO="https://raw.githubusercontent.com/Skynet-IDC/skynetcp"
+SKYNET_THEMES="$SKYNET/web/css/themes"
+SKYNET_THEMES_CUSTOM="$SKYNET/web/css/themes/custom"
 SCRIPT="$(basename $0)"
 CHECK_RESULT_CALLBACK=""
 

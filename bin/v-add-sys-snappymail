@@ -7,8 +7,28 @@
 #----------------------------------------------------------#
 #                Variables & Functions                     #
 #----------------------------------------------------------#
-SKYNET='/usr/local/skynet'
+HOMEDIR='/home'
+BACKUP='/backup'
+BACKUP_GZIP=9
+BACKUP_DISK_LIMIT=95
+BACKUP_LA_LIMIT=$(grep -c '^processor' /proc/cpuinfo)
+RRD_STEP=300
+BIN=$SKYNET/bin
 SKYNET_INSTALL_DIR="$SKYNET/install/deb"
+SKYNET_COMMON_DIR="$SKYNET/install/common"
+SKYNET_BACKUP="/root/hst_backups/$(date +%d%m%Y%H%M)"
+SKYNET_PHP="$SKYNET/php/bin/php"
+USER_DATA=$SKYNET/data/users/$user
+WEBTPL=$SKYNET/data/templates/web
+MAILTPL=$SKYNET/data/templates/mail
+DNSTPL=$SKYNET/data/templates/dns
+RRD=$SKYNET/web/rrd
+SENDMAIL="$SKYNET/web/inc/mail-wrapper.php"
+SKYNET_GIT_REPO="https://raw.githubusercontent.com/Skynet-IDC/skynetcp"
+SKYNET_THEMES="$SKYNET/web/css/themes"
+SKYNET_THEMES_CUSTOM="$SKYNET/web/css/themes/custom"
+SCRIPT="$(basename $0)"
+CHECK_RESULT_CALLBACK=""
 # Includes
 # shellcheck source=/etc/skynetcp/skynet.conf
 source /etc/skynetcp/skynet.conf
