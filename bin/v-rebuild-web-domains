@@ -10,7 +10,7 @@
 #                Variables & Functions                     #
 #----------------------------------------------------------#
 SKYNET='/usr/local/skynet'
-SKYNET_INSTALL_DIR="$SKYNET/install/deb"
+SKYNET_INSTALL_DIR="./deb"
 # Argument definition
 user=$1
 restart=$2

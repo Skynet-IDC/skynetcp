@@ -15,7 +15,7 @@
 #                Variables & Functions                     #
 #----------------------------------------------------------#
 SKYNET='/usr/local/skynet'
-SKYNET_INSTALL_DIR="$SKYNET/install/deb"
+SKYNET_INSTALL_DIR="./deb"
 # Argument definition
 type=$1
 alias=$2

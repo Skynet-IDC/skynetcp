@@ -26,8 +26,8 @@ os='debian'
 release="$(cat /etc/debian_version | tr "." "\n" | head -n1)"
 codename="$(cat /etc/os-release | grep VERSION= | cut -f 2 -d \( | cut -f 1 -d \))"
 architecture="$(arch)"
-skynet_INSTALL_DIR="$SKYNET/install/deb"
-skynet_COMMON_DIR="$SKYNET/install/common"
+SKYNET_INSTALL_DIR="./deb"
+SKYNET_COMMON_DIR="./common"
 VERBOSE='no'
 
 # Define software versions

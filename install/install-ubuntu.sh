@@ -26,8 +26,8 @@ os='ubuntu'
 release="$(lsb_release -s -r)"
 codename="$(lsb_release -s -c)"
 architecture="$(arch)"
-SKYNET_INSTALL_DIR="$SKYNET/install/deb"
-SKYNET_COMMON_DIR="$SKYNET/install/common"
+SKYNET_INSTALL_DIR="./deb"
+SKYNET_COMMON_DIR="./common"
 VERBOSE='no'
 
 # Define software versions

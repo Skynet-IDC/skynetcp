@@ -15,7 +15,7 @@
 #                Variables & Functions                     #
 #----------------------------------------------------------#
 SKYNET='/usr/local/skynet'
-SKYNET_INSTALL_DIR="$SKYNET/install/deb"
+SKYNET_INSTALL_DIR="./deb"
 # Argument definition
 ip="${1// /}"
 netmask="$2"

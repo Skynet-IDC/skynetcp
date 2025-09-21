@@ -14,7 +14,7 @@ version=$2
 #                Variables & Functions                     #
 #----------------------------------------------------------#
 SKYNET='/usr/local/skynet'
-SKYNET_INSTALL_DIR="$SKYNET/install/deb"
+SKYNET_INSTALL_DIR="./deb"
 # Includes
 # shellcheck source=/etc/skynetcp/skynet.conf
 source /etc/skynetcp/skynet.conf
