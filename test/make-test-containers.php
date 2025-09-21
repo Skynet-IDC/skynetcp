@@ -354,7 +354,7 @@ function hst_installer_worker($container) {
 	system(
 		"lxc exec " .
 			$container["lxc_name"] .
-			' -- bash -c "/home/ubuntu/source/skynetcp/src/hst_autocompile.sh --skynet \"' .
+			' -- bash -c "/home/ubuntu/source/skynetcp/src/autocompile.sh --skynet \"' .
 			HST_BRANCH .
 			'\" no"',
 	);

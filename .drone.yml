@@ -25,7 +25,7 @@ steps:
       - git submodule update --init --recursive
   - name: Build Skynet package and install
     commands:
-      - ./src/hst_autocompile.sh --skynet --install '~localsrc'
+      - ./src/autocompile.sh --skynet --install '~localsrc'
   - name: Reset Web templates
     commands:
       - rm /usr/local/skynet/data/templates/web/nginx/php-fpm/*.*
@@ -81,7 +81,7 @@ steps:
       - git submodule update --init --recursive
   - name: Build Skynet package install
     commands:
-      - ./src/hst_autocompile.sh --skynet --install '~localsrc'
+      - ./src/autocompile.sh --skynet --install '~localsrc'
   - name: Reset Web templates
     commands:
       - rm /usr/local/skynet/data/templates/web/nginx/php-fpm/*.*
@@ -129,7 +129,7 @@ steps:
     image: debian:bookworm
     commands:
       - ln -snf /etc/localtime && echo CET > /etc/timezone
-      - ./src/hst_autocompile.sh --dontinstalldeps --skynet --debug --cross --noinstall --keepbuild '~localsrc'
+      - ./src/autocompile.sh --dontinstalldeps --skynet --debug --cross --noinstall --keepbuild '~localsrc'
       - mkdir -p ./skynet/
       - mv /tmp/skynetcp-src/deb/*.deb ./skynet/
   - name: Upload

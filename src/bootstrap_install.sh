@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Clean installation bootstrap for development purposes only
-# Usage:    ./hst_bootstrap_install.sh [fork] [branch] [os]
-# Example:  ./hst_bootstrap_install.sh skynetcp main ubuntu
+# Usage:    ./bootstrap_install.sh [fork] [branch] [os]
+# Example:  ./bootstrap_install.sh skynetcp main ubuntu
 
 # Define variables
 fork=$1
@@ -11,11 +11,11 @@ os=$3
 
 # Download specified installer and compiler
 wget https://raw.githubusercontent.com/$fork/skynetcp/$branch/install/hst-install-$os.sh
-wget https://raw.githubusercontent.com/$fork/skynetcp/$branch/src/hst_autocompile.sh
+wget https://raw.githubusercontent.com/$fork/skynetcp/$branch/src/autocompile.sh
 
 # Execute compiler and build skynet core package
-chmod +x hst_autocompile.sh
-./hst_autocompile.sh --skynet $branch no
+chmod +x autocompile.sh
+./autocompile.sh --skynet $branch no
 
 # Execute Skynet Control Panel installer with default dummy options for testing
 if [ -f "/etc/redhat-release" ]; then

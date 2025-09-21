@@ -545,7 +545,7 @@ if [ -z "$withdebs" ] || [ ! -d "$withdebs" ]; then
 		echo -e "\e[33mhttps://raw.githubusercontent.com/Skynet-IDC/skynetcp/release/install/hst-install.sh\e[0m"
 		echo ""
 		echo -e "\e[33mTo test pre-release versions, build the .deb packages and re-run the installer:\e[0m"
-		echo -e "  \e[33m./hst_autocompile.sh \e[1m--skynet branchname no\e[21m\e[0m"
+		echo -e "  \e[33m./autocompile.sh \e[1m--skynet branchname no\e[21m\e[0m"
 		echo -e "  \e[33m./hst-install.sh .. \e[1m--with-debs /tmp/skynetcp-src/debs\e[21m\e[0m"
 		echo ""
 		check_result 1 "Installation aborted"

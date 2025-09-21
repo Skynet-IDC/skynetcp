@@ -5,8 +5,8 @@
 # For building from local source folder use "~localsrc" keyword as hesia branch name,
 #   and the script will not try to download the arhive from github, since '~' char is
 #   not accepted in branch name.
-# Compile but dont install -> ./hst_autocompile.sh --skynet --noinstall --keepbuild '~localsrc'
-# Compile and install -> ./hst_autocompile.sh --skynet --install '~localsrc'
+# Compile but dont install -> ./autocompile.sh --skynet --noinstall --keepbuild '~localsrc'
+# Compile and install -> ./autocompile.sh --skynet --install '~localsrc'
 
 # Clear previous screen output
 clear
@@ -102,7 +102,7 @@ usage() {
 	echo "after one of the above flags. To install the packages, specify 'Y'"
 	echo "following the branch name."
 	echo ""
-	echo "Example: bash hst_autocompile.sh --skynet develop Y"
+	echo "Example: bash autocompile.sh --skynet develop Y"
 	echo "This would install a Skynet Control Panel package compiled with the"
 	echo "develop branch code."
 }
