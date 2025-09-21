@@ -9,7 +9,8 @@
 #----------------------------------------------------------#
 #                Variables & Functions                     #
 #----------------------------------------------------------#
-
+SKYNET='/usr/local/skynet'
+SKYNET_INSTALL_DIR="$SKYNET/install/deb"
 # Argument definition
 restart=$1
 skip=$2
@@ -45,7 +46,7 @@ fi
 [ -d "${WEBTPL}/nginx" ] || mkdir -p "${WEBTPL}/nginx"
 
 if [ "$PROXY_SYSTEM" = 'nginx' ] || [ "$WEB_BACKEND" = "php-fpm" ]; then
-	cp -rf "${skynet_INSTALL_DIR}/templates/web/nginx" "${WEBTPL}/"
+	cp -rf "${SKYNET_INSTALL_DIR}/templates/web/nginx" "${WEBTPL}/"
 fi
 
 for webtpl_folder in $(ls $SKYNET_INSTALL_DIR/templates/web/* -d 2> /dev/null | egrep -v '/(nginx)$'); do

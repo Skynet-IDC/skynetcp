@@ -561,12 +561,12 @@ install_welcome_message() {
 		echo "                                    BETA RELEASE                                     "
 	fi
 	if [[ "$SKYNET_INSTALL_VER" =~ "alpha" ]]; then
-	echo "                                 DEVELOPMENT SNAPSHOT                                  "
-	echo "                            NOT INTENDED FOR PRODUCTION USE                            "
-	echo "                                 USE AT YOUR OWN RISK                                  "
+	echo "                                   DEVELOPMENT SNAPSHOT                                "
+	echo "                               NOT INTENDED FOR PRODUCTION USE                         "
+	echo "                                   USE AT YOUR OWN RISK                                "
 	fi
-	echo "                                      ${DISPLAY_VER}                                   "
-	echo "                                    www.skynetcp.com                                   "
+	echo "                                        ${DISPLAY_VER}                                 "
+	echo "                                     www.skynetcp.com                                  "
 	echo
 	echo "========================================================================"
 	echo

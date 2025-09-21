@@ -4,6 +4,9 @@
 #                    Variable&Function                     #
 #----------------------------------------------------------#
 
+SKYNET='/usr/local/skynet'
+SKYNET_INSTALL_DIR="$SKYNET/install/deb"
+
 # Includes
 # shellcheck source=/usr/local/skynet/func/main.sh
 source $SKYNET/func/main.sh

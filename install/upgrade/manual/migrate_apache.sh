@@ -6,7 +6,8 @@
 #----------------------------------------------------------#
 #                    Variable&Function                     #
 #----------------------------------------------------------#
-
+SKYNET='/usr/local/skynet'
+SKYNET_INSTALL_DIR="$SKYNET/install/deb"
 # Includes
 # shellcheck source=/usr/local/skynet/func/main.sh
 source $SKYNET/func/main.sh
@@ -33,13 +34,13 @@ php_v="$(multiphp_default_version)"
 
 $BIN/v-add-web-php "$php_v"
 
-cp -f "${skynet_INSTALL_DIR}/php-fpm/www.conf" "/etc/php/${php_v}/fpm/pool.d/www.conf"
+cp -f "${SKYNET_INSTALL_DIR}/php-fpm/www.conf" "/etc/php/${php_v}/fpm/pool.d/www.conf"
 systemctl start php${php_v}-fpm
 check_result $? "php${php_v}-fpm start failed"
 update-alternatives --set php /usr/bin/php${php_v}
 
 if [ ! -z "$WEB_SYSTEM" ]; then
-	cp -rf "${skynet_INSTALL_DIR}/templates/web/$WEB_SYSTEM" "${WEBTPL}/"
+	cp -rf "${SKYNET_INSTALL_DIR}/templates/web/$WEB_SYSTEM" "${WEBTPL}/"
 fi
 
 sed -i "/^WEB_BACKEND=/d" $SKYNET/conf/skynet.conf $SKYNET/conf/defaults/skynet.conf

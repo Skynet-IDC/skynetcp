@@ -8,7 +8,8 @@
 #----------------------------------------------------------#
 #                Variables & Functions                     #
 #----------------------------------------------------------#
-
+SKYNET='/usr/local/skynet'
+SKYNET_INSTALL_DIR="$SKYNET/install/deb"
 # Includes
 # shellcheck source=/etc/skynetcp/skynet.conf
 source /etc/skynetcp/skynet.conf
@@ -76,7 +77,7 @@ mv --force ${FM_INSTALL_DIR}/filegator/* "${FM_INSTALL_DIR}"
 rm --recursive --force ${FM_INSTALL_DIR}/${FM_FILE}
 [[ -f "${FM_INSTALL_DIR}/${FM_FILE}" ]] && rm "${FM_INSTALL_DIR}/${FM_FILE}"
 
-cp --recursive --force ${skynet_INSTALL_DIR}/filemanager/filegator/* "${FM_INSTALL_DIR}"
+cp --recursive --force ${SKYNET_INSTALL_DIR}/filemanager/filegator/* "${FM_INSTALL_DIR}"
 
 chown $user: -R "${FM_INSTALL_DIR}"
 
