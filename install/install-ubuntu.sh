@@ -568,7 +568,7 @@ install_welcome_message() {
 	echo "                                        ${DISPLAY_VER}                                 "
 	echo "                                     www.skynetcp.com                                  "
 	echo
-	echo "========================================================================"
+	echo "======================================================================================="
 	echo
 	echo "Thank you for downloading Skynet Control Panel! In a few moments,"
 	echo "we will begin installing the following components on your server:"
