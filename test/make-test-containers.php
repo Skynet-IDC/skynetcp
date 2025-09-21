@@ -155,7 +155,7 @@ array_walk($containers, function (&$element) {
 	$lxc_name = "hst-"; // hostname and lxc name prefix. Update nginx reverse proxy config after altering this value
 	$hst_args = HST_ARGS;
 
-	$element["hst_installer"] = "hst-install-ubuntu.sh";
+	$element["hst_installer"] = "install-ubuntu.sh";
 	$element["lxc_image"] = "ubuntu:18.04";
 
 	if ($element["os"] == "ubuntu16.04") {
@@ -163,11 +163,11 @@ array_walk($containers, function (&$element) {
 		$lxc_name .= "ub1604";
 	} elseif ($element["os"] == "debian8") {
 		$element["lxc_image"] = "images:debian/8";
-		$element["hst_installer"] = "hst-install-debian.sh";
+		$element["hst_installer"] = "install-debian.sh";
 		$lxc_name .= "d8";
 	} elseif ($element["os"] == "debian9") {
 		$element["lxc_image"] = "images:debian/9";
-		$element["hst_installer"] = "hst-install-debian.sh";
+		$element["hst_installer"] = "install-debian.sh";
 		$lxc_name .= "d9";
 	} else {
 		$lxc_name .= "ub1804";

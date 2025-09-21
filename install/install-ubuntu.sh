@@ -424,7 +424,7 @@ fi
 
 type=$(grep "^ID=" /etc/os-release | cut -f 2 -d '=')
 if [ "$type" = "debian" ]; then
-	check_result 1 "You are running the wrong installer for Debian. Please run hst-install.sh or hst-install-debian.sh instead."
+	check_result 1 "You are running the wrong installer for Debian. Please run hst-install.sh or install-debian.sh instead."
 elif [ "$type" != "ubuntu" ]; then
 	check_result 1 "You are running an unsupported OS."
 fi
