@@ -1,5 +1,5 @@
 sudo chmod -R 777 ./install/install*
-sudo chmod -R 777 ./src/hst_*
+sudo chmod -R 777 ./src/*.sh
 apt -y install acl idn2 bubblewrap at
 
 ./autocompile.sh --all --noinstall --keepbuild '~localsrc'
