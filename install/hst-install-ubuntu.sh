@@ -2329,7 +2329,7 @@ chmod 600 /var/spool/cron/crontabs/skynetweb
 chown skynetweb:skynetweb /var/spool/cron/crontabs/skynetweb
 
 # Enable automatic updates
-$SKYNET/bin/v-add-cron-hestia-autoupdate apt
+$SKYNET/bin/v-add-cron-skynet-autoupdate apt
 
 # Building initial rrd images
 $SKYNET/bin/v-update-sys-rrd
